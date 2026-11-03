@@ -1,0 +1,23 @@
+# C++ / Qt build files
+build/
+build-*/
+*.exe
+*.obj
+*.o
+*.dll
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Large datasets
+PS_20174392719_1491204439457_log.csv
+
+# IDE files
+.vs/
+.vscode/settings.json
+
+# Temporary files
+*.log
+*.tmp

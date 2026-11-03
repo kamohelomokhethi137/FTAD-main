@@ -1,0 +1,4 @@
+transaction_id,timestamp,sender_id,receiver_id,transaction_type,amount,currency,status
+TXNXXX2,2026-10-30 10:30:00,ACCX101,ACCX202,TRANSFER,2500.00,LSL,completed
+TXNXXX3,2026-10-30 10:35:00,ACCX103,ACCX204,PAYMENT,450.00,LSL,completed
+TXNXXX4,2026-10-30 10:40:00,ACCX105,ACCX206,CASH_OUT,7500.00,LSL,completed

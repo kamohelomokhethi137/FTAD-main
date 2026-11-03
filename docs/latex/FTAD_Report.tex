@@ -1,0 +1,118 @@
+% FTAD -- Financial Transaction Anomaly Detector
+% IEEE-style report source (IEEEtran)
+%
+% Build (from this directory):
+%   pdflatex FTAD_Report.tex
+%   bibtex FTAD_Report
+%   pdflatex FTAD_Report.tex
+%   pdflatex FTAD_Report.tex
+% Target length: 20-40 pages, IEEE style, 30+ references.
+
+\documentclass[conference]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11in}
+
+\begin{document}
+
+\title{FTAD: A Financial Transaction Anomaly Detection Desktop
+Application}
+
+\author{\IEEEauthorblockN{Bongeni Hashcat}
+\IEEEauthorblockA{%
+  Department of Computer Science\\
+  \\Organization
+  \\City, Country
+}}
+
+\maketitle
+
+\begin{abstract}
+This report presents the Financial Transaction Anomaly Detector
+(FTAD), a C++17 desktop application built with Qt 6, that ingests
+financial transaction records from CSV, evaluates them with a hybrid
+statistical anomaly-detection engine, and drives a review workflow
+through an investigations module backed by SQLite.
+The application implements four detection rules -- duplicate payment,
+unusually large amount, rapid withdrawal, and behavioural deviation --
+weighted into a single risk score with medium and high bands.
+A GoogleTest/CTest suite of 154 tests, static analysis, memory checking
+and coverage instrumentation were used to validate the engine.
+Final measured performance was approximately 28 ms to analyse a
+20,000-transaction data set.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Financial Technology, Anomaly Detection, C++, Qt, SQLite, GoogleTest,
+Machine Learning, Risk Analysis
+
+% ------------------------------------------------------------------
+\section{Introduction}
+Financial crime and fraud in retail payment systems are commonly detected
+through patterns of repeated, unusually large, or rapidly repeated
+transactions that deviate from an account's own behavioural history.
+
+The FTAD project set out to (i) model transactions, (ii) apply a
+statistical detection engine, (iii) persist risk assessments and
+investigations, and (iv) release a testable Linux desktop application.
+
+This report documents the implementation, the testing campaign, the
+measured performance and the residual risks encountered during the
+2026-2027 BIST4110 group project.
+
+% ------------------------------------------------------------------
+\section{Background and Related Work}
+...
+
+% ------------------------------------------------------------------
+\section{System Design}
+...
+
+% ------------------------------------------------------------------
+\section{Methodology}
+...
+
+% ------------------------------------------------------------------
+\section{Implementation}
+...
+
+% ------------------------------------------------------------------
+\section{Testing and Evaluation}
+...
+
+% ------------------------------------------------------------------
+\section{Results}
+...
+
+% ------------------------------------------------------------------
+\section{Conclusion}
+...
+
+% ------------------------------------------------------------------
+\section*{Acknowledgment}
+...
+
+% ------------------------------------------------------------------
+\begin{thebibliography}{9}
+
+\bibitem{ref1}
+...
+
+\bibitem{ref2}
+...
+
+\end{thebibliography}
+
+\end{document}
