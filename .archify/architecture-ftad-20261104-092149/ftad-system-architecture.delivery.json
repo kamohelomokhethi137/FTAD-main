@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "b93b5226-8d78-4915-bc44-545d2d464efd",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/candidate.json",
+  "output": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.html",
+  "specification": {
+    "sha256": "2137ab4f93487f2d1c92720966ab86b443ae901388c8b88ab3012b158762d782",
+    "bytes": 3234
+  },
+  "artifact": {
+    "sha256": "4c4957bdaf33ac40ab8163d3371226945e246e76825aca9918b4cd34a8695ec7",
+    "bytes": 834222
+  }
+}

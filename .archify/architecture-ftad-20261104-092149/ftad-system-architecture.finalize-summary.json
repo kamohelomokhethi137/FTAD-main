@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/candidate.json",
+    "sha256": "2137ab4f93487f2d1c92720966ab86b443ae901388c8b88ab3012b158762d782",
+    "bytes": 3234
+  },
+  "artifact": {
+    "path": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.html",
+    "sha256": "4c4957bdaf33ac40ab8163d3371226945e246e76825aca9918b4cd34a8695ec7",
+    "bytes": 834222
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.finalize.json",
+    "summaryReceipt": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-04T09:22:19.054Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 4763,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

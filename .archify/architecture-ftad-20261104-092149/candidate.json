@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "FTAD - Financial Transaction Anomaly Detector",
+    "subtitle": "Desktop anomaly detection: import, four rules, score, persist, investigate",
+    "output": ".archify/architecture-ftad-20261104-092149/ftad-system-architecture.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/kamohelomokhethi137/FTAD-main.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "94ca539b5f7af6772e4bb4fe4a059d90c8470adb"
+    }
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [40, 40],
+    "cols": 3,
+    "gapX": 220,
+    "gapY": 170,
+    "cellW": 240,
+    "cellH": 96
+  },
+  "components": [
+    {
+      "id": "analyst",
+      "type": "external",
+      "label": "Analyst",
+      "sublabel": "operator - keyboard and mouse",
+      "icon": "person",
+      "pos": [40, 40],
+      "size": [150, 48],
+      "sources": [
+        { "path": "frontend/src/DetectionPage.cpp", "line": 1, "end_line": 40, "label": "detect page" }
+      ]
+    },
+    {
+      "id": "desktop",
+      "type": "frontend",
+      "label": "FTAD Desktop App",
+      "sublabel": "Qt 6 - C++17 - single process",
+      "icon": "frontend",
+      "pos": [40, 160],
+      "size": [190, 64],
+      "sources": [
+        { "path": "main.cpp", "line": 9, "end_line": 46, "label": "bootstrap" }
+      ]
+    },
+    {
+      "id": "ftad-core",
+      "type": "backend",
+      "label": "FTAD Core",
+      "sublabel": "AnomalyDetector, RiskScorer, BehaviorAnalyzer, DetectionService",
+      "icon": "backend",
+      "pos": [40, 300],
+      "size": [280, 76],
+      "sources": [
+        { "path": "backend/src/DetectionService.cpp", "line": 40, "end_line": 92, "label": "analyzeAll" },
+        { "path": "backend/include/DetectionSettings.h", "line": 13, "end_line": 37, "label": "thresholds and bands" }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "SQLite",
+      "sublabel": "database ftad.db - QSQLITE - database schema",
+      "icon": "database",
+      "pos": [40, 440],
+      "size": [190, 64],
+      "sources": [
+        { "path": "backend/src/DatabaseManager.cpp", "line": 20, "end_line": 45, "label": "QSQLITE connect" },
+        { "path": "database/schema.sql", "line": 1, "end_line": 8, "label": "tables" }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-analyst-desktop",
+      "from": "analyst",
+      "to": "desktop",
+      "label": "operates",
+      "variant": "default",
+      "width": 0.8
+    },
+    {
+      "id": "c-desktop-ftad-core",
+      "from": "desktop",
+      "to": "ftad-core",
+      "label": "run analysis",
+      "variant": "default",
+      "width": 1.2
+    },
+    {
+      "id": "c-ftad-core-store",
+      "from": "ftad-core",
+      "to": "store",
+      "label": "persist anomalies",
+      "variant": "default",
+      "width": 1.0
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Detection pipeline",
+      "items": [
+        "Import CSV rows into transactions",
+        "Run four deterministic rules",
+        "Score with weighted sums",
+        "Persist flagged anomalies",
+        "Open investigation cases"
+      ]
+    }
+  ]
+}
