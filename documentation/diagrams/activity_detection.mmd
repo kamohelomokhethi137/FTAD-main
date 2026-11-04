@@ -1,0 +1,22 @@
+flowchart TD
+    Start(["Application start"]) --> Connect["DatabaseManager.connect"]
+    Connect --> Schema["DatabaseManager.initializeSchema"]
+    Schema --> Load["Load transactions"]
+    Load --> Loop{"For each transaction"}
+    Loop --> Dup{"Duplicate check"}
+    Loop --> Large{"Large amount check"}
+    Loop --> Rapid{"Rapid withdrawal check"}
+    Loop --> Beh{"Behavioural deviation check"}
+    Dup --> Score["RiskScorer.score"]
+    Large --> Score
+    Rapid --> Score
+    Beh --> Score
+    Score --> Persist["DetectionRepository.saveResults"]
+    Persist --> Flag{"Flagged?"}
+    Flag -->|"Yes"| Output["DetectionPage / Investigations"]
+    Flag -->|"No"| Next{"More transactions?"}
+    Next -->|"Yes"| Loop
+    Next -->|"No"| End(["End"])
+
+    style Start fill:#eef
+    style End fill:#efe

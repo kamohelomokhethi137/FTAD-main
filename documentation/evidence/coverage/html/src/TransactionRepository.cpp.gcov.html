@@ -1,0 +1,571 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - src/TransactionRepository.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - TransactionRepository.cpp<span style="font-size: 80%;"> (source / <a href="TransactionRepository.cpp.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryMed">86.4&nbsp;%</td>
+            <td class="headerCovTableEntry">214</td>
+            <td class="headerCovTableEntry">185</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-11-04 01:55:09</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">13</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">52.9&nbsp;%</td>
+            <td class="headerCovTableEntry">446</td>
+            <td class="headerCovTableEntry">236</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : </span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &quot;TransactionRepository.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : </span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : #include &lt;QSqlDatabase&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : #include &lt;QSqlQuery&gt;</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : #include &lt;QSqlError&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : #include &lt;QDateTime&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : #include &lt;QVariant&gt;</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : #include &lt;QSet&gt;</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : #include &lt;QStringList&gt;</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : </span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : #include &lt;cmath&gt;</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : </span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : namespace</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : {</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :     constexpr int MAX_ACCOUNT_NUMBER = 9999;</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :     constexpr int MAX_TRANSACTION_NUMBER = 9999;</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :     constexpr int ID_BODY_WIDTH = 4;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : </span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :     // Builds the canonical identifier body, for example 101 -&gt; &quot;X101&quot;.</span>
+<span id="L21"><span class="lineNum">      21</span>                 :<span class="tlaGNC">         344 :     QString paddedBody(int number)</span></span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :     {</span>
+<span id="L23"><span class="lineNum">      23</span>         [<span class="tlaGBC" title="Branch 0 was taken 344 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         344 :         const QString digits = QString::number(number);</span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : </span>
+<span id="L25"><span class="lineNum">      25</span>   [<span class="tlaGBC" title="Branch 0 was taken 344 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 344 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         688 :         return QString(ID_BODY_WIDTH - digits.size(), 'X') + digits;</span></span>
+<span id="L26"><span class="lineNum">      26</span>                 :<span class="tlaGNC">         344 :     }</span></span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : </span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :     // Parses &quot;PREFIX&quot; followed by exactly four characters where the</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :     // leading characters may be 'X' padding, for example &quot;ACCX101&quot;.</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :     // Returns false when the body does not match that shape.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :<span class="tlaGNC">         359 :     bool parsePaddedId(</span></span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :         const QString &amp;identifier,</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             :         const QString &amp;prefix,</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             :         int maximumNumber,</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :         int *number)</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :     {</span>
+<span id="L37"><span class="lineNum">      37</span>   [<span class="tlaGBC" title="Branch 0 was taken 359 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 351 times"> + </span>]:<span class="tlaGNC">         359 :         if (!identifier.startsWith(prefix))</span></span>
+<span id="L38"><span class="lineNum">      38</span>                 :<span class="tlaGNC">           8 :             return false;</span></span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : </span>
+<span id="L40"><span class="lineNum">      40</span>         [<span class="tlaGBC" title="Branch 0 was taken 351 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         351 :         const QString body = identifier.mid(prefix.size());</span></span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>         [<span class="tlaGBC" title="Branch 0 was taken 31 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 320 times"> + </span>]:<span class="tlaGNC">         351 :         if (body.size() != ID_BODY_WIDTH)</span></span>
+<span id="L43"><span class="lineNum">      43</span>                 :<span class="tlaGNC">          31 :             return false;</span></span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :<span class="tlaGNC">         320 :         int padding = 0;</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : </span>
+<span id="L47"><span class="lineNum">      47</span>   [<span class="tlaGBC" title="Branch 0 was taken 895 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 575 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 320 times"> + </span>]:<span class="tlaGNC">        1790 :         while (padding &lt; body.size() &amp;&amp;</span></span>
+<span id="L48"><span class="lineNum">      48</span>         [<span class="tlaGBC" title="Branch 0 was taken 575 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 320 times"> + </span>]:<span class="tlaGNC">        1790 :                body.at(padding) == QChar('X'))</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :         {</span>
+<span id="L50"><span class="lineNum">      50</span>                 :<span class="tlaGNC">         575 :             ++padding;</span></span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :         }</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : </span>
+<span id="L53"><span class="lineNum">      53</span>         [<span class="tlaGBC" title="Branch 0 was taken 320 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         320 :         const QString digits = body.mid(padding);</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : </span>
+<span id="L55"><span class="lineNum">      55</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 320 times"> + </span>]:<span class="tlaGNC">         320 :         if (digits.isEmpty())</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaUNC">           0 :             return false;</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>                 :             :         // Leading zeroes are not produced by the formatter, so they</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             :         // are rejected instead of being guessed at.</span>
+<span id="L60"><span class="lineNum">      60</span>   [<span class="tlaGBC" title="Branch 0 was taken 196 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 124 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 196 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         320 :         if (digits.size() &gt; 1 &amp;&amp; digits.front() == QChar('0'))</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 194 times"> + </span><span class="tlaGBC" title="Branch 6 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 7 was taken 318 times"> + </span>]
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaGNC">           2 :             return false;</span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">         318 :         bool valid = false;</span></span>
+<span id="L64"><span class="lineNum">      64</span>         [<span class="tlaGBC" title="Branch 0 was taken 318 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         318 :         const int value = digits.toInt(&amp;valid);</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : </span>
+<span id="L66"><span class="lineNum">      66</span>   [<span class="tlaGBC" title="Branch 0 was taken 317 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 2 was taken 317 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         318 :         if (!valid || value &lt; 0 || value &gt; maximumNumber)</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 317 times"> + </span>]
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">           1 :             return false;</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : </span>
+<span id="L69"><span class="lineNum">      69</span>                 :<span class="tlaGNC">         317 :         *number = value;</span></span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : </span>
+<span id="L71"><span class="lineNum">      71</span>                 :<span class="tlaGNC">         317 :         return true;</span></span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">         351 :     }</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : </span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :     // Parses an unpadded identifier body, for example &quot;ACC101&quot;.</span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">          42 :     bool parsePlainId(</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :         const QString &amp;identifier,</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :         const QString &amp;prefix,</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :         int minimumNumber,</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         int maximumNumber,</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :         int *number)</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             :     {</span>
+<span id="L82"><span class="lineNum">      82</span>   [<span class="tlaGBC" title="Branch 0 was taken 42 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 34 times"> + </span>]:<span class="tlaGNC">          42 :         if (!identifier.startsWith(prefix))</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :<span class="tlaGNC">           8 :             return false;</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>         [<span class="tlaGBC" title="Branch 0 was taken 34 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          34 :         const QString digits = identifier.mid(prefix.size());</span></span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : </span>
+<span id="L87"><span class="lineNum">      87</span>   [<span class="tlaGBC" title="Branch 0 was taken 31 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 26 times"> + </span> :<span class="tlaGNC">          34 :         if (digits.isEmpty() || digits.size() &gt; ID_BODY_WIDTH)</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 26 times"> + </span>]
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">           8 :             return false;</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">          26 :         bool valid = false;</span></span>
+<span id="L91"><span class="lineNum">      91</span>         [<span class="tlaGBC" title="Branch 0 was taken 26 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          26 :         const int value = digits.toInt(&amp;valid);</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : </span>
+<span id="L93"><span class="lineNum">      93</span>   [<span class="tlaGBC" title="Branch 0 was taken 23 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 20 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 3 times"> + </span> :<span class="tlaGNC">          26 :         if (!valid || value &lt; minimumNumber || value &gt; maximumNumber)</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 20 times"> + </span>]
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">           6 :             return false;</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : </span>
+<span id="L96"><span class="lineNum">      96</span>                 :             :         // Reject &quot;ACC0101&quot; style input rather than reinterpreting it.</span>
+<span id="L97"><span class="lineNum">      97</span>   [<span class="tlaGBC" title="Branch 0 was taken 20 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 15 times"> + </span>]:<span class="tlaGNC">          20 :         if (QString::number(value) != digits)</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">           5 :             return false;</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : </span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">          15 :         *number = value;</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : </span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">          15 :         return true;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">          34 :     }</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : }</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : </span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaGNC">         198 : QString TransactionRepository::formatAccountId(int number)</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :             : {</span>
+<span id="L108"><span class="lineNum">     108</span>   [<span class="tlaGBC" title="Branch 0 was taken 198 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 198 times"> + </span>]:<span class="tlaGNC">         198 :     if (number &lt; 1 || number &gt; MAX_ACCOUNT_NUMBER)</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaUNC">           0 :         return QString();</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : </span>
+<span id="L111"><span class="lineNum">     111</span>   [<span class="tlaGBC" title="Branch 0 was taken 198 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 198 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         198 :     return &quot;ACC&quot; + paddedBody(number);</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :             : }</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : </span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaGNC">         146 : QString TransactionRepository::formatTransactionId(int number)</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :             : {</span>
+<span id="L116"><span class="lineNum">     116</span>   [<span class="tlaGBC" title="Branch 0 was taken 146 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 146 times"> + </span>]:<span class="tlaGNC">         146 :     if (number &lt; 0 || number &gt; MAX_TRANSACTION_NUMBER)</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :<span class="tlaUNC">           0 :         return QString();</span></span>
+<span id="L118"><span class="lineNum">     118</span>                 :             : </span>
+<span id="L119"><span class="lineNum">     119</span>   [<span class="tlaGBC" title="Branch 0 was taken 146 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 146 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         146 :     return &quot;TXN&quot; + paddedBody(number);</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : }</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaGNC">         216 : QString TransactionRepository::normalizeAccountId(</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :     const QString &amp;accountId)</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             : {</span>
+<span id="L125"><span class="lineNum">     125</span>   [<span class="tlaGBC" title="Branch 0 was taken 216 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 216 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         216 :     const QString identifier = accountId.trimmed().toUpper();</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :             : </span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaGNC">         216 :     int number = 0;</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             : </span>
+<span id="L129"><span class="lineNum">     129</span>   [<span class="tlaGBC" title="Branch 0 was taken 183 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 33 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         216 :     if (parsePaddedId(</span></span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :             identifier,</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :             &quot;ACC&quot;,</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :             MAX_ACCOUNT_NUMBER,</span>
+<span id="L133"><span class="lineNum">     133</span>   [<span class="tlaGBC" title="Branch 0 was taken 216 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 216 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         399 :             &amp;number) &amp;&amp;</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 183 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 33 times"> + </span><span class="tlaGBC" title="Branch 6 was taken 216 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L134"><span class="lineNum">     134</span>         [<span class="tlaGBC" title="Branch 0 was taken 183 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         183 :         number &gt;= 1)</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :     {</span>
+<span id="L136"><span class="lineNum">     136</span>         [<span class="tlaGBC" title="Branch 0 was taken 183 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         183 :         return formatAccountId(number);</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :     }</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             : </span>
+<span id="L139"><span class="lineNum">     139</span>   [<span class="tlaGBC" title="Branch 0 was taken 33 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 33 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          33 :     if (parsePlainId(</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 12 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 21 times"> + </span>]
+<span id="L140"><span class="lineNum">     140</span>                 :             :             identifier,</span>
+<span id="L141"><span class="lineNum">     141</span>                 :             :             &quot;ACC&quot;,</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :             1,</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :             MAX_ACCOUNT_NUMBER,</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :             &amp;number))</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :     {</span>
+<span id="L146"><span class="lineNum">     146</span>         [<span class="tlaGBC" title="Branch 0 was taken 12 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          12 :         return formatAccountId(number);</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :     }</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaGNC">          21 :     return QString();</span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :<span class="tlaGNC">         216 : }</span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :             : </span>
+<span id="L152"><span class="lineNum">     152</span>                 :<span class="tlaGNC">          10 : bool TransactionRepository::isValidAccountId(</span></span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :     const QString &amp;accountId)</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             : {</span>
+<span id="L155"><span class="lineNum">     155</span>         [<span class="tlaGBC" title="Branch 0 was taken 10 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          10 :     return !normalizeAccountId(accountId).isEmpty();</span></span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : }</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             : </span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaGNC">         143 : QString TransactionRepository::normalizeTransactionId(</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :     const QString &amp;transactionId)</span>
+<span id="L160"><span class="lineNum">     160</span>                 :             : {</span>
+<span id="L161"><span class="lineNum">     161</span>   [<span class="tlaGBC" title="Branch 0 was taken 143 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 143 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         143 :     const QString identifier = transactionId.trimmed().toUpper();</span></span>
+<span id="L162"><span class="lineNum">     162</span>                 :             : </span>
+<span id="L163"><span class="lineNum">     163</span>                 :<span class="tlaGNC">         143 :     int number = 0;</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :             : </span>
+<span id="L165"><span class="lineNum">     165</span>   [<span class="tlaGBC" title="Branch 0 was taken 143 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 143 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         143 :     if (parsePaddedId(</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 134 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 9 times"> + </span>]
+<span id="L166"><span class="lineNum">     166</span>                 :             :             identifier,</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :             &quot;TXN&quot;,</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :             MAX_TRANSACTION_NUMBER,</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :             &amp;number))</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :     {</span>
+<span id="L171"><span class="lineNum">     171</span>         [<span class="tlaGBC" title="Branch 0 was taken 134 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         134 :         return formatTransactionId(number);</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :             :     }</span>
+<span id="L173"><span class="lineNum">     173</span>                 :             : </span>
+<span id="L174"><span class="lineNum">     174</span>   [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           9 :     if (parsePlainId(</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 6 times"> + </span>]
+<span id="L175"><span class="lineNum">     175</span>                 :             :             identifier,</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             :             &quot;TXN&quot;,</span>
+<span id="L177"><span class="lineNum">     177</span>                 :             :             0,</span>
+<span id="L178"><span class="lineNum">     178</span>                 :             :             MAX_TRANSACTION_NUMBER,</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :             &amp;number))</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :     {</span>
+<span id="L181"><span class="lineNum">     181</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :         return formatTransactionId(number);</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :             :     }</span>
+<span id="L183"><span class="lineNum">     183</span>                 :             : </span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">           6 :     return QString();</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaGNC">         143 : }</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :             : </span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">           3 : bool TransactionRepository::isValidTransactionId(</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :     const QString &amp;transactionId)</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : {</span>
+<span id="L190"><span class="lineNum">     190</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :     return !normalizeTransactionId(transactionId).isEmpty();</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :             : }</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : </span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaGNC">           6 : QString TransactionRepository::generateNextTransactionId()</span></span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : {</span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaGNC">           6 :     errorMessage.clear();</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :             : </span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :     QSqlDatabase db =</span>
+<span id="L198"><span class="lineNum">     198</span>   [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           6 :         QSqlDatabase::database(&quot;FTADConnection&quot;);</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :             : </span>
+<span id="L200"><span class="lineNum">     200</span>   [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 6 times"> + </span>]:<span class="tlaGNC">           6 :     if (!db.isOpen())</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :     {</span>
+<span id="L202"><span class="lineNum">     202</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = &quot;Database is not connected.&quot;;</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaUNC">           0 :         return QString();</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :     }</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           6 :     QSqlQuery query(db);</span></span>
+<span id="L207"><span class="lineNum">     207</span>                 :             : </span>
+<span id="L208"><span class="lineNum">     208</span>   [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           6 :     if (!query.exec(</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 6 times"> + </span>]
+<span id="L209"><span class="lineNum">     209</span>                 :             :         &quot;SELECT transaction_id FROM transactions&quot;))</span>
+<span id="L210"><span class="lineNum">     210</span>                 :             :     {</span>
+<span id="L211"><span class="lineNum">     211</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = query.lastError().text();</span></span>
+<span id="L212"><span class="lineNum">     212</span>                 :<span class="tlaUNC">           0 :         return QString();</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :     }</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             : </span>
+<span id="L215"><span class="lineNum">     215</span>                 :<span class="tlaGNC">           6 :     QSet&lt;int&gt; usedNumbers;</span></span>
+<span id="L216"><span class="lineNum">     216</span>                 :             : </span>
+<span id="L217"><span class="lineNum">     217</span>   [<span class="tlaGBC" title="Branch 0 was taken 11 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 6 times"> + </span>]:<span class="tlaGNC">          11 :     while (query.next())</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :     {</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :         const QString id = normalizeTransactionId(</span>
+<span id="L220"><span class="lineNum">     220</span>   [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          10 :             query.value(0).toString()</span></span>
+<span id="L221"><span class="lineNum">     221</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :         );</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :             : </span>
+<span id="L223"><span class="lineNum">     223</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 5 times"> + </span>]:<span class="tlaGNC">           5 :         if (id.isEmpty())</span></span>
+<span id="L224"><span class="lineNum">     224</span>                 :<span class="tlaUNC">           0 :             continue;</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :             : </span>
+<span id="L226"><span class="lineNum">     226</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :         QString digits = id.mid(3);</span></span>
+<span id="L227"><span class="lineNum">     227</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :         digits.remove('X');</span></span>
+<span id="L228"><span class="lineNum">     228</span>                 :             : </span>
+<span id="L229"><span class="lineNum">     229</span>                 :<span class="tlaGNC">           5 :         bool valid = false;</span></span>
+<span id="L230"><span class="lineNum">     230</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :         const int number = digits.toInt(&amp;valid);</span></span>
+<span id="L231"><span class="lineNum">     231</span>                 :             : </span>
+<span id="L232"><span class="lineNum">     232</span>   [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           5 :         if (valid &amp;&amp; number &gt;= 0 &amp;&amp; number &lt;= MAX_TRANSACTION_NUMBER)</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L233"><span class="lineNum">     233</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :             usedNumbers.insert(number);</span></span>
+<span id="L234"><span class="lineNum">     234</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :     }</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             : </span>
+<span id="L236"><span class="lineNum">     236</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :     for (int number = 0; number &lt;= MAX_TRANSACTION_NUMBER; ++number)</span></span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :     {</span>
+<span id="L238"><span class="lineNum">     238</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           9 :         if (!usedNumbers.contains(number))</span></span>
+<span id="L239"><span class="lineNum">     239</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           6 :             return formatTransactionId(number);</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :     }</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             : </span>
+<span id="L242"><span class="lineNum">     242</span>                 :             :     errorMessage =</span>
+<span id="L243"><span class="lineNum">     243</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         &quot;All transaction IDs from TXNXXX0 to TXN9999 are used.&quot;;</span></span>
+<span id="L244"><span class="lineNum">     244</span>                 :             : </span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaUNC">           0 :     return QString();</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :<span class="tlaGNC">           6 : }</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :             : </span>
+<span id="L248"><span class="lineNum">     248</span>                 :<span class="tlaGNC">          90 : bool TransactionRepository::addTransaction(</span></span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :     const Transaction &amp;transaction)</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             : {</span>
+<span id="L251"><span class="lineNum">     251</span>                 :<span class="tlaGNC">          90 :     errorMessage.clear();</span></span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :     const QString senderId =</span>
+<span id="L254"><span class="lineNum">     254</span>         [<span class="tlaGBC" title="Branch 0 was taken 90 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          90 :         normalizeAccountId(transaction.senderId);</span></span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : </span>
+<span id="L256"><span class="lineNum">     256</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 89 times"> + </span>]:<span class="tlaGNC">          90 :     if (senderId.isEmpty())</span></span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :     {</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :         errorMessage =</span>
+<span id="L259"><span class="lineNum">     259</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :             &quot;Invalid sender account. Enter a number from 1 to 9999.&quot;;</span></span>
+<span id="L260"><span class="lineNum">     260</span>                 :<span class="tlaGNC">           1 :         return false;</span></span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :     }</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             : </span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :     const QString receiverId =</span>
+<span id="L264"><span class="lineNum">     264</span>         [<span class="tlaGBC" title="Branch 0 was taken 89 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          89 :         normalizeAccountId(transaction.receiverId);</span></span>
+<span id="L265"><span class="lineNum">     265</span>                 :             : </span>
+<span id="L266"><span class="lineNum">     266</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 88 times"> + </span>]:<span class="tlaGNC">          89 :     if (receiverId.isEmpty())</span></span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :     {</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :         errorMessage =</span>
+<span id="L269"><span class="lineNum">     269</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :             &quot;Invalid receiver account. Enter a number from 1 to 9999.&quot;;</span></span>
+<span id="L270"><span class="lineNum">     270</span>                 :<span class="tlaGNC">           1 :         return false;</span></span>
+<span id="L271"><span class="lineNum">     271</span>                 :             :     }</span>
+<span id="L272"><span class="lineNum">     272</span>                 :             : </span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :     // A caller supplied ID is honoured so imported records keep the</span>
+<span id="L274"><span class="lineNum">     274</span>                 :             :     // identifier that appears in the CSV file. An empty ID means the</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             :     // repository must allocate the next available one.</span>
+<span id="L276"><span class="lineNum">     276</span>         [<span class="tlaGBC" title="Branch 0 was taken 88 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          88 :     QString transactionId = transaction.transactionId.trimmed();</span></span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : </span>
+<span id="L278"><span class="lineNum">     278</span>         [<span class="tlaGBC" title="Branch 0 was taken 75 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 13 times"> + </span>]:<span class="tlaGNC">          88 :     if (!transactionId.isEmpty())</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :     {</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :         const QString normalizedId =</span>
+<span id="L281"><span class="lineNum">     281</span>         [<span class="tlaGBC" title="Branch 0 was taken 75 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          75 :             normalizeTransactionId(transactionId);</span></span>
+<span id="L282"><span class="lineNum">     282</span>                 :             : </span>
+<span id="L283"><span class="lineNum">     283</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 74 times"> + </span>]:<span class="tlaGNC">          75 :         if (normalizedId.isEmpty())</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :             :         {</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :             errorMessage =</span>
+<span id="L286"><span class="lineNum">     286</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :                 &quot;Invalid transaction ID \&quot;&quot; + transactionId +</span></span>
+<span id="L287"><span class="lineNum">     287</span>                 :             :                 &quot;\&quot;. Expected TXN followed by four characters, &quot;</span>
+<span id="L288"><span class="lineNum">     288</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 &quot;for example TXNXXX1.&quot;;</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :<span class="tlaGNC">           1 :             return false;</span></span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :         }</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             : </span>
+<span id="L292"><span class="lineNum">     292</span>                 :<span class="tlaGNC">          74 :         transactionId = normalizedId;</span></span>
+<span id="L293"><span class="lineNum">     293</span>         [<span class="tlaGBC" title="Branch 0 was taken 74 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">          75 :     }</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :             : </span>
+<span id="L295"><span class="lineNum">     295</span>   [<span class="tlaGBC" title="Branch 0 was taken 87 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 86 times"> + </span>]:<span class="tlaGNC">          87 :     if (transaction.transactionType.trimmed().isEmpty())</span></span>
+<span id="L296"><span class="lineNum">     296</span>                 :             :     {</span>
+<span id="L297"><span class="lineNum">     297</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         errorMessage = &quot;Transaction type is required.&quot;;</span></span>
+<span id="L298"><span class="lineNum">     298</span>                 :<span class="tlaGNC">           1 :         return false;</span></span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :     }</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : </span>
+<span id="L301"><span class="lineNum">     301</span>   [<span class="tlaGBC" title="Branch 0 was taken 84 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 82 times"> + </span>]:<span class="tlaGNC">         170 :     if (!std::isfinite(transaction.amount) ||</span></span>
+<span id="L302"><span class="lineNum">     302</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 82 times"> + </span>]:<span class="tlaGNC">          84 :         transaction.amount &lt;= 0.0)</span></span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :     {</span>
+<span id="L304"><span class="lineNum">     304</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           4 :         errorMessage = &quot;Amount must be greater than zero.&quot;;</span></span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaGNC">           4 :         return false;</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :     }</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             : </span>
+<span id="L308"><span class="lineNum">     308</span>   [<span class="tlaGBC" title="Branch 0 was taken 82 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 81 times"> + </span>]:<span class="tlaGNC">         164 :     if (!QDateTime::fromString(</span></span>
+<span id="L309"><span class="lineNum">     309</span>         [<span class="tlaGBC" title="Branch 0 was taken 82 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          82 :         transaction.timestamp,</span></span>
+<span id="L310"><span class="lineNum">     310</span>         [<span class="tlaGBC" title="Branch 0 was taken 82 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          82 :         &quot;yyyy-MM-dd HH:mm:ss&quot;).isValid())</span></span>
+<span id="L311"><span class="lineNum">     311</span>                 :             :     {</span>
+<span id="L312"><span class="lineNum">     312</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         errorMessage = &quot;Invalid transaction date and time.&quot;;</span></span>
+<span id="L313"><span class="lineNum">     313</span>                 :<span class="tlaGNC">           1 :         return false;</span></span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :     }</span>
+<span id="L315"><span class="lineNum">     315</span>                 :             : </span>
+<span id="L316"><span class="lineNum">     316</span>   [<span class="tlaGBC" title="Branch 0 was taken 324 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 81 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 80 times"> + </span> :<span class="tlaGNC">         405 :     if (!QStringList{&quot;LSL&quot;, &quot;ZAR&quot;, &quot;USD&quot;, &quot;EUR&quot;}</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L317"><span class="lineNum">     317</span>                 :<span class="tlaGNC">          81 :              .contains(transaction.currency))</span></span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :     {</span>
+<span id="L319"><span class="lineNum">     319</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         errorMessage = &quot;Unsupported currency.&quot;;</span></span>
+<span id="L320"><span class="lineNum">     320</span>                 :<span class="tlaGNC">           1 :         return false;</span></span>
+<span id="L321"><span class="lineNum">     321</span>                 :             :     }</span>
+<span id="L322"><span class="lineNum">     322</span>                 :             : </span>
+<span id="L323"><span class="lineNum">     323</span>   [<span class="tlaGBC" title="Branch 0 was taken 240 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 80 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 79 times"> + </span> :<span class="tlaGNC">         320 :     if (!QStringList{&quot;completed&quot;, &quot;pending&quot;, &quot;failed&quot;}</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaGNC">          80 :              .contains(transaction.status))</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :             :     {</span>
+<span id="L326"><span class="lineNum">     326</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         errorMessage = &quot;Invalid transaction status.&quot;;</span></span>
+<span id="L327"><span class="lineNum">     327</span>                 :<span class="tlaGNC">           1 :         return false;</span></span>
+<span id="L328"><span class="lineNum">     328</span>                 :             :     }</span>
+<span id="L329"><span class="lineNum">     329</span>                 :             : </span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :     QSqlDatabase db =</span>
+<span id="L331"><span class="lineNum">     331</span>   [<span class="tlaGBC" title="Branch 0 was taken 79 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 79 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          79 :         QSqlDatabase::database(&quot;FTADConnection&quot;);</span></span>
+<span id="L332"><span class="lineNum">     332</span>                 :             : </span>
+<span id="L333"><span class="lineNum">     333</span>   [<span class="tlaGBC" title="Branch 0 was taken 79 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 79 times"> + </span>]:<span class="tlaGNC">          79 :     if (!db.isOpen())</span></span>
+<span id="L334"><span class="lineNum">     334</span>                 :             :     {</span>
+<span id="L335"><span class="lineNum">     335</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = &quot;Database is not connected.&quot;;</span></span>
+<span id="L336"><span class="lineNum">     336</span>                 :<span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L337"><span class="lineNum">     337</span>                 :             :     }</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             : </span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :     // Allocate the next available ID, or verify the supplied one,</span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :     // inside the same transaction as the insert.</span>
+<span id="L341"><span class="lineNum">     341</span>   [<span class="tlaGBC" title="Branch 0 was taken 79 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 79 times"> + </span>]:<span class="tlaGNC">          79 :     if (!db.transaction())</span></span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :     {</span>
+<span id="L343"><span class="lineNum">     343</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = db.lastError().text();</span></span>
+<span id="L344"><span class="lineNum">     344</span>                 :<span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L345"><span class="lineNum">     345</span>                 :             :     }</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             : </span>
+<span id="L347"><span class="lineNum">     347</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 74 times"> + </span>]:<span class="tlaGNC">          79 :     if (transactionId.isEmpty())</span></span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :     {</span>
+<span id="L349"><span class="lineNum">     349</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :         transactionId = generateNextTransactionId();</span></span>
+<span id="L350"><span class="lineNum">     350</span>                 :             : </span>
+<span id="L351"><span class="lineNum">     351</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 5 times"> + </span>]:<span class="tlaGNC">           5 :         if (transactionId.isEmpty())</span></span>
+<span id="L352"><span class="lineNum">     352</span>                 :             :         {</span>
+<span id="L353"><span class="lineNum">     353</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :             db.rollback();</span></span>
+<span id="L354"><span class="lineNum">     354</span>                 :<span class="tlaUNC">           0 :             return false;</span></span>
+<span id="L355"><span class="lineNum">     355</span>                 :             :         }</span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :     }</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :     else</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :     {</span>
+<span id="L359"><span class="lineNum">     359</span>         [<span class="tlaGBC" title="Branch 0 was taken 74 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          74 :         QSqlQuery duplicate(db);</span></span>
+<span id="L360"><span class="lineNum">     360</span>                 :             : </span>
+<span id="L361"><span class="lineNum">     361</span>   [<span class="tlaGBC" title="Branch 0 was taken 74 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 74 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          74 :         duplicate.prepare(</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :             :             &quot;SELECT 1 FROM transactions &quot;</span>
+<span id="L363"><span class="lineNum">     363</span>                 :             :             &quot;WHERE transaction_id = ? LIMIT 1&quot;</span>
+<span id="L364"><span class="lineNum">     364</span>                 :             :         );</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             : </span>
+<span id="L366"><span class="lineNum">     366</span>         [<span class="tlaGBC" title="Branch 0 was taken 74 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          74 :         duplicate.addBindValue(transactionId);</span></span>
+<span id="L367"><span class="lineNum">     367</span>                 :             : </span>
+<span id="L368"><span class="lineNum">     368</span>   [<span class="tlaGBC" title="Branch 0 was taken 74 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 74 times"> + </span>]:<span class="tlaGNC">          74 :         if (!duplicate.exec())</span></span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :         {</span>
+<span id="L370"><span class="lineNum">     370</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :             errorMessage = duplicate.lastError().text();</span></span>
+<span id="L371"><span class="lineNum">     371</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :             db.rollback();</span></span>
+<span id="L372"><span class="lineNum">     372</span>                 :<span class="tlaUNC">           0 :             return false;</span></span>
+<span id="L373"><span class="lineNum">     373</span>                 :             :         }</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             : </span>
+<span id="L375"><span class="lineNum">     375</span>   [<span class="tlaGBC" title="Branch 0 was taken 74 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 73 times"> + </span>]:<span class="tlaGNC">          74 :         if (duplicate.next())</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :         {</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :             errorMessage =</span>
+<span id="L378"><span class="lineNum">     378</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :                 &quot;Duplicate transaction ID: &quot; + transactionId +</span></span>
+<span id="L379"><span class="lineNum">     379</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 &quot; already exists.&quot;;</span></span>
+<span id="L380"><span class="lineNum">     380</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :             db.rollback();</span></span>
+<span id="L381"><span class="lineNum">     381</span>                 :<span class="tlaGNC">           1 :             return false;</span></span>
+<span id="L382"><span class="lineNum">     382</span>                 :             :         }</span>
+<span id="L383"><span class="lineNum">     383</span>         [<span class="tlaGBC" title="Branch 0 was taken 73 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">          74 :     }</span></span>
+<span id="L384"><span class="lineNum">     384</span>                 :             : </span>
+<span id="L385"><span class="lineNum">     385</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     QSqlQuery query(db);</span></span>
+<span id="L386"><span class="lineNum">     386</span>                 :             : </span>
+<span id="L387"><span class="lineNum">     387</span>   [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.prepare(</span></span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :         &quot;INSERT INTO transactions &quot;</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             :         &quot;(transaction_id, timestamp, sender_id, receiver_id, &quot;</span>
+<span id="L390"><span class="lineNum">     390</span>                 :             :         &quot;transaction_type, amount, currency, status) &quot;</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             :         &quot;VALUES (?, ?, ?, ?, ?, ?, ?, ?)&quot;</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             :     );</span>
+<span id="L393"><span class="lineNum">     393</span>                 :             : </span>
+<span id="L394"><span class="lineNum">     394</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(transactionId);</span></span>
+<span id="L395"><span class="lineNum">     395</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(transaction.timestamp);</span></span>
+<span id="L396"><span class="lineNum">     396</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(senderId);</span></span>
+<span id="L397"><span class="lineNum">     397</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(receiverId);</span></span>
+<span id="L398"><span class="lineNum">     398</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(transaction.transactionType);</span></span>
+<span id="L399"><span class="lineNum">     399</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(transaction.amount);</span></span>
+<span id="L400"><span class="lineNum">     400</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(transaction.currency);</span></span>
+<span id="L401"><span class="lineNum">     401</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :     query.addBindValue(transaction.status);</span></span>
+<span id="L402"><span class="lineNum">     402</span>                 :             : </span>
+<span id="L403"><span class="lineNum">     403</span>   [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 78 times"> + </span>]:<span class="tlaGNC">          78 :     if (!query.exec())</span></span>
+<span id="L404"><span class="lineNum">     404</span>                 :             :     {</span>
+<span id="L405"><span class="lineNum">     405</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = query.lastError().text();</span></span>
+<span id="L406"><span class="lineNum">     406</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         db.rollback();</span></span>
+<span id="L407"><span class="lineNum">     407</span>                 :<span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L408"><span class="lineNum">     408</span>                 :             :     }</span>
+<span id="L409"><span class="lineNum">     409</span>                 :             : </span>
+<span id="L410"><span class="lineNum">     410</span>   [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 78 times"> + </span>]:<span class="tlaGNC">          78 :     if (!db.commit())</span></span>
+<span id="L411"><span class="lineNum">     411</span>                 :             :     {</span>
+<span id="L412"><span class="lineNum">     412</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = db.lastError().text();</span></span>
+<span id="L413"><span class="lineNum">     413</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         db.rollback();</span></span>
+<span id="L414"><span class="lineNum">     414</span>                 :<span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L415"><span class="lineNum">     415</span>                 :             :     }</span>
+<span id="L416"><span class="lineNum">     416</span>                 :             : </span>
+<span id="L417"><span class="lineNum">     417</span>                 :<span class="tlaGNC">          78 :     return true;</span></span>
+<span id="L418"><span class="lineNum">     418</span>   [<span class="tlaGBC" title="Branch 0 was taken 81 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 81 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         251 : }</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 81 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 81 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 81 times"> + </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 80 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span><span class="tlaGBC" title="Branch 12 was taken 80 times"> + </span><span class="tlaUNC" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 14 was taken 80 times"> + </span><span class="tlaUNC" title="Branch 15 was not taken"> - </span><span class="tlaGBC" title="Branch 16 was taken 80 times"> + </span><span class="tlaUNC" title="Branch 17 was not taken"> - </span><span class="tlaUNC" title="Branch 18 was not taken"> - </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 19 was not taken"> - </span><span class="tlaUNC" title="Branch 20 was not taken"> - </span><span class="tlaUNC" title="Branch 21 was not taken"> - </span><span class="tlaUNC" title="Branch 22 was not taken"> - </span><span class="tlaUNC" title="Branch 23 was not taken"> - </span> 
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 24 was not taken"> - </span><span class="tlaUNC" title="Branch 25 was not taken"> - </span>]
+<span id="L419"><span class="lineNum">     419</span>                 :             : </span>
+<span id="L420"><span class="lineNum">     420</span>                 :<span class="tlaGNC">          21 : QList&lt;Transaction&gt; TransactionRepository::getAllTransactions()</span></span>
+<span id="L421"><span class="lineNum">     421</span>                 :             : {</span>
+<span id="L422"><span class="lineNum">     422</span>                 :<span class="tlaGNC">          21 :     QList&lt;Transaction&gt; transactions;</span></span>
+<span id="L423"><span class="lineNum">     423</span>                 :<span class="tlaGNC">          21 :     errorMessage.clear();</span></span>
+<span id="L424"><span class="lineNum">     424</span>                 :             : </span>
+<span id="L425"><span class="lineNum">     425</span>                 :             :     QSqlDatabase db =</span>
+<span id="L426"><span class="lineNum">     426</span>   [<span class="tlaGBC" title="Branch 0 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          21 :         QSqlDatabase::database(&quot;FTADConnection&quot;);</span></span>
+<span id="L427"><span class="lineNum">     427</span>                 :             : </span>
+<span id="L428"><span class="lineNum">     428</span>   [<span class="tlaGBC" title="Branch 0 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 21 times"> + </span>]:<span class="tlaGNC">          21 :     if (!db.isOpen())</span></span>
+<span id="L429"><span class="lineNum">     429</span>                 :             :     {</span>
+<span id="L430"><span class="lineNum">     430</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = &quot;Database is not connected.&quot;;</span></span>
+<span id="L431"><span class="lineNum">     431</span>                 :<span class="tlaUNC">           0 :         return transactions;</span></span>
+<span id="L432"><span class="lineNum">     432</span>                 :             :     }</span>
+<span id="L433"><span class="lineNum">     433</span>                 :             : </span>
+<span id="L434"><span class="lineNum">     434</span>         [<span class="tlaGBC" title="Branch 0 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          21 :     QSqlQuery query(db);</span></span>
+<span id="L435"><span class="lineNum">     435</span>                 :             : </span>
+<span id="L436"><span class="lineNum">     436</span>   [<span class="tlaGBC" title="Branch 0 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 21 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          21 :     if (!query.exec(</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 21 times"> + </span>]
+<span id="L437"><span class="lineNum">     437</span>                 :             :         &quot;SELECT id, transaction_id, timestamp, sender_id, &quot;</span>
+<span id="L438"><span class="lineNum">     438</span>                 :             :         &quot;receiver_id, transaction_type, amount, currency, status &quot;</span>
+<span id="L439"><span class="lineNum">     439</span>                 :             :         &quot;FROM transactions ORDER BY id DESC&quot;))</span>
+<span id="L440"><span class="lineNum">     440</span>                 :             :     {</span>
+<span id="L441"><span class="lineNum">     441</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         errorMessage = query.lastError().text();</span></span>
+<span id="L442"><span class="lineNum">     442</span>                 :<span class="tlaUNC">           0 :         return transactions;</span></span>
+<span id="L443"><span class="lineNum">     443</span>                 :             :     }</span>
+<span id="L444"><span class="lineNum">     444</span>                 :             : </span>
+<span id="L445"><span class="lineNum">     445</span>   [<span class="tlaGBC" title="Branch 0 was taken 72 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 21 times"> + </span>]:<span class="tlaGNC">          72 :     while (query.next())</span></span>
+<span id="L446"><span class="lineNum">     446</span>                 :             :     {</span>
+<span id="L447"><span class="lineNum">     447</span>         [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          51 :         Transaction transaction;</span></span>
+<span id="L448"><span class="lineNum">     448</span>                 :             : </span>
+<span id="L449"><span class="lineNum">     449</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.id = query.value(0).toInt();</span></span>
+<span id="L450"><span class="lineNum">     450</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.transactionId = query.value(1).toString();</span></span>
+<span id="L451"><span class="lineNum">     451</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.timestamp = query.value(2).toString();</span></span>
+<span id="L452"><span class="lineNum">     452</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.senderId = query.value(3).toString();</span></span>
+<span id="L453"><span class="lineNum">     453</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.receiverId = query.value(4).toString();</span></span>
+<span id="L454"><span class="lineNum">     454</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.transactionType = query.value(5).toString();</span></span>
+<span id="L455"><span class="lineNum">     455</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.amount = query.value(6).toDouble();</span></span>
+<span id="L456"><span class="lineNum">     456</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.currency = query.value(7).toString();</span></span>
+<span id="L457"><span class="lineNum">     457</span>   [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transaction.status = query.value(8).toString();</span></span>
+<span id="L458"><span class="lineNum">     458</span>                 :             : </span>
+<span id="L459"><span class="lineNum">     459</span>         [<span class="tlaGBC" title="Branch 0 was taken 51 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          51 :         transactions.append(transaction);</span></span>
+<span id="L460"><span class="lineNum">     460</span>                 :<span class="tlaGNC">          51 :     }</span></span>
+<span id="L461"><span class="lineNum">     461</span>                 :             : </span>
+<span id="L462"><span class="lineNum">     462</span>                 :<span class="tlaGNC">          21 :     return transactions;</span></span>
+<span id="L463"><span class="lineNum">     463</span>                 :<span class="tlaGNC">          21 : }</span></span>
+<span id="L464"><span class="lineNum">     464</span>                 :             : </span>
+<span id="L465"><span class="lineNum">     465</span>                 :<span class="tlaGNC">          28 : QString TransactionRepository::lastError() const</span></span>
+<span id="L466"><span class="lineNum">     466</span>                 :             : {</span>
+<span id="L467"><span class="lineNum">     467</span>                 :<span class="tlaGNC">          28 :     return errorMessage;</span></span>
+<span id="L468"><span class="lineNum">     468</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

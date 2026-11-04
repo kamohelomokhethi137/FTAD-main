@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=FTAD — Financial Transaction Anomaly Detector
+Comment=Financial Transaction Anomaly Detector
+Exec=/home/hashcat/Documents/dataset/FTAD-main/build/FTAD
+Terminal=false
+Categories=Office;Development;

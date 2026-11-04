@@ -1,0 +1,65 @@
+flowchart TD
+    subgraph Client["Qt6 Desktop Client"]
+        MW["MainWindow<br/>QMainWindow + QStackedWidget"]
+        HP["HomePage"]
+        TP["TransactionsPage"]
+        DP["DetectionPage"]
+        IP["InvestigationsPage"]
+        RP["ReportsPage"]
+        SP["SettingsPage"]
+        BP["BasePage"]
+    end
+
+    subgraph Backend["ftad_core Static Library (C++17)"]
+        DM["DatabaseManager<br/>connect / initializeSchema / errors"]
+        TR["TransactionRepository<br/>CRUD + normalisation + validation"]
+        CI["CsvImportService<br/>CSV parse / validate / import"]
+        DS["DetectionService<br/>analyzeAll / flaggedResults"]
+        DR["DetectionRepository<br/>persist / load results"]
+        AN["AnomalyDetector<br/>duplicate / large / rapid / behaviour"]
+        BA["BehaviorAnalyzer<br/>prefix stats / z-score / ratio"]
+        RS["RiskScorer<br/>weights / bands / primary"]
+        INS["InvestigationRepository<br/>cases / history / status"]
+    end
+
+    DB[("SQLite Database<br/>database/schema.sql")]
+
+    MW --> HP
+    MW --> TP
+    MW --> DP
+    MW --> IP
+    MW --> RP
+    MW --> SP
+    MW --> BP
+
+    HP --> DS
+    TP --> TR
+    TP --> CI
+    DP --> DS
+    DP --> DR
+    IP --> INS
+    SP --> DS
+
+    DS --> TR
+    DS --> AN
+    DS --> DR
+    AN --> BA
+    AN --> RS
+    CI --> TR
+    TR --> DM
+    DR --> DM
+    INS --> DM
+
+    AN --> DM
+    BA --> DM
+    RS --> DM
+
+    TP --> DM
+    IP --> DM
+    SP --> DM
+
+    DM --> DB
+    TR --> DB
+    CI --> DB
+    DR --> DB
+    INS --> DB

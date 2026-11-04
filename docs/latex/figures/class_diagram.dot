@@ -1,0 +1,34 @@
+digraph G {
+  rankdir=LR; graph [fontname="Tahoma", fontsize=10, nodesep=0.25, ranksep=0.35, pad=0.15];
+        node  [fontname="Tahoma", fontsize=9, shape=box, style="rounded,filled",
+               fillcolor="#f7f7f7", color="#666666", penwidth=0.8];
+        edge  [fontname="Tahoma", fontsize=8, color="#555555", arrowsize=0.6];
+  subgraph cluster_svc {
+    label="Services"; style="rounded,dashed"; color="#999999";
+    DS [label="DetectionService", fillcolor="#eef3e8"];
+    AN [label="AnomalyDetector", fillcolor="#eef3e8"];
+    BA [label="BehaviorAnalyzer", fillcolor="#eef3e8"];
+    RS [label="RiskScorer", fillcolor="#eef3e8"];
+    TR [label="TransactionRepository", fillcolor="#eef3e8"];
+    CI [label="CsvImportService", fillcolor="#eef3e8"];
+    DR [label="DetectionRepository", fillcolor="#eef3e8"];
+    INS [label="InvestigationRepository", fillcolor="#eef3e8"];
+    DM [label="DatabaseManager", fillcolor="#eef3e8"];
+  }
+  subgraph cluster_val {
+    label="Value types"; style="rounded,dashed"; color="#999999";
+    TX [label="Transaction", fillcolor="#e8eef7"];
+    RES [label="DetectionResult", fillcolor="#e8eef7"];
+    HIT [label="RuleHit", fillcolor="#e8eef7"];
+    DEV [label="DeviationResult", fillcolor="#e8eef7"];
+    PRF [label="AccountProfile", fillcolor="#e8eef7"];
+    CASE [label="InvestigationCase", fillcolor="#e8eef7"];
+    EV [label="InvestigationEvent", fillcolor="#e8eef7"];
+    SET [label="DetectionSettings", fillcolor="#fdf3e0"];
+  }
+  DS -> AN; DS -> DR; DS -> TR; AN -> BA; AN -> RS; AN -> SET; RS -> SET; BA -> SET
+  CI -> TR; TR -> DM; DR -> DM; INS -> DM
+  DS -> RES [style=dashed]; AN -> HIT [style=dashed]; BA -> DEV [style=dashed]
+  BA -> PRF [style=dashed]; TR -> TX [style=dashed]
+  INS -> CASE [style=dashed]; INS -> EV [style=dashed]
+}

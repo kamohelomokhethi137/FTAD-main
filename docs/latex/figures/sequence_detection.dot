@@ -1,0 +1,19 @@
+digraph G {
+  rankdir=LR; graph [fontname="Tahoma", fontsize=10, nodesep=0.25, ranksep=0.35, pad=0.15];
+        node  [fontname="Tahoma", fontsize=9, shape=box, style="rounded,filled",
+               fillcolor="#f7f7f7", color="#666666", penwidth=0.8];
+        edge  [fontname="Tahoma", fontsize=8, color="#555555", arrowsize=0.6];
+  node [shape=box, style="rounded,filled", fillcolor="#eef3e8"]
+  UI [label="Qt UI\nDetectionPage", fillcolor="#e8eef7"]
+  M1 [label="1  analyzeAll()", shape=plaintext, style="", fillcolor="#ffffff"]
+  DS [label="DetectionService"]
+  M2 [label="2  getAllTransactions()", shape=plaintext, style="", fillcolor="#ffffff"]
+  TR [label="TransactionRepository"]
+  M3 [label="3  analyze()", shape=plaintext, style="", fillcolor="#ffffff"]
+  AN [label="AnomalyDetector"]
+  M4 [label="4  saveResults()", shape=plaintext, style="", fillcolor="#ffffff"]
+  DR [label="DetectionRepository"]
+  M5 [label="5  counts + results", shape=plaintext, style="", fillcolor="#ffffff"]
+  UI -> M1 -> DS -> M2 -> TR -> M3 -> AN -> M4 -> DR -> M5
+  M5 -> UI [style=dashed, constraint=false, label="returns", fontcolor="#777777"]
+}

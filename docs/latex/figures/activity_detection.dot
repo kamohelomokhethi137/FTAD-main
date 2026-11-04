@@ -1,0 +1,29 @@
+digraph G {
+  rankdir=TB; graph [fontname="Tahoma", fontsize=10, nodesep=0.25, ranksep=0.35, pad=0.15];
+        node  [fontname="Tahoma", fontsize=9, shape=box, style="rounded,filled",
+               fillcolor="#f7f7f7", color="#666666", penwidth=0.8];
+        edge  [fontname="Tahoma", fontsize=8, color="#555555", arrowsize=0.6];
+  S  [label="Application start", shape=box, style="rounded,filled", fillcolor="#e8eef7"]
+  C  [label="DatabaseManager.connect"]
+  SC [label="initializeSchema"]
+  L  [label="Load transactions"]
+  F  [label="For each transaction", shape=diamond, fillcolor="#fdf3e0"]
+  D1 [label="Duplicate check"]
+  D2 [label="Large amount check"]
+  D3 [label="Rapid withdrawal check"]
+  D4 [label="Behavioural deviation check"]
+  R  [label="RiskScorer.score"]
+  P  [label="DetectionRepository\n.saveResults"]
+  FL [label="Flagged?", shape=diamond, fillcolor="#fdf3e0"]
+  O  [label="DetectionPage /\nInvestigations"]
+  N  [label="More\ntransactions?", shape=diamond, fillcolor="#fdf3e0"]
+  E  [label="End", shape=box, style="rounded,filled", fillcolor="#e8eef7"]
+  S->C->SC->L->F
+  F->D1; F->D2; F->D3; F->D4
+  {D1 D2 D3 D4}->R
+  R->P->FL
+  FL->O [label=" yes"]
+  FL->N [label=" no"]
+  N->F [label=" yes"]
+  N->E [label=" no"]
+}

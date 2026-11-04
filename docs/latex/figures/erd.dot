@@ -1,0 +1,48 @@
+digraph G {
+  rankdir=LR; graph [fontname="Tahoma", fontsize=10, nodesep=0.25, ranksep=0.35, pad=0.15];
+        node  [fontname="Tahoma", fontsize=9, shape=box, style="rounded,filled",
+               fillcolor="#f7f7f7", color="#666666", penwidth=0.8];
+        edge  [fontname="Tahoma", fontsize=8, color="#555555", arrowsize=0.6];
+  node [shape=plaintext, style="", fontname="Courier New", fontsize=8]
+  T [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+     <TR><TD BGCOLOR="#e8eef7"><B>transactions</B></TD></TR>
+     <TR><TD ALIGN="LEFT">id  INTEGER PK</TD></TR>
+     <TR><TD ALIGN="LEFT">transaction_id  TEXT UK</TD></TR>
+     <TR><TD ALIGN="LEFT">timestamp  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">sender_id  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">receiver_id  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">transaction_type  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">amount  REAL</TD></TR>
+     <TR><TD ALIGN="LEFT">currency  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">status  TEXT</TD></TR></TABLE>>]
+  A [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+     <TR><TD BGCOLOR="#eef3e8"><B>anomalies</B></TD></TR>
+     <TR><TD ALIGN="LEFT">id  INTEGER PK</TD></TR>
+     <TR><TD ALIGN="LEFT">transaction_id  FK</TD></TR>
+     <TR><TD ALIGN="LEFT">detection_method  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">risk_score  REAL</TD></TR>
+     <TR><TD ALIGN="LEFT">risk_level  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">reason  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">detected_at  TEXT</TD></TR></TABLE>>]
+  I [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+     <TR><TD BGCOLOR="#fdf3e0"><B>investigations</B></TD></TR>
+     <TR><TD ALIGN="LEFT">id  INTEGER PK</TD></TR>
+     <TR><TD ALIGN="LEFT">anomaly_id  FK</TD></TR>
+     <TR><TD ALIGN="LEFT">case_status  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">assigned_to  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">notes  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">opened_at  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">closed_at  TEXT</TD></TR></TABLE>>]
+  E [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+     <TR><TD BGCOLOR="#f7f7f7"><B>investigation_events</B></TD></TR>
+     <TR><TD ALIGN="LEFT">id  INTEGER PK</TD></TR>
+     <TR><TD ALIGN="LEFT">investigation_id  FK</TD></TR>
+     <TR><TD ALIGN="LEFT">event_type  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">previous_status  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">new_status  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">notes  TEXT</TD></TR>
+     <TR><TD ALIGN="LEFT">created_at  TEXT</TD></TR></TABLE>>]
+  T -> A [label="1 : 1..1", arrowhead=crow, arrowtail=none, dir=both]
+  A -> I [label="1 : 0..1", arrowhead=crow, arrowtail=none, dir=both]
+  I -> E [label="1 : N", arrowhead=crow, arrowtail=none, dir=both]
+}

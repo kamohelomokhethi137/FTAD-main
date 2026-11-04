@@ -1,0 +1,104 @@
+% FTAD report — preamble injected via pandoc's -H option.
+%
+% The report specification is Tahoma 12 pt at 1.5 line spacing on A4, with a
+% "Page X of Y" footer. That rules out the IEEEtran two-column layout, so the
+% document is a single-column `report` class with IEEE-style numbered citations
+% written inline in the sources. IEEE refers to the citation convention here,
+% not to the IEEEtran class.
+
+\usepackage{fontspec}
+
+% Tahoma is resolved through fontconfig. On this host that is wine-tahoma,
+% which is metric-compatible with the Microsoft original.
+\setmainfont{Tahoma}
+\setsansfont{Tahoma}
+\setmonofont{Courier New}
+
+% 1.5 line spacing, applied document-wide.
+\linespread{1.5}
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Headings carry their own numbers in the source text ("Chapter 4 — ...",
+% "4.1 Introduction"), so LaTeX must not add a second set. secnumdepth -1 stops
+% the table of contents from prepending its own index: at 0 the chapters were
+% still numbered, so the TOC read "6 Chapter 4 — Testing Methodology" because
+% Abstract and Introduction occupied slots 1 and 2. Sections keep their own
+% numbers in the heading text and remain listed.
+\setcounter{secnumdepth}{-1}
+
+\setcounter{tocdepth}{2}
+
+% Tables at 10 pt on single spacing. Body prose keeps 12 pt / 1.5 as specified;
+% tables and listings do not, because a table row set at 1.5 spacing is 1.5x
+% taller than it needs to be and a wide table then wraps into unreadable slabs.
+\usepackage{etoolbox}
+\usepackage{setspace}
+\AtBeginEnvironment{longtable}{\scriptsize\singlespacing}
+\AtBeginEnvironment{tabular}{\scriptsize\singlespacing}
+
+% Keep code listings from running off the page, and set them single-spaced for
+% the same reason as the tables.
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+\AtBeginEnvironment{Highlighting}{\linespread{1}\selectfont\footnotesize}
+\AtBeginEnvironment{verbatim}{\linespread{1}\selectfont\footnotesize}
+
+% pandoc's template loads parskip, whose default \parskip is 0.5\baselineskip --
+% about 11 pt at 12 pt with 1.5 spacing. On a page of short paragraphs that is
+% 70-80 mm of whitespace, and it was the main reason the first draft ran to 99
+% pages. Paragraphs stay separated, but compactly.
+\setlength{\parskip}{2pt plus 1pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+% Tighten heading spacing for the same reason. Chapters still start on a new
+% page, which is conventional for a report.
+\usepackage{titlesec}
+\titlespacing*{\chapter}{0pt}{6pt}{12pt}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+
+% Chapters flow continuously rather than each forcing a page break. The report
+% body is capped at 40 pages, and nine chapter boundaries ending mid-page were
+% costing roughly four pages of blank paper. Rather than rebuild the chapter
+% machinery with titlesec's \titleclass (which looped), the page break is
+% patched out of report.cls directly, and the plain page style is patched away
+% so the "Page X of Y" footer survives on chapter-opening pages. Back matter
+% still starts on a new page, injected as raw LaTeX by assemble.py.
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\patchcmd{\chapter}{\thispagestyle{plain}}{}{}{}
+\makeatother
+
+
+% Long inline option strings ("-fsanitize=address,undefined
+% -fno-omit-frame-pointer") cannot break at a space inside \texttt and were
+% running up to 310 pt off the page. [htt] lets them hyphenate, and the
+% emergency stretch absorbs the remainder without visible looseness.
+\usepackage[htt]{hyphenat}
+\setlength{\emergencystretch}{4em}
+
+% pandoc loads xurl, which lets a URL break at any character, so the reference
+% list read "https://cppcheck.sou / rceforge.io/manual.pdf". Restricting the
+% break points to punctuation keeps URLs legible; every entry still fits, since
+% the longest unbroken segment is 22 characters. \AtBeginDocument is used
+% because xurl redefines \UrlBreaks when it loads, after this file.
+% longtable centres tables narrower than the text block, so the short two- and
+% three-column tables floated in the middle of the page while the body text is
+% left-aligned. Aligning them to the left margin is the convention in the rest
+% of the report.
+\AtBeginDocument{%
+  \setlength{\LTleft}{0pt}%
+  \setlength{\LTright}{\fill}%
+}
+
+\AtBeginDocument{\def\UrlBreaks{\do\/\do\-\do\.\do\_\do\:}}
+
+\usepackage{microtype}

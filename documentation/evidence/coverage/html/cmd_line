@@ -1,0 +1,1 @@
+genhtml /home/hashcat/Documents/dataset/FTAD-main/documentation/evidence/coverage/coverage.info --output-directory /home/hashcat/Documents/dataset/FTAD-main/documentation/evidence/coverage/html --rc branch_coverage=1 --rc genhtml_branch_coverage=1 --ignore-errors source,gcov,mismatch,negative,unused,empty

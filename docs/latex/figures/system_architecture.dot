@@ -1,0 +1,34 @@
+digraph G {
+  rankdir=TB; graph [fontname="Tahoma", fontsize=10, nodesep=0.25, ranksep=0.35, pad=0.15];
+        node  [fontname="Tahoma", fontsize=9, shape=box, style="rounded,filled",
+               fillcolor="#f7f7f7", color="#666666", penwidth=0.8];
+        edge  [fontname="Tahoma", fontsize=8, color="#555555", arrowsize=0.6];
+  subgraph cluster_client {
+    label="Qt 6 desktop client (frontend/)"; labelloc="t"; style="rounded,dashed"; color="#999999";
+    MW [label="MainWindow\nQStackedWidget", fillcolor="#e8eef7"];
+    HP [label="HomePage"]; TP [label="TransactionsPage"]; DP [label="DetectionPage"];
+    IP [label="InvestigationsPage"]; RP [label="ReportsPage*"]; SP [label="SettingsPage*"];
+    BP [label="BasePage"];
+  }
+  subgraph cluster_backend {
+    label="ftad_core (static library, C++17)"; labelloc="b"; style="rounded,dashed"; color="#999999";
+    DS [label="DetectionService\nanalyzeAll / flaggedResults", fillcolor="#eef3e8"];
+    TR [label="TransactionRepository\nCRUD / normalise / validate", fillcolor="#eef3e8"];
+    CI [label="CsvImportService\nparse / validate", fillcolor="#eef3e8"];
+    AN [label="AnomalyDetector\n4 rules", fillcolor="#eef3e8"];
+    BA [label="BehaviorAnalyzer\nprefix stats / z-score", fillcolor="#eef3e8"];
+    RS [label="RiskScorer\nweights / bands", fillcolor="#eef3e8"];
+    DR [label="DetectionRepository\npersist / load", fillcolor="#eef3e8"];
+    INS [label="InvestigationRepository\ncases / history", fillcolor="#eef3e8"];
+    DM [label="DatabaseManager\nconnect / schema", fillcolor="#eef3e8"];
+  }
+  DB [label="SQLite\ndatabase/schema.sql", shape=cylinder, fillcolor="#fdf3e0"];
+
+  MW -> {HP TP DP IP RP SP BP} [style=dotted, arrowhead=none]
+  HP -> DS; TP -> TR; TP -> CI; DP -> DS; DP -> DR; IP -> INS; SP -> DS
+  DS -> TR; DS -> AN; DS -> DR
+  AN -> BA; AN -> RS
+  CI -> TR
+  {TR DR INS DM} -> DM [style=dotted]
+  DM -> DB [penwidth=1.2]
+}

@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant UI as Qt UI (DetectionPage)
+    participant DS as DetectionService
+    participant TR as TransactionRepository
+    participant AD as AnomalyDetector
+    participant DR as DetectionRepository
+
+    UI->>DS: analyzeAll(analyzedCount, flaggedCount)
+    DS->>TR: getAllTransactions()
+    TR-->>DS: List~Transaction~
+    DS->>AD: analyze(transactions)
+    AD-->>DS: List~DetectionResult~
+    DS->>DR: saveResults(results, analyzedIds)
+    DR-->>DS: ok / error
+    DS-->>UI: analyzedCount, flaggedCount, results

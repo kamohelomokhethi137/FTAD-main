@@ -1,0 +1,17 @@
+digraph G {
+  rankdir=LR; graph [fontname="Tahoma", fontsize=10, nodesep=0.25, ranksep=0.35, pad=0.15];
+        node  [fontname="Tahoma", fontsize=9, shape=box, style="rounded,filled",
+               fillcolor="#f7f7f7", color="#666666", penwidth=0.8];
+        edge  [fontname="Tahoma", fontsize=8, color="#555555", arrowsize=0.6];
+  A [label="Fraud analyst\n(investigator)", shape=box, style="rounded,filled", fillcolor="#e8eef7"]
+  subgraph cluster_sys {
+    label="FTAD"; style="rounded,dashed"; color="#999999";
+    U1 [label="Import / enter\ntransactions", fillcolor="#eef3e8"]
+    U2 [label="Run analysis", fillcolor="#eef3e8"]
+    U3 [label="Review cases", fillcolor="#eef3e8"]
+    U4 [label="View reports", fillcolor="#eef3e8"]
+  }
+  DB [label="SQLite", shape=cylinder, fillcolor="#fdf3e0"]
+  A -> U1; A -> U2; A -> U3; A -> U4
+  U1 -> DB; U2 -> DB; U3 -> DB
+}

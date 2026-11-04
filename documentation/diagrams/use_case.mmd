@@ -1,0 +1,25 @@
+flowchart LR
+    Actor["Fraud Analyst<br/>(investigator)"]
+    Sys["FTAD Detection Engine"]
+
+    Actor -->|"Enter / import transactions"| TR["TransactionRepository"]
+    Actor -->|"Run analysis"| DS["DetectionService"]
+    Actor -->|"Review cases"| IR["InvestigationRepository"]
+    Actor -->|"View reports"| RP["ReportsPage"]
+
+    TR --> DB[(SQLite)]
+    DS --> TR
+    DS --> AN["AnomalyDetector"]
+    DS --> DR["DetectionRepository"]
+    AN --> BA["BehaviorAnalyzer"]
+    AN --> RS["RiskScorer"]
+    DR --> DB
+    IR --> DB
+
+    DB --> DS
+    DB --> IR
+
+    subgraph Auto["Automated path"]
+        CSV["CsvImportService"] -->|"importFile"| TR
+        UI["Qt UI (Home/Detection/Transactions)"] -->|"addTransaction / importFile"| TR
+    end

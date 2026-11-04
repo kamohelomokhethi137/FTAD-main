@@ -1,0 +1,170 @@
+classDiagram
+class DatabaseManager {
+    +connect() bool
+    +disconnect()
+    +isConnected() bool
+    +lastError() String
+    +initializeSchema() bool
+}
+
+class TransactionRepository {
+    +addTransaction(Transaction) bool
+    +getAllTransactions() List~Transaction~
+    +generateNextTransactionId() String
+    +lastError() String
+    +formatAccountId(int) String
+    +isValidAccountId(String) bool
+    +normalizeAccountId(String) String
+    +formatTransactionId(int) String
+    +isValidTransactionId(String) bool
+    +normalizeTransactionId(String) String
+}
+
+class CsvImportService {
+    +importFile(String) CsvImportResult
+}
+
+class DetectionSettings {
+    +largeAmountAbsolute double
+    +duplicateWindowMinutes int
+    +duplicateAmountTolerance double
+    +rapidWithdrawalWindowMinutes int
+    +rapidWithdrawalCount int
+    +unusualAmountZScore double
+    +zeroVarianceRatio double
+    +minimumHistory int
+    +weightDuplicatePayment double
+    +weightLargeAmount double
+    +weightRapidWithdrawals double
+    +weightBehaviourDeviation double
+    +mediumThreshold double
+    +highThreshold double
+    +validate(String) bool
+}
+
+class BehaviorAnalyzer {
+    +build(List~Transaction~) void
+    +hasBaseline(String) bool
+    +profile(String) AccountProfile
+    +evaluate(int, double, double) DeviationResult
+}
+
+class RiskScorer {
+    +score(Transaction, List~RuleHit~) DetectionResult
+}
+
+class AnomalyDetector {
+    +analyze(List~Transaction~) List~DetectionResult~
+    +configuration() DetectionSettings
+}
+
+class DetectionRepository {
+    +saveResults(...) bool
+}
+
+class DetectionService {
+    +analyzeAll(int, int) bool
+    +flaggedResults() List~DetectionResult~
+    +configuration() DetectionSettings
+}
+
+class InvestigationRepository {
+    +ensureCases() int
+    +getCases() List~InvestigationCase~
+    +updateCase(int, String, String, String) bool
+    +getHistory(int) List~InvestigationEvent~
+    +isValidStatus(String) bool
+}
+
+class Transaction {
+    +int id
+    +String transactionId
+    +String timestamp
+    +String senderId
+    +String receiverId
+    +String transactionType
+    +double amount
+    +String currency
+    +String status
+}
+
+class DetectionResult {
+    +int transactionId
+    +String transactionReference
+    +String timestamp
+    +String senderId
+    +String receiverId
+    +double amount
+    +String currency
+    +String riskLevel
+    +double riskScore
+    +List~String~ methods
+    +List~String~ reasons
+    +String primaryMethod
+}
+
+class RuleHit {
+    +String method
+    +String reason
+    +double weight
+}
+
+class DeviationResult {
+    +bool hasBaseline
+    +int historyCount
+    +double meanAmount
+    +double standardDeviation
+    +double zScore
+    +bool unusual
+}
+
+class AccountProfile {
+    +String accountId
+    +int transactionCount
+    +double meanAmount
+    +double standardDeviation
+    +bool hasBaseline
+}
+
+class InvestigationCase {
+    +int investigationId
+    +int anomalyId
+    +String transactionReference
+    +String senderId
+    +String receiverId
+    +double amount
+    +String currency
+    +String caseStatus
+    +String assignedTo
+    +String notes
+    +String openedAt
+    +String closedAt
+}
+
+class InvestigationEvent {
+    +int eventId
+    +int investigationId
+    +String eventType
+    +String previousStatus
+    +String newStatus
+    +String notes
+    +String createdAt
+}
+
+DatabaseManager --> TransactionRepository : uses
+TransactionRepository --> DatabaseManager : uses
+CsvImportService --> TransactionRepository : uses
+DetectionService --> AnomalyDetector : uses
+DetectionService --> DetectionRepository : uses
+DetectionService --> TransactionRepository : uses
+AnomalyDetector --> BehaviorAnalyzer : uses
+AnomalyDetector --> RiskScorer : uses
+DetectionRepository --> DatabaseManager : uses
+InvestigationRepository --> DatabaseManager : uses
+InvestigationRepository --> InvestigationCase : creates
+InvestigationRepository --> InvestigationEvent : creates
+
+DetectionSettings --> AnomalyDetector : configures
+RiskScorer --> DetectionSettings : uses
+AnomalyDetector --> DetectionSettings : uses
+BehaviorAnalyzer --> DetectionSettings : uses
