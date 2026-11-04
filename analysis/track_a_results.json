@@ -1,0 +1,82 @@
+{
+  "dataset": "/home/hashcat/Documents/dataset/archive/PS_20174392719_1491204439457_log.csv",
+  "rows": 6362620,
+  "frauds": 8213,
+  "rules": {
+    "large_amount": {
+      "alerts": 5076529,
+      "tp": 7935,
+      "fp": 5068594,
+      "fn": 278,
+      "tn": 1285813,
+      "precision": 0.001563,
+      "recall": 0.966151,
+      "false_positive_rate": 0.7976501977
+    },
+    "duplicate_payment": {
+      "alerts": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 8213,
+      "tn": 6354407,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positive_rate": 0.0
+    },
+    "rapid_withdrawals": {
+      "alerts": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 8213,
+      "tn": 6354407,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positive_rate": 0.0
+    },
+    "behaviour_deviation": {
+      "alerts": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 8213,
+      "tn": 6354407,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positive_rate": 0.0
+    }
+  },
+  "combined_flagged": {
+    "alerts": 5076529,
+    "tp": 7935,
+    "fp": 5068594,
+    "fn": 278,
+    "tn": 1285813,
+    "precision": 0.001563,
+    "recall": 0.966151,
+    "false_positive_rate": 0.7976501977
+  },
+  "band_medium_or_high": {
+    "alerts": 5076529,
+    "tp": 7935,
+    "fp": 5068594,
+    "fn": 278,
+    "tn": 1285813,
+    "precision": 0.001563,
+    "recall": 0.966151,
+    "false_positive_rate": 0.7976501977
+  },
+  "band_high": {
+    "alerts": 0,
+    "tp": 0,
+    "fp": 0,
+    "fn": 8213,
+    "tn": 6354407,
+    "precision": 0.0,
+    "recall": 0.0,
+    "false_positive_rate": 0.0
+  },
+  "notes": [
+    "Python mirror of AnomalyDetector.cpp, not the compiled binary",
+    "PaySim hour timestamps collapse the 10-min duplicate window to the same step and the 60-min rapid window to steps {h-1, h}",
+    "duplicate-payment rule requires same sender AND receiver; PaySim has almost no such repeats, so expect near-zero alerts"
+  ]
+}

@@ -1,0 +1,112 @@
+\contentsline {chapter}{Abstract}{4}{chapter*.2}%
+\contentsline {chapter}{Introduction}{5}{chapter*.3}%
+\contentsline {chapter}{Chapter 1 --- Project Audit}{6}{chapter*.4}%
+\contentsline {section}{1.1 Project Overview}{6}{section*.5}%
+\contentsline {section}{1.2 Feature Inventory}{6}{section*.6}%
+\contentsline {section}{1.3 Architecture Observations}{7}{section*.7}%
+\contentsline {section}{1.4 SLOC Results}{7}{section*.8}%
+\contentsline {section}{1.5 Existing Testing Infrastructure}{8}{section*.9}%
+\contentsline {section}{1.6 Gaps and Compliance}{8}{section*.10}%
+\contentsline {chapter}{Chapter 2 --- Literature Review and Background Research}{9}{chapter*.11}%
+\contentsline {section}{2.1 Introduction}{9}{section*.12}%
+\contentsline {section}{2.2 Software Testing Fundamentals}{10}{section*.13}%
+\contentsline {section}{2.3 Software Quality Assurance}{10}{section*.14}%
+\contentsline {section}{2.4 Testing Methodologies and Techniques}{11}{section*.15}%
+\contentsline {section}{2.5 Testing Levels}{12}{section*.16}%
+\contentsline {section}{2.6 Testing Tools and Technologies}{12}{section*.17}%
+\contentsline {section}{2.7 Performance Testing}{13}{section*.18}%
+\contentsline {section}{2.8 Security Testing}{13}{section*.19}%
+\contentsline {section}{2.9 Software Reliability}{14}{section*.20}%
+\contentsline {section}{2.10 Related Studies and Existing Solutions}{15}{section*.21}%
+\contentsline {section}{2.11 Literature Review Summary and Identified Gaps}{16}{section*.22}%
+\contentsline {section}{2.12 Reference quality and verification}{16}{section*.23}%
+\contentsline {chapter}{Chapter 3 --- System Architecture}{17}{chapter*.24}%
+\contentsline {section}{3.1 Overview}{17}{section*.25}%
+\contentsline {section}{3.2 Layering}{18}{section*.26}%
+\contentsline {section}{3.3 Module Responsibilities}{18}{section*.27}%
+\contentsline {section}{3.4 Architectural Views}{18}{section*.28}%
+\contentsline {section}{3.5 Data Flow and Storage}{19}{section*.29}%
+\contentsline {section}{3.6 Error Handling}{19}{section*.30}%
+\contentsline {chapter}{Chapter 4 --- Testing Methodology and Test Plan}{20}{chapter*.31}%
+\contentsline {section}{4.1 Introduction}{20}{section*.32}%
+\contentsline {section}{4.2 Objectives and Strategy}{21}{section*.33}%
+\contentsline {section}{4.3 Testing Levels}{22}{section*.34}%
+\contentsline {section}{4.4 Test Design Techniques}{23}{section*.35}%
+\contentsline {section}{4.5 Tools, Environment and Scope}{23}{section*.36}%
+\contentsline {section}{4.6 Plan, Entry and Exit}{25}{section*.37}%
+\contentsline {subsection}{4.6.1 Triage of the static-analysis findings}{25}{subsection*.38}%
+\contentsline {section}{4.7 Test Case Design and Traceability}{26}{section*.39}%
+\contentsline {section}{4.8 Deliverables}{27}{section*.40}%
+\contentsline {section}{4.9 Limitations and Threats to Validity}{27}{section*.41}%
+\contentsline {chapter}{Chapter 5 --- Test Execution and Results}{28}{chapter*.42}%
+\contentsline {section}{5.1 Purpose, Scope and Procedure}{28}{section*.43}%
+\contentsline {section}{5.2 Automated Test Results}{29}{section*.44}%
+\contentsline {section}{5.3 Structural Coverage}{29}{section*.45}%
+\contentsline {section}{5.4 Static and Dynamic Analysis}{30}{section*.46}%
+\contentsline {section}{5.5 Functional Verification of the Sample Dataset}{31}{section*.47}%
+\contentsline {section}{5.6 Defect Status and Deviations}{32}{section*.48}%
+\contentsline {section}{5.7 Conclusion}{32}{section*.49}%
+\contentsline {chapter}{Chapter 6 --- Security, Performance and Defect Analysis}{33}{chapter*.50}%
+\contentsline {section}{6.1 Scope and Threat Model}{33}{section*.51}%
+\contentsline {section}{6.2 What Was Examined}{34}{section*.52}%
+\contentsline {section}{6.3 Findings}{34}{section*.53}%
+\contentsline {section}{6.4 Detailed Findings}{35}{section*.54}%
+\contentsline {subsection}{6.4.1 SEC-01 --- world-readable database}{35}{subsection*.55}%
+\contentsline {subsection}{6.4.2 Accepted risks and forward risks}{35}{subsection*.56}%
+\contentsline {section}{6.5 What Was Not Found, and Why That Is Credible}{35}{section*.57}%
+\contentsline {section}{6.6 Performance Analysis}{36}{section*.58}%
+\contentsline {subsection}{6.6.1 The defect that dominated everything}{36}{subsection*.59}%
+\contentsline {subsection}{6.6.2 Current baseline and its noise}{37}{subsection*.60}%
+\contentsline {section}{6.7 Defect Summary}{37}{section*.61}%
+\contentsline {section}{6.8 Recommendations}{38}{section*.62}%
+\contentsline {section}{6.9 Conclusion}{38}{section*.63}%
+\contentsline {chapter}{Chapter 7 --- Installation Manual}{39}{chapter*.64}%
+\contentsline {section}{7.1 Scope}{39}{section*.65}%
+\contentsline {section}{7.2 Requirements}{39}{section*.66}%
+\contentsline {section}{7.3 Installing the dependencies}{40}{section*.67}%
+\contentsline {section}{7.4 Building from source}{40}{section*.68}%
+\contentsline {section}{7.5 First run, verification and launching}{40}{section*.69}%
+\contentsline {section}{7.6 Running the test suite}{41}{section*.70}%
+\contentsline {section}{7.7 Removing the application}{42}{section*.71}%
+\contentsline {section}{7.8 Troubleshooting}{42}{section*.72}%
+\contentsline {chapter}{Chapter 8 --- Conclusion}{43}{chapter*.73}%
+\contentsline {section}{References}{45}{section*.74}%
+\contentsline {chapter}{Appendix A --- Reference Verification Record}{50}{chapter*.75}%
+\contentsline {section}{Method}{50}{section*.76}%
+\contentsline {section}{Summary}{50}{section*.77}%
+\contentsline {section}{Books}{51}{section*.78}%
+\contentsline {section}{Journal articles}{51}{section*.79}%
+\contentsline {section}{Tool documentation (HTTP 200 on 2026-11-04)}{52}{section*.80}%
+\contentsline {section}{Standards --- NOT machine-verified}{52}{section*.81}%
+\contentsline {section}{Caveats}{52}{section*.82}%
+\contentsline {chapter}{Appendix B --- Test Case Design and Requirements Traceability}{54}{chapter*.83}%
+\contentsline {subsection}{B.1 Test case identifier scheme}{54}{subsection*.84}%
+\contentsline {subsection}{B.2 Test case template}{54}{subsection*.85}%
+\contentsline {subsection}{B.3 Worked example: boundary value analysis on the large-amount rule}{55}{subsection*.86}%
+\contentsline {subsection}{B.4 Worked example: state transition on investigation status}{56}{subsection*.87}%
+\contentsline {subsection}{B.5 Negative and robustness cases}{57}{subsection*.88}%
+\contentsline {subsection}{B.6 Requirements traceability matrix}{57}{subsection*.89}%
+\contentsline {subsubsection}{B.6.1 Functional requirements}{57}{subsubsection*.90}%
+\contentsline {subsubsection}{B.6.2 Non-functional requirements}{58}{subsubsection*.91}%
+\contentsline {subsubsection}{B.6.3 Requirements without direct coverage}{58}{subsubsection*.92}%
+\contentsline {subsection}{B.7 Test design technique inventory}{59}{subsection*.93}%
+\contentsline {subsection}{B.8 Threshold inventory and enforced ranges}{59}{subsection*.94}%
+\contentsline {subsection}{B.9 Out-of-scope areas and reasons}{60}{subsection*.95}%
+\contentsline {subsection}{B.10 Entry and exit criteria with measured outcomes}{60}{subsection*.96}%
+\contentsline {subsection}{B.11 Risk register and threats to validity}{60}{subsection*.97}%
+\contentsline {chapter}{Appendix C --- Test Case Catalogue}{62}{chapter*.98}%
+\contentsline {section}{C.1 Relationship to the Automated Suite}{62}{section*.99}%
+\contentsline {section}{C.2 Case Catalogue}{62}{section*.100}%
+\contentsline {section}{C.3 Cases That Were Not Executed}{64}{section*.101}%
+\contentsline {section}{C.4 What the Catalogue Demonstrates About the Design}{65}{section*.102}%
+\contentsline {chapter}{Appendix D --- Test Environment and Tooling}{66}{chapter*.103}%
+\contentsline {subsection}{D.1 Tool inventory}{66}{subsection*.104}%
+\contentsline {subsection}{D.2 Environment specification}{66}{subsection*.105}%
+\contentsline {chapter}{Appendix E --- Performance Measurement Record}{68}{chapter*.106}%
+\contentsline {subsection}{E.1 Timestamp construction cost}{68}{subsection*.107}%
+\contentsline {subsection}{E.2 Current baseline, 4 November 2026, Release \texttt {-O2}}{68}{subsection*.108}%
+\contentsline {subsection}{E.3 Measurement noise}{68}{subsection*.109}%
+\contentsline {subsection}{E.4 Scaling}{69}{subsection*.110}%
+\contentsline {chapter}{Appendix F --- Security Findings in Detail}{70}{chapter*.111}%
+\contentsline {subsection}{F.1 SEC-02 and SEC-03 --- no authentication, no encryption}{70}{subsection*.112}%
+\contentsline {chapter}{Appendix G --- Architectural Views}{72}{chapter*.113}%
