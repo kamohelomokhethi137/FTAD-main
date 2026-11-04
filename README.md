@@ -35,6 +35,16 @@ CSV file ──import──▶ transactions ──detect──▶ anomalies ─�
 CsvImportService   TransactionRepo  AnomalyDetector   RiskScorer   InvestigationRepo
 ```
 
+## The pipeline, as a diagram
+
+**[FTAD - Financial Transaction Anomaly Detector](/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.html)**
+
+![FTAD architecture - Analyst, FTAD Desktop App, FTAD Core, SQLite](.archify/architecture-ftad-20261104-092149/ftad-system-architecture.visual-check.1440x900.light.png)
+
+One desktop process: the operator acts through the Qt UI, the core library runs the
+import - analyse - persist flow, and SQLite is the local store. The interactive
+viewer adds dark/light themes, motion, and source-linked node cards.
+
 ## The detection brain
 
 `DetectionSettings.h` holds every threshold, weight and band — all
