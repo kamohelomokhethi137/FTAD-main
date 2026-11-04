@@ -1,17 +1,10 @@
 <div align="center">
 
-# 💸 FTAD — Financial Transaction Anomaly Detector
+# FTAD — Financial Transaction Anomaly Detector
 
 **A C++17 / Qt 6 desktop application that flags suspicious financial
 transactions with four deterministic detection rules — and opens a case
 for every flagged one.**
-
-[![C++17](https://img.shields.io/badge/C%2B%2B-17-00599C?logo=c%2B%2B&logoColor=white)](https://en.cppreference.com/w/cpp/17)
-[![Qt 6](https://img.shields.io/badge/Qt-6-41CD52?logo=qt&logoColor=white)](https://www.qt.io/)
-[![SQLite](https://img.shields.io/badge/storage-SQLite-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
-[![CMake](https://img.shields.io/badge/build-CMake--Ninja-064F8C?logo=cmake&logoColor=white)](https://cmake.org/)
-[![Tests](https://img.shields.io/badge/unit__tests-154%20%2B%20GoogleTest-9CF)](tests/)
-[![Platform](https://img.shields.io/badge/platform-Linux%20desktop-FCC624?logo=linux&logoColor=black)](#build-and-run)
 
 </div>
 
@@ -35,15 +28,15 @@ CSV file ──import──▶ transactions ──detect──▶ anomalies ─�
 CsvImportService   TransactionRepo  AnomalyDetector   RiskScorer   InvestigationRepo
 ```
 
-## The pipeline, as a diagram
+## The dataflow, as a diagram
 
-**[FTAD - Financial Transaction Anomaly Detector](.archify/architecture-ftad-20261104-092149/ftad-system-architecture.html)**
+**[FTAD - Financial Transaction Data Flow](.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.html)**
 
-![FTAD architecture - Analyst, FTAD Desktop App, FTAD Core, SQLite](.archify/architecture-ftad-20261104-092149/ftad-system-architecture.visual-check.1440x900.light.png)
+![FTAD dataflow - Bank CSV, CsvImportService, AnomalyDetector, SQLite, Investigation Cases](.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.visual-check.1440x900.light.png)
 
-One desktop process: the operator acts through the Qt UI, the core library runs the
-import - analyse - persist flow, and SQLite is the local store. The interactive
-viewer adds dark/light themes, motion, and source-linked node cards.
+An animated trace of the financial data: bank CSV rows become imported transactions,
+the detector reads them and emits flagged anomalies, and flagged anomalies open
+investigation cases — with SQLite as the persistence layer throughout.
 
 ## The detection brain
 
@@ -52,10 +45,10 @@ tunable at runtime, none baked in:
 
 | Rule | Trigger | Default | Weight |
 |---|---|---|---|
-| 🧾 **Duplicate payment** | Same sender *and* receiver, amounts within `0.01`, timestamps ±10 min | 10 min window | **40** |
-| 💰 **Large amount** | Amount above the single-transaction ceiling | `10 000` | **35** |
-| 🏃 **Rapid withdrawals** | ≥3 withdrawal-type transactions (`CASH_OUT`/`DEBIT`) by one sender within 60 min | 3 in 60 min | **35** |
-| 📊 **Behaviour deviation** | Amount ≥3σ above the sender's own prior history (minimum 5 earlier transactions), or >2× a perfectly uniform baseline | z ≥ 3 / ratio 2.0 | **25** |
+| **Duplicate payment** | Same sender *and* receiver, amounts within `0.01`, timestamps ±10 min | 10 min window | **40** |
+| **Large amount** | Amount above the single-transaction ceiling | `10 000` | **35** |
+| **Rapid withdrawals** | ≥3 withdrawal-type transactions (`CASH_OUT`/`DEBIT`) by one sender within 60 min | 3 in 60 min | **35** |
+| **Behaviour deviation** | Amount ≥3σ above the sender's own prior history (minimum 5 earlier transactions), or >2× a perfectly uniform baseline | z ≥ 3 / ratio 2.0 | **25** |
 
 Hits are summed (capped at 100) into a risk score and banded
 **low / medium / high**. Every anomaly stores its score, level, primary
@@ -68,12 +61,12 @@ result never depends on import order.
 
 | Page | What you do there | Status |
 |---|---|---|
-| **Home** | Summary dashboard | ✅ |
-| **Transactions** | Browse the ledger, import CSV | ✅ |
-| **Detection** | Configure rules, run a pass, inspect flagged rows | ✅ |
-| **Investigations** | Case queue with status transitions | ✅ |
-| **Reports** | Export routines | 🚧 placeholder |
-| **Settings** | Persistence / preferences | 🚧 placeholder |
+| **Home** | Summary dashboard | done |
+| **Transactions** | Browse the ledger, import CSV | done |
+| **Detection** | Configure rules, run a pass, inspect flagged rows | done |
+| **Investigations** | Case queue with status transitions | done |
+| **Reports** | Export routines | placeholder |
+| **Settings** | Persistence / preferences | placeholder |
 
 ## Project layout
 
