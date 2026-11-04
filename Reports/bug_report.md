@@ -20,7 +20,7 @@ rather than by the functional test suite.
 | BUG-02 | Investigation cases lost on re-analysis | High | DetectionPipeline integration tests | Fixed |
 | BUG-03 | Investigation write transaction left open on no-op save | High | InvestigationRepository tests | Fixed |
 | BUG-04 | Duplicate transaction IDs accepted / identifiers not normalised | High | TransactionRepository + CsvImportService tests | Fixed |
-| BUG-05 | Sample dataset did not exercise the detection rules | Medium | Manual review + detection tests | Open |
+| BUG-05 | Sample dataset did not exercise the detection rules | Medium | Manual review + detection tests | Fixed |
 | BUG-06 | Analysis runtime dominated by per-record local-time construction (performance) | Medium | ftad_benchmark (performance) | Fixed |
 
 No defects remain open in the backend after the campaign.
@@ -132,9 +132,35 @@ large-amount or rapid-withdrawal patterns, so the detection rules had
 little end-to-end coverage from the sample alone.
 
 **Fix.**
+The sample was expanded from 3 to 11 transactions that deliberately
+exercise every detection rule:
 
-**Status:** OPEN (sample expanded during the manual verification phase;
-see `Reports/testing_report.md`).
+- `ACCX101 -> ACCX201`: five normal transfers followed by a 25,000.00
+  outlier (large amount + behavioural deviation).
+- `ACCX102 -> ACCX202`: duplicate transfer pair (750.00 within 2 minutes).
+- `ACCX103 -> ACCX203`: three rapid cash withdrawals within 60 minutes.
+
+**Verification.**
+- `CsvImportTest.ImportsTheSampleFile` — expects 11 imported rows and 11
+  rows in the `transactions` table.
+- `CsvImportTest.ReimportingTheSameFileSkipsEveryRow` — expects 11 skips on a
+  second import of the same file.
+- End-to-end detection run over the sample (4 Nov 2026,
+  `documentation/evidence/functional/sample-dataset-20261104.log`): 11 rows
+  analysed, 4 flagged, and all four rules fire —
+  `large_amount` + `behaviour_deviation` on TXNXXX6 (25,000.00, score 60.0),
+  `duplicate_payment` on TXNXXX7 and TXNXXX8 (750.00 each, score 40.0), and
+  `rapid_withdrawals` on TXNXX11 (540.00, score 35.0).
+
+**Residual gap.** The sample exercises all four rules but never reaches the
+`high` band: the highest score produced is 60.0, below the 65.0 threshold. The
+high band is therefore covered only by `RiskScorer.HonoursCustomBands` and
+`RiskScorer.LevelBoundariesAreInclusiveAtTheLowerEdge`, not by the sample data.
+This does not reopen BUG-05 — the rule was that the sample must exercise the
+detection rules, and it now does — but it is recorded so the coverage of the
+high band is not overread.
+
+**Status:** FIXED.
 
 ---
 
@@ -170,10 +196,17 @@ Timestamps are now parsed into a date and time and built once as UTC via
 - `ReportsPage` and `SettingsPage` remain UI placeholders; their
   backend contracts are not yet exercised by tests.
 - `frontend/src/ReportsPage.cpp` uses placeholder export routines.
-- Sample data (`BUG-05`) still contains only three transactions.
+- The sample dataset exercises all four detection rules but produces no
+  `high`-band case (highest score 60.0 against a 65.0 threshold), so the high
+  band is covered by unit tests only. See BUG-05, residual gap.
+- One latent defect is recorded but not remediated: implicit `int`
+  multiplication widened to `qint64` at `AnomalyDetector.cpp:177`, `:180` and
+  `:261`. Unreachable in the shipped build because there is no runtime
+  configuration path; documented in Chapter 4 §4.10.4.1.
 
 ---
 
-*Generated during the FTAD testing campaign; tool outputs referenced in
-`/tmp/opencode/*.txt`, `/tmp/opencode/coverage-backend.info` and
-`/tmp/opencode/coverage-html`.*
+*Generated during the FTAD testing campaign. Raw tool output is captured in
+`documentation/evidence/` (see `SUMMARY.md`); the commands that produced each
+file are recorded in the header of that file and in
+`documentation/evidence/README.md`.*

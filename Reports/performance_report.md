@@ -119,3 +119,40 @@ scales linearly.
   by micro-benchmark; final benchmark medians ~27.6 ms include result
   handling.
 - Behaviour baseline: **0.48 µs / transaction** at 20,000 records.
+
+---
+
+## 6. Re-measurement, 4 November 2026
+
+The benchmark was re-run on the final commit during the evidence-capture pass.
+The pipeline is unchanged; the host state is not, and the difference is worth
+recording rather than smoothing over.
+
+| Size | `analyze()` median | Per transaction | `build()` |
+|---:|---:|---:|---:|
+| 1,000 | 1.70 ms | 1.70 µs | 0.44 ms |
+| 2,000 | 5.73 ms | 2.87 µs | 1.00 ms |
+| 5,000 | 9.94 ms | 1.99 µs | 3.13 ms |
+| 10,000 | 18.76 ms | 1.88 µs | 5.87 ms |
+| 20,000 | 39.88 ms | 1.99 µs | 12.87 ms |
+
+`RiskScorer::score()` measured 0.238 µs per score (10,000 scores in 2.38 ms).
+
+**Three runs of the same binary on the same data gave 31.7 ms, 34.8 ms and
+39.9 ms at 20,000 transactions** — a spread of roughly 25 %. No CPU frequency
+scaling was pinned and other processes were running during measurement, so this
+is host noise, not code change.
+
+Consequently:
+
+- The **27.6 ms** figure in §3 belongs to the run recorded on 2 November 2026
+  and is not blended with the November 4 runs.
+- The current baseline should be quoted as a **range, 31.7–39.9 ms (median
+  34.8 ms)**, with no claim made about differences smaller than that spread.
+- The **1,466×** speed-up figure is unaffected. It compares a 40.50 s
+  measurement against a 27.6 ms measurement on the same machine state, and its
+  order of magnitude is far outside the noise band.
+
+Per-transaction cost remains between 1.7 and 2.0 µs from 1,000 to 20,000
+records, so the linear-scaling conclusion in §4 holds on the new measurements
+as well.

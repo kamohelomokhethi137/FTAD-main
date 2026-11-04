@@ -188,4 +188,31 @@ building timestamps in UTC.
 
 ---
 
+## 8. Final status update (2026-11-02)
+
+The session ended with all seven tools green and the final state recorded
+in `Reports/FINAL_SESSION_REPORT.md`:
+
+- GoogleTest/CTest: **154 / 154 pass** (10 suites).
+- Coverage: **85.4% lines, 97.4% functions**.
+- ASan/UBSan: clean. Valgrind: clean. cppcheck: **0 findings**.
+- clang-tidy: 13 design advisories, 0 errors.
+- Performance: **20,000 tx → 27.6 ms** (post UTC fix).
+
+The FTAD application binary is built at
+`/home/hashcat/Documents/dataset/FTAD-main/build/FTAD` and was running
+under a virtual X display at the close of the session.
+
+### Permanent toolchain fix (final action of the session)
+
+`sudo apt-get install -y qt6-base-dev qt6-charts-dev cmake ninja-build`
+was executed by the operator; the packages are now installed system-wide.
+A permanent in-project build was then produced at
+`/home/hashcat/Documents/dataset/FTAD-main/build` with the system Qt6,
+with **0 errors / 0 warnings** and **154 / 154 tests passing**.
+
+The desktop launcher and run script now point at that permanent build.
+
+---
+
 *End of testing report.*
