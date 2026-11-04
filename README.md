@@ -37,7 +37,7 @@ CsvImportService   TransactionRepo  AnomalyDetector   RiskScorer   Investigation
 
 ## The pipeline, as a diagram
 
-**[FTAD - Financial Transaction Anomaly Detector](/home/hashcat/Documents/dataset/FTAD-main/.archify/architecture-ftad-20261104-092149/ftad-system-architecture.html)**
+**[FTAD - Financial Transaction Anomaly Detector](.archify/architecture-ftad-20261104-092149/ftad-system-architecture.html)**
 
 ![FTAD architecture - Analyst, FTAD Desktop App, FTAD Core, SQLite](.archify/architecture-ftad-20261104-092149/ftad-system-architecture.visual-check.1440x900.light.png)
 
