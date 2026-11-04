@@ -1,0 +1,141 @@
+{
+  "split": "step <= 372 train, step 373-744 test",
+  "test_rows": 1076732,
+  "test_frauds": 4060,
+  "models": {
+    "logistic [restricted (type + amount)]": {
+      "pr_auc": 0.0436,
+      "roc_auc": 0.8452,
+      "budgets": [
+        {
+          "budget": 20000,
+          "tp": 656,
+          "recall": 0.1616,
+          "precision": 0.0328
+        },
+        {
+          "budget": 100000,
+          "tp": 2834,
+          "recall": 0.698,
+          "precision": 0.0283
+        },
+        {
+          "budget": 500000,
+          "tp": 3610,
+          "recall": 0.8892,
+          "precision": 0.0072
+        },
+        {
+          "budget": 5077371,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0038
+        }
+      ]
+    },
+    "hist-grad-boost [restricted (type + amount)]": {
+      "pr_auc": 0.259,
+      "roc_auc": 0.9201,
+      "budgets": [
+        {
+          "budget": 20000,
+          "tp": 1651,
+          "recall": 0.4067,
+          "precision": 0.0817
+        },
+        {
+          "budget": 100000,
+          "tp": 2973,
+          "recall": 0.7323,
+          "precision": 0.0295
+        },
+        {
+          "budget": 500000,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0081
+        },
+        {
+          "budget": 5077371,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0038
+        }
+      ]
+    },
+    "logistic [full (ledger errors + ratio)]": {
+      "pr_auc": 0.6006,
+      "roc_auc": 0.9851,
+      "budgets": [
+        {
+          "budget": 20000,
+          "tp": 3289,
+          "recall": 0.8101,
+          "precision": 0.1645
+        },
+        {
+          "budget": 100000,
+          "tp": 3884,
+          "recall": 0.9567,
+          "precision": 0.0388
+        },
+        {
+          "budget": 500000,
+          "tp": 4047,
+          "recall": 0.9968,
+          "precision": 0.0081
+        },
+        {
+          "budget": 5077371,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0038
+        }
+      ]
+    },
+    "hist-grad-boost [full (ledger errors + ratio)]": {
+      "pr_auc": 0.946,
+      "roc_auc": 0.9997,
+      "budgets": [
+        {
+          "budget": 20000,
+          "tp": 4055,
+          "recall": 0.9988,
+          "precision": 0.2011
+        },
+        {
+          "budget": 100000,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0403
+        },
+        {
+          "budget": 500000,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0081
+        },
+        {
+          "budget": 5077371,
+          "tp": 4060,
+          "recall": 1.0,
+          "precision": 0.0038
+        }
+      ]
+    }
+  },
+  "references": {
+    "rule combined (large_amount@10k)": {
+      "tp": 3925,
+      "recall": 0.9667,
+      "precision": 0.004535,
+      "alerts": 865448
+    },
+    "isFlaggedFraud (dataset rule)": {
+      "tp": 13,
+      "recall": 0.0032,
+      "precision": 1.0,
+      "alerts": 13
+    }
+  }
+}
