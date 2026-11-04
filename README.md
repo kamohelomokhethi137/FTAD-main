@@ -32,7 +32,7 @@ CsvImportService   TransactionRepo  AnomalyDetector   RiskScorer   Investigation
 
 **[FTAD - Financial Transaction Data Flow](.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.html)**
 
-![FTAD dataflow - Bank CSV, CsvImportService, AnomalyDetector, SQLite, Investigation Cases](.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.visual-check.1440x900.light.png)
+![FTAD dataflow - Bank CSV, CsvImportService, AnomalyDetector, SQLite, Investigation Cases](.archify/dataflow-ftad-20261104-092149/visual-check/ftad-financial-dataflow.visual-check.1440x900.light.png)
 
 An animated trace of the financial data: bank CSV rows become imported transactions,
 the detector reads them and emits flagged anomalies, and flagged anomalies open
