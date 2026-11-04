@@ -63,25 +63,25 @@ TEST_F(CsvImportTest, ImportsTheSampleFile)
     const CsvImportResult result =
         importer.importFile(QString(FTAD_SAMPLE_CSV));
 
-    EXPECT_EQ(result.imported, 3);
+    EXPECT_EQ(result.imported, 11);
     EXPECT_EQ(result.skipped, 0);
     EXPECT_EQ(result.failed, 0);
-    EXPECT_EQ(scalar("SELECT COUNT(*) FROM transactions"), 3);
+    EXPECT_EQ(scalar("SELECT COUNT(*) FROM transactions"), 11);
 }
 
 TEST_F(CsvImportTest, ReimportingTheSameFileSkipsEveryRow)
 {
     CsvImportService importer;
 
-    ASSERT_EQ(importer.importFile(QString(FTAD_SAMPLE_CSV)).imported, 3);
+    ASSERT_EQ(importer.importFile(QString(FTAD_SAMPLE_CSV)).imported, 11);
 
     const CsvImportResult second =
         importer.importFile(QString(FTAD_SAMPLE_CSV));
 
     EXPECT_EQ(second.imported, 0);
-    EXPECT_EQ(second.skipped, 3);
+    EXPECT_EQ(second.skipped, 11);
     EXPECT_EQ(second.failed, 0);
-    EXPECT_EQ(scalar("SELECT COUNT(*) FROM transactions"), 3);
+    EXPECT_EQ(scalar("SELECT COUNT(*) FROM transactions"), 11);
 }
 
 TEST_F(CsvImportTest, ImportsAValidRow)
