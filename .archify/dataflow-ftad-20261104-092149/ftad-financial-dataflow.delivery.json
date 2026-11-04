@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e9a829bf-268a-4eb0-8cf0-d56c448efea7",
+  "status": "current",
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/candidate.json",
+  "output": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.html",
+  "specification": {
+    "sha256": "5d98e7ea8b15c63361548d25dd06e3f95272bf7ba3530fa85e08b46f35495aae",
+    "bytes": 4743
+  },
+  "artifact": {
+    "sha256": "a551f2e001cd4d4d5434ccb1a72b523ab2a1f4af6bc383e0ee1fad2f64f1feb3",
+    "bytes": 835091
+  }
+}

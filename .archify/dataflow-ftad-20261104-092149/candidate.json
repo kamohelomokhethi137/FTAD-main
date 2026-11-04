@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "FTAD - Financial Transaction Data Flow",
+    "subtitle": "CSV intake, four detection rules, persistence and case handling",
+    "output": ".archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.html",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/kamohelomokhethi137/FTAD-main.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "94ca539b5f7af6772e4bb4fe4a059d90c8470adb"
+    }
+  },
+  "stages": [
+    {
+      "label": "Intake"
+    },
+    {
+      "label": "Detect and score"
+    },
+    {
+      "label": "Persist and case"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "bank-csv",
+      "type": "external",
+      "label": "Bank CSV",
+      "sublabel": "source ledger file",
+      "stage": 0,
+      "row": 0,
+      "tag": "source",
+      "sources": [
+        {
+          "path": "data/samples/test_transactions.csv",
+          "line": 1,
+          "end_line": 12,
+          "label": "sample"
+        }
+      ]
+    },
+    {
+      "id": "csv-import",
+      "type": "backend",
+      "label": "CsvImportService",
+      "sublabel": "import rows",
+      "stage": 0,
+      "row": 1,
+      "tag": "ingest",
+      "sources": [
+        {
+          "path": "backend/src/CsvImportService.cpp",
+          "line": 1,
+          "end_line": 40,
+          "label": "import"
+        }
+      ]
+    },
+    {
+      "id": "transactions",
+      "type": "database",
+      "label": "Transactions",
+      "sublabel": "SQLite ledger",
+      "stage": 1,
+      "row": 0,
+      "tag": "stored",
+      "sources": [
+        {
+          "path": "backend/src/DatabaseManager.cpp",
+          "line": 20,
+          "end_line": 45,
+          "label": "QSQLITE"
+        },
+        {
+          "path": "database/schema.sql",
+          "line": 1,
+          "end_line": 8,
+          "label": "tables"
+        }
+      ]
+    },
+    {
+      "id": "detector",
+      "type": "backend",
+      "label": "AnomalyDetector",
+      "sublabel": "four rules and score",
+      "stage": 1,
+      "row": 1,
+      "tag": "detect",
+      "sources": [
+        {
+          "path": "backend/src/AnomalyDetector.cpp",
+          "line": 1,
+          "end_line": 100,
+          "label": "analyze"
+        },
+        {
+          "path": "backend/include/DetectionSettings.h",
+          "line": 13,
+          "end_line": 37,
+          "label": "thresholds"
+        }
+      ]
+    },
+    {
+      "id": "anomalies",
+      "type": "database",
+      "label": "Anomalies",
+      "sublabel": "flagged rows scored",
+      "stage": 2,
+      "row": 0,
+      "tag": "flagged",
+      "sources": [
+        {
+          "path": "backend/src/DetectionService.cpp",
+          "line": 40,
+          "end_line": 92,
+          "label": "analyzeAll"
+        }
+      ]
+    },
+    {
+      "id": "cases",
+      "type": "backend",
+      "label": "Investigation Cases",
+      "sublabel": "case status and case history",
+      "stage": 2,
+      "row": 1,
+      "tag": "cases",
+      "sources": [
+        {
+          "path": "backend/src/InvestigationRepository.cpp",
+          "line": 1,
+          "end_line": 40,
+          "label": "cases"
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "f-intake",
+      "from": "bank-csv",
+      "to": "csv-import",
+      "label": "bank rows",
+      "classification": "ledger intake",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-import",
+      "from": "csv-import",
+      "to": "transactions",
+      "label": "write rows",
+      "classification": "ledger persist",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-feed",
+      "from": "transactions",
+      "to": "detector",
+      "label": "feed transactions",
+      "classification": "detection input",
+      "variant": "default"
+    },
+    {
+      "id": "f-flag",
+      "from": "detector",
+      "to": "anomalies",
+      "label": "flagged anomalies",
+      "classification": "detection output",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-case",
+      "from": "anomalies",
+      "to": "cases",
+      "label": "open case",
+      "classification": "case intake",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Primary Data Path",
+      "items": [
+        "Bank CSV rows are imported into the transaction ledger",
+        "The detector reads transactions and emits flagged anomalies",
+        "Flagged anomalies feed investigation cases"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Boundaries",
+      "items": [
+        "The local SQLite store is a persistence boundary",
+        "The operator owns case decisions, not the engine"
+      ]
+    }
+  ]
+}

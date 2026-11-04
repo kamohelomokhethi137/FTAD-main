@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "dataflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/candidate.json",
+    "sha256": "5d98e7ea8b15c63361548d25dd06e3f95272bf7ba3530fa85e08b46f35495aae",
+    "bytes": 4743
+  },
+  "artifact": {
+    "path": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.html",
+    "sha256": "a551f2e001cd4d4d5434ccb1a72b523ab2a1f4af6bc383e0ee1fad2f64f1feb3",
+    "bytes": 835091
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.finalize.json",
+    "summaryReceipt": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.finalize-summary.json",
+    "browserCheckReceipt": "/home/hashcat/Documents/dataset/FTAD-main/.archify/dataflow-ftad-20261104-092149/ftad-financial-dataflow.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-04T09:22:19.054Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3745,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}
