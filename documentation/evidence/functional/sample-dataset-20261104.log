@@ -1,0 +1,18 @@
+gate:        G8
+purpose:     F1 - the shipped sample exercises all four detection rules
+command:     verify_sample (links the production ftad_core)
+date (UTC):  2026-11-04T05:54:36Z
+host:        Linux 7.1.13+parrot7-amd64 x86_64
+cwd:         /home/hashcat/Documents/dataset/FTAD-main
+--------------------------------------------------------------
+imported=11 skipped=0 failed=0
+analyzed=11 flagged=4
+
+reference  amount      score  level   methods
+--------------------------------------------------------------
+TXNXXX6  25000.00    60.0   medium   large_amount, behaviour_deviation
+TXNXXX8  750.00      40.0   medium   duplicate_payment
+TXNXXX7  750.00      40.0   medium   duplicate_payment
+TXNXX11  540.00      35.0   medium   rapid_withdrawals
+--------------------------------------------------------------
+flagged transactions: 4

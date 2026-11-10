@@ -2,6 +2,7 @@
 #include "AnomalyDetector.h"
 #include "RiskScorer.h"
 #include "TransactionTime.h"
+#include "MlFraudModel.h"
 
 #include <algorithm>
 #include <cmath>
@@ -137,16 +138,35 @@ QList<DetectionResult> AnomalyDetector::analyze(
     {
         QList<RuleHit> hits;
 
-        checkDuplicatePayment(
-            index, transactions, times, bySender, hits);
+        if (settings.useRuleEngine)
+        {
+            checkDuplicatePayment(
+                index, transactions, times, bySender, hits);
 
-        checkLargeAmount(transactions.at(index), hits);
+            checkLargeAmount(transactions.at(index), hits);
 
-        checkRapidWithdrawals(
-            index, transactions, times, bySender, hits);
+            checkRapidWithdrawals(
+                index, transactions, times, bySender, hits);
 
-        checkBehaviourDeviation(
-            index, transactions.at(index), analyzer, hits);
+            checkBehaviourDeviation(
+                index, transactions.at(index), analyzer, hits);
+        }
+
+        if (settings.useMlModel)
+        {
+            const Transaction &t = transactions.at(index);
+            const double mlScore = MlFraudModel::predictRiskScore(
+                t.transactionType, t.amount);
+            if (mlScore > 0.0)
+            {
+                RuleHit hit;
+                hit.method = "ml_model";
+                hit.weight = mlScore;
+                hit.reason = MlFraudModel::reasonText(
+                    t.transactionType, t.amount, mlScore);
+                hits.append(hit);
+            }
+        }
 
         results.append(
             scorer.score(transactions.at(index), hits));

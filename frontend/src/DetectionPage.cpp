@@ -2,6 +2,7 @@
 #include "DetectionPage.h"
 
 #include "DetectionService.h"
+#include "DetectionSettingsStore.h"
 
 #include <QAbstractItemView>
 #include <QBrush>
@@ -39,67 +40,38 @@ namespace
 
     QColor levelColor(const QString &level)
     {
-        if (level == "high") return QColor("#F87171");
-        if (level == "medium") return QColor("#FBBF24");
-        if (level == "low") return QColor("#38BDF8");
+        if (level == "high") return QColor("#ffffff");
+        if (level == "medium") return QColor("#d0d0d0");
+        if (level == "low") return QColor("#a0a0a0");
 
-        return QColor("#94A3B8");
+        return QColor("#808080");
     }
 }
 
 DetectionPage::DetectionPage(QWidget *parent)
     : QWidget(parent)
 {
-    setStyleSheet(
-        "QWidget { background-color: #0B1220; color: #E2E8F0; }"
-        "QComboBox {"
-        " background-color: #1E293B;"
-        " color: #F8FAFC;"
-        " border: 1px solid #334155;"
-        " border-radius: 6px;"
-        " padding: 8px;"
-        "}"
-        "QPushButton {"
-        " background-color: #2563EB;"
-        " color: white;"
-        " border: none;"
-        " border-radius: 6px;"
-        " padding: 10px 16px;"
-        " font-weight: bold;"
-        "}"
-        "QPushButton:hover { background-color: #1D4ED8; }"
-        "QTableWidget {"
-        " background-color: #1E293B;"
-        " alternate-background-color: #172033;"
-        " color: #E2E8F0;"
-        " gridline-color: #334155;"
-        " border: 1px solid #334155;"
-        " border-radius: 8px;"
-        "}"
-        "QHeaderView::section {"
-        " background-color: #334155;"
-        " color: #F8FAFC;"
-        " padding: 10px;"
-        " border: none;"
-        "}"
-    );
-
     auto *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(28, 28, 28, 28);
     mainLayout->setSpacing(18);
 
     auto *title = new QLabel("Anomaly Detection");
-    title->setStyleSheet("font-size: 26px; font-weight: bold;");
+    title->setObjectName("heading");
 
     auto *subtitle = new QLabel(
         "Transactions flagged by the detection engine. "
         "Each finding lists the checks that were triggered."
     );
-    subtitle->setStyleSheet("color: #94A3B8;");
+    subtitle->setObjectName("description");
     subtitle->setWordWrap(true);
+
+    engineStatus = new QLabel();
+    engineStatus->setWordWrap(true);
+    engineStatus->setObjectName("panel");
 
     mainLayout->addWidget(title);
     mainLayout->addWidget(subtitle);
+    mainLayout->addWidget(engineStatus);
 
     // Summary cards.
     auto *summaryLayout = new QHBoxLayout();
@@ -111,25 +83,16 @@ DetectionPage::DetectionPage(QWidget *parent)
     {
         auto *card = new QFrame;
         card->setObjectName("summaryCard");
-        card->setStyleSheet(
-            "#summaryCard {"
-            " background-color: #172338;"
-            " border: 1px solid #2A3A52;"
-            " border-radius: 10px;"
-            "}"
-        );
 
         auto *layout = new QVBoxLayout(card);
         layout->setContentsMargins(18, 14, 18, 14);
         layout->setSpacing(6);
 
         auto *captionLabel = new QLabel(caption);
-        captionLabel->setStyleSheet(
-            "color: #94A3B8; font-size: 12px;");
+        captionLabel->setObjectName("cardTitle");
 
         *valueLabel = new QLabel("0");
-        (*valueLabel)->setStyleSheet(
-            "color: #F8FAFC; font-size: 26px; font-weight: bold;");
+        (*valueLabel)->setObjectName("cardValue");
 
         layout->addWidget(captionLabel);
         layout->addWidget(*valueLabel);
@@ -189,7 +152,7 @@ DetectionPage::DetectionPage(QWidget *parent)
     emptyMessage->setAlignment(Qt::AlignCenter);
     emptyMessage->setWordWrap(true);
     emptyMessage->setStyleSheet(
-        "color: #94A3B8; font-size: 13px; padding: 12px;");
+        "color: #a0a0a0; font-size: 13px; padding: 12px;");
     emptyMessage->hide();
 
     mainLayout->addWidget(emptyMessage);
@@ -208,17 +171,20 @@ DetectionPage::DetectionPage(QWidget *parent)
         [this](const QString &) { applyFilter(); }
     );
 
+    updateEngineStatus();
     refreshResults();
 }
 
 void DetectionPage::showEvent(QShowEvent *event)
 {
     QWidget::showEvent(event);
+    updateEngineStatus();
     refreshResults();
 }
 
 void DetectionPage::runAnalysis()
 {
+    updateEngineStatus();
     DetectionService service;
 
     int analyzed = 0;
@@ -249,6 +215,7 @@ void DetectionPage::runAnalysis()
 
 void DetectionPage::refreshResults()
 {
+    updateEngineStatus();
     DetectionService service;
 
     cachedResults = service.flaggedResults();
@@ -369,4 +336,24 @@ void DetectionPage::applyFilter()
 
         resultsTable->setRowHidden(row, !visible);
     }
+}
+
+void DetectionPage::updateEngineStatus()
+{
+    if (!engineStatus)
+        return;
+
+    const DetectionSettings settings = DetectionSettingsStore::load();
+    QStringList engines;
+    if (settings.useRuleEngine)
+        engines << "rule engine";
+    if (settings.useMlModel)
+        engines << "ML model (HGB, type+amount, PaySim-trained)";
+
+    const QString text = engines.isEmpty()
+        ? "Detection engines: none enabled"
+        : QString("Detection engines: %1. Configure in Settings.")
+              .arg(engines.join(" + "));
+
+    engineStatus->setText(text);
 }

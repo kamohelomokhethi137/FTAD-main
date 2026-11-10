@@ -3,6 +3,7 @@
 
 #include "AnomalyDetector.h"
 #include "DetectionRepository.h"
+#include "DetectionSettingsStore.h"
 #include "Transaction.h"
 #include "TransactionRepository.h"
 
@@ -11,6 +12,7 @@
 #include <algorithm>
 
 DetectionService::DetectionService()
+    : settings(DetectionSettingsStore::load())
 {
 }
 

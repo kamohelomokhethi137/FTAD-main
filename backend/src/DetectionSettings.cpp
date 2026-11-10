@@ -76,6 +76,9 @@ bool DetectionSettings::validate(QString *error) const
     if (highThreshold > 100.0)
         return fail("High risk threshold cannot exceed 100.");
 
+    if (!useRuleEngine && !useMlModel)
+        return fail("At least one detection engine must be enabled.");
+
     if (error)
         error->clear();
 

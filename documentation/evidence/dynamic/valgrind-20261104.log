@@ -1,0 +1,373 @@
+gate:        G6
+purpose:     X3 - dynamic memory analysis
+command:     valgrind --leak-check=full --error-exitcode=99 ./ftad_tests
+date (UTC):  2026-11-04T05:54:36Z
+host:        Linux 7.1.13+parrot7-amd64 x86_64
+cwd:         /home/hashcat/Documents/dataset/FTAD-main
+--------------------------------------------------------------
+tool: valgrind-3.24.0
+
+==96881== Memcheck, a memory error detector
+==96881== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==96881== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==96881== Command: ./ftad_tests
+==96881== 
+[==========] Running 154 tests from 10 test suites.
+[----------] Global test environment set-up.
+[----------] 20 tests from AnomalyDetector
+[ RUN      ] AnomalyDetector.OrdinaryActivityIsNotFlagged
+[       OK ] AnomalyDetector.OrdinaryActivityIsNotFlagged (132 ms)
+[ RUN      ] AnomalyDetector.EmptyInputProducesNoResults
+[       OK ] AnomalyDetector.EmptyInputProducesNoResults (5 ms)
+[ RUN      ] AnomalyDetector.DuplicatePaymentFlagsBothSides
+[       OK ] AnomalyDetector.DuplicatePaymentFlagsBothSides (56 ms)
+[ RUN      ] AnomalyDetector.DuplicateOutsideTheWindowIsNotFlagged
+[       OK ] AnomalyDetector.DuplicateOutsideTheWindowIsNotFlagged (10 ms)
+[ RUN      ] AnomalyDetector.DuplicateToADifferentReceiverIsNotFlagged
+[       OK ] AnomalyDetector.DuplicateToADifferentReceiverIsNotFlagged (7 ms)
+[ RUN      ] AnomalyDetector.DuplicateOutsideAmountToleranceIsNotFlagged
+[       OK ] AnomalyDetector.DuplicateOutsideAmountToleranceIsNotFlagged (6 ms)
+[ RUN      ] AnomalyDetector.LargeAmountIsFlaggedWithoutHistory
+[       OK ] AnomalyDetector.LargeAmountIsFlaggedWithoutHistory (12 ms)
+[ RUN      ] AnomalyDetector.AmountExactlyAtTheLimitIsNotLarge
+[       OK ] AnomalyDetector.AmountExactlyAtTheLimitIsNotLarge (10 ms)
+[ RUN      ] AnomalyDetector.RapidWithdrawalsAreFlaggedAtTheThreshold
+[       OK ] AnomalyDetector.RapidWithdrawalsAreFlaggedAtTheThreshold (15 ms)
+[ RUN      ] AnomalyDetector.NonWithdrawalTypesAreNotRapidWithdrawals
+[       OK ] AnomalyDetector.NonWithdrawalTypesAreNotRapidWithdrawals (8 ms)
+[ RUN      ] AnomalyDetector.WithdrawalsOutsideTheWindowAreNotRapid
+[       OK ] AnomalyDetector.WithdrawalsOutsideTheWindowAreNotRapid (9 ms)
+[ RUN      ] AnomalyDetector.UniformHistoryUsesTheRatioRule
+[       OK ] AnomalyDetector.UniformHistoryUsesTheRatioRule (31 ms)
+[ RUN      ] AnomalyDetector.InsufficientHistoryProducesNoBehaviouralFinding
+[       OK ] AnomalyDetector.InsufficientHistoryProducesNoBehaviouralFinding (6 ms)
+[ RUN      ] AnomalyDetector.BehaviouralDeviationReportsTheZScore
+[       OK ] AnomalyDetector.BehaviouralDeviationReportsTheZScore (21 ms)
+[ RUN      ] AnomalyDetector.CombinedRulesReachHighRisk
+[       OK ] AnomalyDetector.CombinedRulesReachHighRisk (14 ms)
+[ RUN      ] AnomalyDetector.SingleRuleNeverExceedsMedium
+[       OK ] AnomalyDetector.SingleRuleNeverExceedsMedium (11 ms)
+[ RUN      ] AnomalyDetector.RepeatedAnalysisIsIdentical
+[       OK ] AnomalyDetector.RepeatedAnalysisIsIdentical (18 ms)
+[ RUN      ] AnomalyDetector.MalformedTimestampsDoNotCrash
+[       OK ] AnomalyDetector.MalformedTimestampsDoNotCrash (16 ms)
+[ RUN      ] AnomalyDetector.ClassifiesWithdrawalTypes
+[       OK ] AnomalyDetector.ClassifiesWithdrawalTypes (17 ms)
+[ RUN      ] AnomalyDetector.ExposesItsConfiguration
+[       OK ] AnomalyDetector.ExposesItsConfiguration (2 ms)
+[----------] 20 tests from AnomalyDetector (428 ms total)
+
+[----------] 13 tests from BehaviorAnalyzer
+[ RUN      ] BehaviorAnalyzer.HasNoBaselineBelowMinimumHistory
+[       OK ] BehaviorAnalyzer.HasNoBaselineBelowMinimumHistory (14 ms)
+[ RUN      ] BehaviorAnalyzer.UsesBaselineOnceMinimumHistoryIsReached
+[       OK ] BehaviorAnalyzer.UsesBaselineOnceMinimumHistoryIsReached (6 ms)
+[ RUN      ] BehaviorAnalyzer.BaselineNeverIncludesLaterTransactions
+[       OK ] BehaviorAnalyzer.BaselineNeverIncludesLaterTransactions (6 ms)
+[ RUN      ] BehaviorAnalyzer.ComputesMeanAndDeviationOfEarlierOnly
+[       OK ] BehaviorAnalyzer.ComputesMeanAndDeviationOfEarlierOnly (7 ms)
+[ RUN      ] BehaviorAnalyzer.UniformHistoryFallsBackToRatioRule
+[       OK ] BehaviorAnalyzer.UniformHistoryFallsBackToRatioRule (16 ms)
+[ RUN      ] BehaviorAnalyzer.UniformHistoryBelowRatioIsNotUnusual
+[       OK ] BehaviorAnalyzer.UniformHistoryBelowRatioIsNotUnusual (10 ms)
+[ RUN      ] BehaviorAnalyzer.ZScoreThresholdIsRespected
+[       OK ] BehaviorAnalyzer.ZScoreThresholdIsRespected (6 ms)
+[ RUN      ] BehaviorAnalyzer.AmountsBelowTheMeanAreNotFlagged
+[       OK ] BehaviorAnalyzer.AmountsBelowTheMeanAreNotFlagged (9 ms)
+[ RUN      ] BehaviorAnalyzer.OrderingFollowsTimestampsNotListPosition
+[       OK ] BehaviorAnalyzer.OrderingFollowsTimestampsNotListPosition (15 ms)
+[ RUN      ] BehaviorAnalyzer.ProfileReportsAccountTotals
+[       OK ] BehaviorAnalyzer.ProfileReportsAccountTotals (10 ms)
+[ RUN      ] BehaviorAnalyzer.UnknownAccountHasNoProfile
+[       OK ] BehaviorAnalyzer.UnknownAccountHasNoProfile (8 ms)
+[ RUN      ] BehaviorAnalyzer.HandlesOutOfRangeIndexes
+[       OK ] BehaviorAnalyzer.HandlesOutOfRangeIndexes (6 ms)
+[ RUN      ] BehaviorAnalyzer.EmptyDataSetIsSafe
+[       OK ] BehaviorAnalyzer.EmptyDataSetIsSafe (2 ms)
+[----------] 13 tests from BehaviorAnalyzer (123 ms total)
+
+[----------] 16 tests from CsvImportTest
+[ RUN      ] CsvImportTest.ImportsTheSampleFile
+[       OK ] CsvImportTest.ImportsTheSampleFile (5477 ms)
+[ RUN      ] CsvImportTest.ReimportingTheSameFileSkipsEveryRow
+[       OK ] CsvImportTest.ReimportingTheSameFileSkipsEveryRow (5178 ms)
+[ RUN      ] CsvImportTest.ImportsAValidRow
+[       OK ] CsvImportTest.ImportsAValidRow (393 ms)
+[ RUN      ] CsvImportTest.NormalisesPlainIdentifiersFromTheFile
+[       OK ] CsvImportTest.NormalisesPlainIdentifiersFromTheFile (429 ms)
+[ RUN      ] CsvImportTest.ReportsAnUnreadableFile
+[       OK ] CsvImportTest.ReportsAnUnreadableFile (88 ms)
+[ RUN      ] CsvImportTest.ReportsAnEmptyFile
+[       OK ] CsvImportTest.ReportsAnEmptyFile (86 ms)
+[ RUN      ] CsvImportTest.RejectsAMissingColumn
+[       OK ] CsvImportTest.RejectsAMissingColumn (99 ms)
+[ RUN      ] CsvImportTest.RejectsADuplicateColumn
+[       OK ] CsvImportTest.RejectsADuplicateColumn (95 ms)
+[ RUN      ] CsvImportTest.ReportsInvalidAmounts
+[       OK ] CsvImportTest.ReportsInvalidAmounts (88 ms)
+[ RUN      ] CsvImportTest.ReportsInvalidTimestamps
+[       OK ] CsvImportTest.ReportsInvalidTimestamps (150 ms)
+[ RUN      ] CsvImportTest.ReportsInvalidCurrencyOrStatus
+[       OK ] CsvImportTest.ReportsInvalidCurrencyOrStatus (211 ms)
+[ RUN      ] CsvImportTest.ReportsInvalidTransactionIds
+[       OK ] CsvImportTest.ReportsInvalidTransactionIds (67 ms)
+[ RUN      ] CsvImportTest.ImportsValidRowsAndSkipsInvalidOnes
+[       OK ] CsvImportTest.ImportsValidRowsAndSkipsInvalidOnes (364 ms)
+[ RUN      ] CsvImportTest.HandlesQuotedFields
+[       OK ] CsvImportTest.HandlesQuotedFields (400 ms)
+[ RUN      ] CsvImportTest.SkipsBlankLines
+[       OK ] CsvImportTest.SkipsBlankLines (364 ms)
+[ RUN      ] CsvImportTest.RejectsARowWithTooFewFields
+[       OK ] CsvImportTest.RejectsARowWithTooFewFields (65 ms)
+[----------] 16 tests from CsvImportTest (13567 ms total)
+
+[----------] 13 tests from DetectionPipelineTest
+[ RUN      ] DetectionPipelineTest.AnalysesEveryStoredTransaction
+[       OK ] DetectionPipelineTest.AnalysesEveryStoredTransaction (689 ms)
+[ RUN      ] DetectionPipelineTest.StoresOneRowPerFlaggedTransaction
+[       OK ] DetectionPipelineTest.StoresOneRowPerFlaggedTransaction (739 ms)
+[ RUN      ] DetectionPipelineTest.LoadedResultsCarryTransactionDetails
+[       OK ] DetectionPipelineTest.LoadedResultsCarryTransactionDetails (681 ms)
+[ RUN      ] DetectionPipelineTest.PrimaryMethodIsTheHeaviestCheck
+[       OK ] DetectionPipelineTest.PrimaryMethodIsTheHeaviestCheck (673 ms)
+[ RUN      ] DetectionPipelineTest.ReanalysisDoesNotDuplicateRows
+[       OK ] DetectionPipelineTest.ReanalysisDoesNotDuplicateRows (896 ms)
+[ RUN      ] DetectionPipelineTest.ReanalysisKeepsAnomalyIdsStable
+[       OK ] DetectionPipelineTest.ReanalysisKeepsAnomalyIdsStable (750 ms)
+[ RUN      ] DetectionPipelineTest.ReanalysisPreservesInvestigationWork
+[       OK ] DetectionPipelineTest.ReanalysisPreservesInvestigationWork (943 ms)
+[ RUN      ] DetectionPipelineTest.CorrectingATransactionRemovesTheStaleFinding
+[       OK ] DetectionPipelineTest.CorrectingATransactionRemovesTheStaleFinding (770 ms)
+[ RUN      ] DetectionPipelineTest.OrdersResultsByRiskDescending
+[       OK ] DetectionPipelineTest.OrdersResultsByRiskDescending (618 ms)
+[ RUN      ] DetectionPipelineTest.SucceedsWithNoTransactions
+[       OK ] DetectionPipelineTest.SucceedsWithNoTransactions (625 ms)
+[ RUN      ] DetectionPipelineTest.RejectsInvalidSettings
+[       OK ] DetectionPipelineTest.RejectsInvalidSettings (558 ms)
+[ RUN      ] DetectionPipelineTest.AcceptsTunedSettings
+[       OK ] DetectionPipelineTest.AcceptsTunedSettings (622 ms)
+[ RUN      ] DetectionPipelineTest.ClearingResultsEmptiesTheTable
+[       OK ] DetectionPipelineTest.ClearingResultsEmptiesTheTable (707 ms)
+[----------] 13 tests from DetectionPipelineTest (9282 ms total)
+
+[----------] 19 tests from DetectionSettings
+[ RUN      ] DetectionSettings.DefaultsAreValid
+[       OK ] DetectionSettings.DefaultsAreValid (3 ms)
+[ RUN      ] DetectionSettings.DefaultWeightsAndBandsAreConsistent
+[       OK ] DetectionSettings.DefaultWeightsAndBandsAreConsistent (3 ms)
+[ RUN      ] DetectionSettings.RejectsZeroLargeAmountThreshold
+[       OK ] DetectionSettings.RejectsZeroLargeAmountThreshold (4 ms)
+[ RUN      ] DetectionSettings.RejectsNegativeLargeAmountThreshold
+[       OK ] DetectionSettings.RejectsNegativeLargeAmountThreshold (2 ms)
+[ RUN      ] DetectionSettings.RejectsNonFiniteThresholds
+[       OK ] DetectionSettings.RejectsNonFiniteThresholds (2 ms)
+[ RUN      ] DetectionSettings.RejectsZeroDuplicateWindow
+[       OK ] DetectionSettings.RejectsZeroDuplicateWindow (2 ms)
+[ RUN      ] DetectionSettings.RejectsNegativeDuplicateTolerance
+[       OK ] DetectionSettings.RejectsNegativeDuplicateTolerance (1 ms)
+[ RUN      ] DetectionSettings.AcceptsZeroDuplicateTolerance
+[       OK ] DetectionSettings.AcceptsZeroDuplicateTolerance (1 ms)
+[ RUN      ] DetectionSettings.RejectsZeroRapidWithdrawalWindow
+[       OK ] DetectionSettings.RejectsZeroRapidWithdrawalWindow (2 ms)
+[ RUN      ] DetectionSettings.RejectsRapidWithdrawalCountBelowTwo
+[       OK ] DetectionSettings.RejectsRapidWithdrawalCountBelowTwo (2 ms)
+[ RUN      ] DetectionSettings.RejectsNonPositiveZScore
+[       OK ] DetectionSettings.RejectsNonPositiveZScore (1 ms)
+[ RUN      ] DetectionSettings.RejectsZeroVarianceRatioAtOrBelowOne
+[       OK ] DetectionSettings.RejectsZeroVarianceRatioAtOrBelowOne (1 ms)
+[ RUN      ] DetectionSettings.RejectsMinimumHistoryBelowOne
+[       OK ] DetectionSettings.RejectsMinimumHistoryBelowOne (1 ms)
+[ RUN      ] DetectionSettings.RejectsNegativeRuleWeight
+[       OK ] DetectionSettings.RejectsNegativeRuleWeight (1 ms)
+[ RUN      ] DetectionSettings.RejectsZeroMediumThreshold
+[       OK ] DetectionSettings.RejectsZeroMediumThreshold (1 ms)
+[ RUN      ] DetectionSettings.RejectsHighThresholdNotAboveMedium
+[       OK ] DetectionSettings.RejectsHighThresholdNotAboveMedium (1 ms)
+[ RUN      ] DetectionSettings.RejectsHighThresholdAboveHundred
+[       OK ] DetectionSettings.RejectsHighThresholdAboveHundred (1 ms)
+[ RUN      ] DetectionSettings.AcceptsCustomValidConfiguration
+[       OK ] DetectionSettings.AcceptsCustomValidConfiguration (1 ms)
+[ RUN      ] DetectionSettings.ValidationWithoutErrorPointerDoesNotCrash
+[       OK ] DetectionSettings.ValidationWithoutErrorPointerDoesNotCrash (1 ms)
+[----------] 19 tests from DetectionSettings (44 ms total)
+
+[----------] 14 tests from Identifiers
+[ RUN      ] Identifiers.FormatsAccountsWithPadding
+[       OK ] Identifiers.FormatsAccountsWithPadding (5 ms)
+[ RUN      ] Identifiers.FormatsTransactionsWithPadding
+[       OK ] Identifiers.FormatsTransactionsWithPadding (4 ms)
+[ RUN      ] Identifiers.NormalisesCanonicalAccountIds
+[       OK ] Identifiers.NormalisesCanonicalAccountIds (3 ms)
+[ RUN      ] Identifiers.NormalisesPlainAccountIds
+[       OK ] Identifiers.NormalisesPlainAccountIds (3 ms)
+[ RUN      ] Identifiers.NormalisationIsCaseInsensitive
+[       OK ] Identifiers.NormalisationIsCaseInsensitive (2 ms)
+[ RUN      ] Identifiers.NormalisationTrimsSurroundingWhitespace
+[       OK ] Identifiers.NormalisationTrimsSurroundingWhitespace (3 ms)
+[ RUN      ] Identifiers.RejectsAccountZero
+[       OK ] Identifiers.RejectsAccountZero (2 ms)
+[ RUN      ] Identifiers.RejectsLeadingZeroes
+[       OK ] Identifiers.RejectsLeadingZeroes (2 ms)
+[ RUN      ] Identifiers.RejectsOutOfRangeNumbers
+[       OK ] Identifiers.RejectsOutOfRangeNumbers (2 ms)
+[ RUN      ] Identifiers.RejectsMissingOrWrongPrefix
+[       OK ] Identifiers.RejectsMissingOrWrongPrefix (4 ms)
+[ RUN      ] Identifiers.RejectsEmptyAndMalformedValues
+[       OK ] Identifiers.RejectsEmptyAndMalformedValues (6 ms)
+[ RUN      ] Identifiers.TransactionIdsAllowZeroButAccountsDoNot
+[       OK ] Identifiers.TransactionIdsAllowZeroButAccountsDoNot (2 ms)
+[ RUN      ] Identifiers.ValidityPredicatesAgreeWithNormalisation
+[       OK ] Identifiers.ValidityPredicatesAgreeWithNormalisation (8 ms)
+[ RUN      ] Identifiers.NormalisationIsIdempotent
+[       OK ] Identifiers.NormalisationIsIdempotent (4 ms)
+[----------] 14 tests from Identifiers (58 ms total)
+
+[----------] 18 tests from InvestigationTest
+[ RUN      ] InvestigationTest.CreatesOneCasePerAnomaly
+[       OK ] InvestigationTest.CreatesOneCasePerAnomaly (216 ms)
+[ RUN      ] InvestigationTest.CreatingCasesIsIdempotent
+[       OK ] InvestigationTest.CreatingCasesIsIdempotent (180 ms)
+[ RUN      ] InvestigationTest.NewCasesStartWithAnOpenedEvent
+[       OK ] InvestigationTest.NewCasesStartWithAnOpenedEvent (217 ms)
+[ RUN      ] InvestigationTest.RecordsAStatusChange
+[       OK ] InvestigationTest.RecordsAStatusChange (213 ms)
+[ RUN      ] InvestigationTest.SavingAnUnchangedCaseAddsNoEvent
+[       OK ] InvestigationTest.SavingAnUnchangedCaseAddsNoEvent (206 ms)
+[ RUN      ] InvestigationTest.AnUnchangedSaveDoesNotBlockTheNextSave
+[       OK ] InvestigationTest.AnUnchangedSaveDoesNotBlockTheNextSave (238 ms)
+[ RUN      ] InvestigationTest.ResolvingRecordsTheClosingTime
+[       OK ] InvestigationTest.ResolvingRecordsTheClosingTime (222 ms)
+[ RUN      ] InvestigationTest.DismissingAlsoClosesTheCase
+[       OK ] InvestigationTest.DismissingAlsoClosesTheCase (242 ms)
+[ RUN      ] InvestigationTest.ReopeningClearsTheClosingTime
+[       OK ] InvestigationTest.ReopeningClearsTheClosingTime (310 ms)
+[ RUN      ] InvestigationTest.RejectsAnInvalidStatus
+[       OK ] InvestigationTest.RejectsAnInvalidStatus (174 ms)
+[ RUN      ] InvestigationTest.ReportsAnUnknownCase
+[       OK ] InvestigationTest.ReportsAnUnknownCase (129 ms)
+[ RUN      ] InvestigationTest.NotesOnlyChangeIsRecordedAsANote
+[       OK ] InvestigationTest.NotesOnlyChangeIsRecordedAsANote (250 ms)
+[ RUN      ] InvestigationTest.AssigneeOnlyChangeIsRecordedAsAnUpdate
+[       OK ] InvestigationTest.AssigneeOnlyChangeIsRecordedAsAnUpdate (246 ms)
+[ RUN      ] InvestigationTest.ListsOpenCasesBeforeClosedOnes
+[       OK ] InvestigationTest.ListsOpenCasesBeforeClosedOnes (226 ms)
+[ RUN      ] InvestigationTest.OrdersCasesByRiskWithinTheSameStatus
+[       OK ] InvestigationTest.OrdersCasesByRiskWithinTheSameStatus (188 ms)
+[ RUN      ] InvestigationTest.JoinsTransactionDetailsIntoTheCase
+[       OK ] InvestigationTest.JoinsTransactionDetailsIntoTheCase (194 ms)
+[ RUN      ] InvestigationTest.KeepsHistoryInChronologicalOrder
+[       OK ] InvestigationTest.KeepsHistoryInChronologicalOrder (256 ms)
+[ RUN      ] InvestigationTest.ValidatesStatusNames
+[       OK ] InvestigationTest.ValidatesStatusNames (142 ms)
+[----------] 18 tests from InvestigationTest (3864 ms total)
+
+[----------] 10 tests from RiskScorer
+[ RUN      ] RiskScorer.CopiesTransactionDetailsIntoTheResult
+[       OK ] RiskScorer.CopiesTransactionDetailsIntoTheResult (10 ms)
+[ RUN      ] RiskScorer.NoHitsMeansZeroScoreAndNoLevel
+[       OK ] RiskScorer.NoHitsMeansZeroScoreAndNoLevel (5 ms)
+[ RUN      ] RiskScorer.SingleHitUsesItsWeight
+[       OK ] RiskScorer.SingleHitUsesItsWeight (14 ms)
+[ RUN      ] RiskScorer.MultipleHitsAddUp
+[       OK ] RiskScorer.MultipleHitsAddUp (11 ms)
+[ RUN      ] RiskScorer.ScoreNeverExceedsOneHundred
+[       OK ] RiskScorer.ScoreNeverExceedsOneHundred (13 ms)
+[ RUN      ] RiskScorer.PrimaryMethodIsTheStrongestHit
+[       OK ] RiskScorer.PrimaryMethodIsTheStrongestHit (15 ms)
+[ RUN      ] RiskScorer.LevelBoundariesAreInclusiveAtTheLowerEdge
+[       OK ] RiskScorer.LevelBoundariesAreInclusiveAtTheLowerEdge (6 ms)
+[ RUN      ] RiskScorer.HonoursCustomBands
+[       OK ] RiskScorer.HonoursCustomBands (8 ms)
+[ RUN      ] RiskScorer.ReasonTextJoinsAllHits
+[       OK ] RiskScorer.ReasonTextJoinsAllHits (12 ms)
+[ RUN      ] RiskScorer.IsDeterministicForTheSameInput
+[       OK ] RiskScorer.IsDeterministicForTheSameInput (20 ms)
+[----------] 10 tests from RiskScorer (122 ms total)
+
+[----------] 18 tests from TransactionRepositoryTest
+[ RUN      ] TransactionRepositoryTest.AssignsTheLowestFreeIdWhenNoneIsSupplied
+[       OK ] TransactionRepositoryTest.AssignsTheLowestFreeIdWhenNoneIsSupplied (284 ms)
+[ RUN      ] TransactionRepositoryTest.HonoursASuppliedTransactionId
+[       OK ] TransactionRepositoryTest.HonoursASuppliedTransactionId (315 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsADuplicateSuppliedId
+[       OK ] TransactionRepositoryTest.RejectsADuplicateSuppliedId (418 ms)
+[ RUN      ] TransactionRepositoryTest.FillsTheLowestFreeNumber
+[       OK ] TransactionRepositoryTest.FillsTheLowestFreeNumber (588 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAMalformedSuppliedId
+[       OK ] TransactionRepositoryTest.RejectsAMalformedSuppliedId (74 ms)
+[ RUN      ] TransactionRepositoryTest.NormalisesAccountIdentifiers
+[       OK ] TransactionRepositoryTest.NormalisesAccountIdentifiers (252 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAnInvalidSender
+[       OK ] TransactionRepositoryTest.RejectsAnInvalidSender (86 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAnInvalidReceiver
+[       OK ] TransactionRepositoryTest.RejectsAnInvalidReceiver (64 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsZeroAndNegativeAmounts
+[       OK ] TransactionRepositoryTest.RejectsZeroAndNegativeAmounts (65 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsNonFiniteAmounts
+[       OK ] TransactionRepositoryTest.RejectsNonFiniteAmounts (66 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAnInvalidTimestamp
+[       OK ] TransactionRepositoryTest.RejectsAnInvalidTimestamp (97 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAnUnsupportedCurrency
+[       OK ] TransactionRepositoryTest.RejectsAnUnsupportedCurrency (194 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAnInvalidStatus
+[       OK ] TransactionRepositoryTest.RejectsAnInvalidStatus (212 ms)
+[ RUN      ] TransactionRepositoryTest.RejectsAnEmptyTransactionType
+[       OK ] TransactionRepositoryTest.RejectsAnEmptyTransactionType (66 ms)
+[ RUN      ] TransactionRepositoryTest.ReturnsNewestFirst
+[       OK ] TransactionRepositoryTest.ReturnsNewestFirst (418 ms)
+[ RUN      ] TransactionRepositoryTest.RoundTripsEveryStoredField
+[       OK ] TransactionRepositoryTest.RoundTripsEveryStoredField (233 ms)
+[ RUN      ] TransactionRepositoryTest.AllowsRepeatedContentBecauseDetectionHandlesIt
+[       OK ] TransactionRepositoryTest.AllowsRepeatedContentBecauseDetectionHandlesIt (423 ms)
+[ RUN      ] TransactionRepositoryTest.ReportsAnErrorForAnEmptyDatabase
+[       OK ] TransactionRepositoryTest.ReportsAnErrorForAnEmptyDatabase (91 ms)
+[----------] 18 tests from TransactionRepositoryTest (3960 ms total)
+
+[----------] 13 tests from TransactionTime
+[ RUN      ] TransactionTime.ParsesTheStoredFormat
+[       OK ] TransactionTime.ParsesTheStoredFormat (8 ms)
+[ RUN      ] TransactionTime.ParsesMidnightAndEndOfYear
+[       OK ] TransactionTime.ParsesMidnightAndEndOfYear (12 ms)
+[ RUN      ] TransactionTime.HandlesALeapDay
+[       OK ] TransactionTime.HandlesALeapDay (6 ms)
+[ RUN      ] TransactionTime.RejectsNonLeapYearFebruary29
+[       OK ] TransactionTime.RejectsNonLeapYearFebruary29 (5 ms)
+[ RUN      ] TransactionTime.RejectsWrongLengthOrSeparator
+[       OK ] TransactionTime.RejectsWrongLengthOrSeparator (6 ms)
+[ RUN      ] TransactionTime.RejectsImpossibleFields
+[       OK ] TransactionTime.RejectsImpossibleFields (10 ms)
+[ RUN      ] TransactionTime.RejectsFreeText
+[       OK ] TransactionTime.RejectsFreeText (4 ms)
+[ RUN      ] TransactionTime.OrdersChronologically
+[       OK ] TransactionTime.OrdersChronologically (9 ms)
+[ RUN      ] TransactionTime.ComparesAcrossDayAndMonthBoundaries
+[       OK ] TransactionTime.ComparesAcrossDayAndMonthBoundaries (7 ms)
+[ RUN      ] TransactionTime.WindowArithmeticCrossesMidnight
+[       OK ] TransactionTime.WindowArithmeticCrossesMidnight (5 ms)
+[ RUN      ] TransactionTime.DifferenceIsExactInSeconds
+[       OK ] TransactionTime.DifferenceIsExactInSeconds (4 ms)
+[ RUN      ] TransactionTime.IsUnaffectedByDaylightSavingTransitions
+[       OK ] TransactionTime.IsUnaffectedByDaylightSavingTransitions (4 ms)
+[ RUN      ] TransactionTime.ReportsUtcSpec
+[       OK ] TransactionTime.ReportsUtcSpec (3 ms)
+[----------] 13 tests from TransactionTime (89 ms total)
+
+[----------] Global test environment tear-down
+[==========] 154 tests from 10 test suites ran. (31603 ms total)
+[  PASSED  ] 154 tests.
+==96881== 
+==96881== HEAP SUMMARY:
+==96881==     in use at exit: 20,913 bytes in 28 blocks
+==96881==   total heap usage: 132,437 allocs, 132,409 frees, 109,798,034 bytes allocated
+==96881== 
+==96881== LEAK SUMMARY:
+==96881==    definitely lost: 0 bytes in 0 blocks
+==96881==    indirectly lost: 0 bytes in 0 blocks
+==96881==      possibly lost: 0 bytes in 0 blocks
+==96881==    still reachable: 20,913 bytes in 28 blocks
+==96881==         suppressed: 0 bytes in 0 blocks
+==96881== Reachable blocks (those to which a pointer was found) are not shown.
+==96881== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==96881== 
+==96881== For lists of detected and suppressed errors, rerun with: -s
+==96881== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

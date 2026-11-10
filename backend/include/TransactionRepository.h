@@ -12,6 +12,7 @@ class TransactionRepository
 public:
     bool addTransaction(const Transaction &transaction);
     QList<Transaction> getAllTransactions();
+    bool clearAllTransactions();
 
     QString generateNextTransactionId();
     QString lastError() const;

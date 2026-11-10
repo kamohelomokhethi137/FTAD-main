@@ -1,0 +1,23 @@
+Note: Google Test filter = MlFraudModel.*:AnomalyDetector.MlModelCanFlagWhenEnabled:DetectionSettings.RejectsNoEnabledEngines
+[==========] Running 4 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from AnomalyDetector
+[ RUN      ] AnomalyDetector.MlModelCanFlagWhenEnabled
+[       OK ] AnomalyDetector.MlModelCanFlagWhenEnabled (0 ms)
+[----------] 1 test from AnomalyDetector (0 ms total)
+
+[----------] 1 test from DetectionSettings
+[ RUN      ] DetectionSettings.RejectsNoEnabledEngines
+[       OK ] DetectionSettings.RejectsNoEnabledEngines (0 ms)
+[----------] 1 test from DetectionSettings (0 ms total)
+
+[----------] 2 tests from MlFraudModel
+[ RUN      ] MlFraudModel.ProducesDeterministicScores
+[       OK ] MlFraudModel.ProducesDeterministicScores (0 ms)
+[ RUN      ] MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn
+[       OK ] MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn (0 ms)
+[----------] 2 tests from MlFraudModel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 3 test suites ran. (0 ms total)
+[  PASSED  ] 4 tests.

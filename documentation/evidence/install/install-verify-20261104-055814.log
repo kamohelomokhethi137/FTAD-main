@@ -1,0 +1,45 @@
+gate:        I1 (clean-room installation verification)
+purpose:     verify the documented install procedure works from scratch
+command:     ./verify_install.sh
+date (UTC):  2026-11-04T05:58:14Z
+host:        Linux 7.1.13+parrot7-amd64 x86_64
+repo:        /home/hashcat/Documents/dataset/FTAD-main
+commit:      4f54a0e (16 uncommitted file(s))
+scratch:     /tmp/ftad-install-verify-20261104-055814
+note:        repository is not modified; all build output is in scratch
+--------------------------------------------------------------
+
+== 1. Build dependencies ==
+  [PASS] cmake 3.31.6
+  [PASS] g++ 14 (C++17 required)
+  [PASS] build tool: ninja
+  [PASS] Qt6Core 6.8.2
+  [PASS] Qt6Charts 6.8.2 (required: the app links Qt6::Charts)
+  [PASS] Qt6Sql 6.8.2
+
+== 2. Configure and build from scratch ==
+  scratch directory: /tmp/ftad-install-verify-20261104-055814
+  this is a clean tree — nothing is reused from the repository's build/
+  [PASS] cmake configure (Release, tests ON)
+  [PASS] build completed in 46 s with 0 compiler warning(s)
+  [PASS] executable produced: /tmp/ftad-install-verify-20261104-055814/build/FTAD (420K)
+  [PASS] schema deployed to build/database/schema.sql (4 tables)
+
+== 3. Automated test suite ==
+  [PASS] ctest: 100% tests passed, 0 tests failed out of 154 in 2 s
+
+== 4. Smoke test — does the binary actually start? ==
+  [PASS] application started and stayed running for 5 s (killed by timeout)
+
+== 5. First-run database creation ==
+  [PASS] database created at build/database/ftad.db (56K)
+  [PASS] schema is queryable — transactions table present (rows: 0)
+  database file mode is 644 — see SEC-01: 0644 means world-readable
+
+== 6. Summary ==
+  checks passed: 14
+  checks failed: 0
+  scratch dir:   /tmp/ftad-install-verify-20261104-055814
+  log:           /home/hashcat/Documents/dataset/FTAD-main/documentation/evidence/install/install-verify-20261104-055814.log
+--------------------------------------------------------------
+RESULT: PASS — the installation procedure works from a clean tree.

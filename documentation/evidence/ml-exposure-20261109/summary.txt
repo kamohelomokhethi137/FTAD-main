@@ -1,0 +1,4 @@
+generated=2026-11-09T23:38:08Z
+exposure: Settings UI + QSettings-backed DetectionSettingsStore + DetectionService default loads stored engine settings
+default: useRuleEngine=true useMlModel=false preserved
+tests: 160/160 pass

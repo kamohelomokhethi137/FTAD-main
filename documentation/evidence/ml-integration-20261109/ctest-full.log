@@ -1,0 +1,322 @@
+Internal ctest changing into directory: /home/hashcat/Documents/dataset/FTAD-main/build
+Test project /home/hashcat/Documents/dataset/FTAD-main/build
+        Start   1: AnomalyDetector.OrdinaryActivityIsNotFlagged
+  1/158 Test   #1: AnomalyDetector.OrdinaryActivityIsNotFlagged ...............................   Passed    0.00 sec
+        Start   2: AnomalyDetector.EmptyInputProducesNoResults
+  2/158 Test   #2: AnomalyDetector.EmptyInputProducesNoResults ................................   Passed    0.00 sec
+        Start   3: AnomalyDetector.DuplicatePaymentFlagsBothSides
+  3/158 Test   #3: AnomalyDetector.DuplicatePaymentFlagsBothSides .............................   Passed    0.00 sec
+        Start   4: AnomalyDetector.DuplicateOutsideTheWindowIsNotFlagged
+  4/158 Test   #4: AnomalyDetector.DuplicateOutsideTheWindowIsNotFlagged ......................   Passed    0.00 sec
+        Start   5: AnomalyDetector.DuplicateToADifferentReceiverIsNotFlagged
+  5/158 Test   #5: AnomalyDetector.DuplicateToADifferentReceiverIsNotFlagged ..................   Passed    0.01 sec
+        Start   6: AnomalyDetector.DuplicateOutsideAmountToleranceIsNotFlagged
+  6/158 Test   #6: AnomalyDetector.DuplicateOutsideAmountToleranceIsNotFlagged ................   Passed    0.01 sec
+        Start   7: AnomalyDetector.LargeAmountIsFlaggedWithoutHistory
+  7/158 Test   #7: AnomalyDetector.LargeAmountIsFlaggedWithoutHistory .........................   Passed    0.00 sec
+        Start   8: AnomalyDetector.AmountExactlyAtTheLimitIsNotLarge
+  8/158 Test   #8: AnomalyDetector.AmountExactlyAtTheLimitIsNotLarge ..........................   Passed    0.00 sec
+        Start   9: AnomalyDetector.RapidWithdrawalsAreFlaggedAtTheThreshold
+  9/158 Test   #9: AnomalyDetector.RapidWithdrawalsAreFlaggedAtTheThreshold ...................   Passed    0.00 sec
+        Start  10: AnomalyDetector.NonWithdrawalTypesAreNotRapidWithdrawals
+ 10/158 Test  #10: AnomalyDetector.NonWithdrawalTypesAreNotRapidWithdrawals ...................   Passed    0.00 sec
+        Start  11: AnomalyDetector.WithdrawalsOutsideTheWindowAreNotRapid
+ 11/158 Test  #11: AnomalyDetector.WithdrawalsOutsideTheWindowAreNotRapid .....................   Passed    0.00 sec
+        Start  12: AnomalyDetector.UniformHistoryUsesTheRatioRule
+ 12/158 Test  #12: AnomalyDetector.UniformHistoryUsesTheRatioRule .............................   Passed    0.01 sec
+        Start  13: AnomalyDetector.InsufficientHistoryProducesNoBehaviouralFinding
+ 13/158 Test  #13: AnomalyDetector.InsufficientHistoryProducesNoBehaviouralFinding ............   Passed    0.00 sec
+        Start  14: AnomalyDetector.BehaviouralDeviationReportsTheZScore
+ 14/158 Test  #14: AnomalyDetector.BehaviouralDeviationReportsTheZScore .......................   Passed    0.00 sec
+        Start  15: AnomalyDetector.CombinedRulesReachHighRisk
+ 15/158 Test  #15: AnomalyDetector.CombinedRulesReachHighRisk .................................   Passed    0.00 sec
+        Start  16: AnomalyDetector.SingleRuleNeverExceedsMedium
+ 16/158 Test  #16: AnomalyDetector.SingleRuleNeverExceedsMedium ...............................   Passed    0.00 sec
+        Start  17: AnomalyDetector.RepeatedAnalysisIsIdentical
+ 17/158 Test  #17: AnomalyDetector.RepeatedAnalysisIsIdentical ................................   Passed    0.00 sec
+        Start  18: AnomalyDetector.MalformedTimestampsDoNotCrash
+ 18/158 Test  #18: AnomalyDetector.MalformedTimestampsDoNotCrash ..............................   Passed    0.00 sec
+        Start  19: AnomalyDetector.ClassifiesWithdrawalTypes
+ 19/158 Test  #19: AnomalyDetector.ClassifiesWithdrawalTypes ..................................   Passed    0.00 sec
+        Start  20: AnomalyDetector.ExposesItsConfiguration
+ 20/158 Test  #20: AnomalyDetector.ExposesItsConfiguration ....................................   Passed    0.00 sec
+        Start  21: AnomalyDetector.MlModelCanFlagWhenEnabled
+ 21/158 Test  #21: AnomalyDetector.MlModelCanFlagWhenEnabled ..................................   Passed    0.00 sec
+        Start  22: BehaviorAnalyzer.HasNoBaselineBelowMinimumHistory
+ 22/158 Test  #22: BehaviorAnalyzer.HasNoBaselineBelowMinimumHistory ..........................   Passed    0.01 sec
+        Start  23: BehaviorAnalyzer.UsesBaselineOnceMinimumHistoryIsReached
+ 23/158 Test  #23: BehaviorAnalyzer.UsesBaselineOnceMinimumHistoryIsReached ...................   Passed    0.00 sec
+        Start  24: BehaviorAnalyzer.BaselineNeverIncludesLaterTransactions
+ 24/158 Test  #24: BehaviorAnalyzer.BaselineNeverIncludesLaterTransactions ....................   Passed    0.00 sec
+        Start  25: BehaviorAnalyzer.ComputesMeanAndDeviationOfEarlierOnly
+ 25/158 Test  #25: BehaviorAnalyzer.ComputesMeanAndDeviationOfEarlierOnly .....................   Passed    0.00 sec
+        Start  26: BehaviorAnalyzer.UniformHistoryFallsBackToRatioRule
+ 26/158 Test  #26: BehaviorAnalyzer.UniformHistoryFallsBackToRatioRule ........................   Passed    0.00 sec
+        Start  27: BehaviorAnalyzer.UniformHistoryBelowRatioIsNotUnusual
+ 27/158 Test  #27: BehaviorAnalyzer.UniformHistoryBelowRatioIsNotUnusual ......................   Passed    0.00 sec
+        Start  28: BehaviorAnalyzer.ZScoreThresholdIsRespected
+ 28/158 Test  #28: BehaviorAnalyzer.ZScoreThresholdIsRespected ................................   Passed    0.00 sec
+        Start  29: BehaviorAnalyzer.AmountsBelowTheMeanAreNotFlagged
+ 29/158 Test  #29: BehaviorAnalyzer.AmountsBelowTheMeanAreNotFlagged ..........................   Passed    0.00 sec
+        Start  30: BehaviorAnalyzer.OrderingFollowsTimestampsNotListPosition
+ 30/158 Test  #30: BehaviorAnalyzer.OrderingFollowsTimestampsNotListPosition ..................   Passed    0.00 sec
+        Start  31: BehaviorAnalyzer.ProfileReportsAccountTotals
+ 31/158 Test  #31: BehaviorAnalyzer.ProfileReportsAccountTotals ...............................   Passed    0.00 sec
+        Start  32: BehaviorAnalyzer.UnknownAccountHasNoProfile
+ 32/158 Test  #32: BehaviorAnalyzer.UnknownAccountHasNoProfile ................................   Passed    0.00 sec
+        Start  33: BehaviorAnalyzer.HandlesOutOfRangeIndexes
+ 33/158 Test  #33: BehaviorAnalyzer.HandlesOutOfRangeIndexes ..................................   Passed    0.00 sec
+        Start  34: BehaviorAnalyzer.EmptyDataSetIsSafe
+ 34/158 Test  #34: BehaviorAnalyzer.EmptyDataSetIsSafe ........................................   Passed    0.00 sec
+        Start  35: CsvImportTest.ImportsTheSampleFile
+ 35/158 Test  #35: CsvImportTest.ImportsTheSampleFile .........................................   Passed    0.11 sec
+        Start  36: CsvImportTest.ReimportingTheSameFileSkipsEveryRow
+ 36/158 Test  #36: CsvImportTest.ReimportingTheSameFileSkipsEveryRow ..........................   Passed    0.12 sec
+        Start  37: CsvImportTest.ImportsAValidRow
+ 37/158 Test  #37: CsvImportTest.ImportsAValidRow .............................................   Passed    0.03 sec
+        Start  38: CsvImportTest.NormalisesPlainIdentifiersFromTheFile
+ 38/158 Test  #38: CsvImportTest.NormalisesPlainIdentifiersFromTheFile ........................   Passed    0.03 sec
+        Start  39: CsvImportTest.ReportsAnUnreadableFile
+ 39/158 Test  #39: CsvImportTest.ReportsAnUnreadableFile ......................................   Passed    0.01 sec
+        Start  40: CsvImportTest.ReportsAnEmptyFile
+ 40/158 Test  #40: CsvImportTest.ReportsAnEmptyFile ...........................................   Passed    0.01 sec
+        Start  41: CsvImportTest.RejectsAMissingColumn
+ 41/158 Test  #41: CsvImportTest.RejectsAMissingColumn ........................................   Passed    0.01 sec
+        Start  42: CsvImportTest.RejectsADuplicateColumn
+ 42/158 Test  #42: CsvImportTest.RejectsADuplicateColumn ......................................   Passed    0.02 sec
+        Start  43: CsvImportTest.ReportsInvalidAmounts
+ 43/158 Test  #43: CsvImportTest.ReportsInvalidAmounts ........................................   Passed    0.02 sec
+        Start  44: CsvImportTest.ReportsInvalidTimestamps
+ 44/158 Test  #44: CsvImportTest.ReportsInvalidTimestamps .....................................   Passed    0.02 sec
+        Start  45: CsvImportTest.ReportsInvalidCurrencyOrStatus
+ 45/158 Test  #45: CsvImportTest.ReportsInvalidCurrencyOrStatus ...............................   Passed    0.02 sec
+        Start  46: CsvImportTest.ReportsInvalidTransactionIds
+ 46/158 Test  #46: CsvImportTest.ReportsInvalidTransactionIds .................................   Passed    0.02 sec
+        Start  47: CsvImportTest.ImportsValidRowsAndSkipsInvalidOnes
+ 47/158 Test  #47: CsvImportTest.ImportsValidRowsAndSkipsInvalidOnes ..........................   Passed    0.03 sec
+        Start  48: CsvImportTest.HandlesQuotedFields
+ 48/158 Test  #48: CsvImportTest.HandlesQuotedFields ..........................................   Passed    0.03 sec
+        Start  49: CsvImportTest.SkipsBlankLines
+ 49/158 Test  #49: CsvImportTest.SkipsBlankLines ..............................................   Passed    0.03 sec
+        Start  50: CsvImportTest.RejectsARowWithTooFewFields
+ 50/158 Test  #50: CsvImportTest.RejectsARowWithTooFewFields ..................................   Passed    0.02 sec
+        Start  51: DetectionPipelineTest.AnalysesEveryStoredTransaction
+ 51/158 Test  #51: DetectionPipelineTest.AnalysesEveryStoredTransaction .......................   Passed    0.05 sec
+        Start  52: DetectionPipelineTest.StoresOneRowPerFlaggedTransaction
+ 52/158 Test  #52: DetectionPipelineTest.StoresOneRowPerFlaggedTransaction ....................   Passed    0.06 sec
+        Start  53: DetectionPipelineTest.LoadedResultsCarryTransactionDetails
+ 53/158 Test  #53: DetectionPipelineTest.LoadedResultsCarryTransactionDetails .................   Passed    0.05 sec
+        Start  54: DetectionPipelineTest.PrimaryMethodIsTheHeaviestCheck
+ 54/158 Test  #54: DetectionPipelineTest.PrimaryMethodIsTheHeaviestCheck ......................   Passed    0.06 sec
+        Start  55: DetectionPipelineTest.ReanalysisDoesNotDuplicateRows
+ 55/158 Test  #55: DetectionPipelineTest.ReanalysisDoesNotDuplicateRows .......................   Passed    0.07 sec
+        Start  56: DetectionPipelineTest.ReanalysisKeepsAnomalyIdsStable
+ 56/158 Test  #56: DetectionPipelineTest.ReanalysisKeepsAnomalyIdsStable ......................   Passed    0.09 sec
+        Start  57: DetectionPipelineTest.ReanalysisPreservesInvestigationWork
+ 57/158 Test  #57: DetectionPipelineTest.ReanalysisPreservesInvestigationWork .................   Passed    0.08 sec
+        Start  58: DetectionPipelineTest.CorrectingATransactionRemovesTheStaleFinding
+ 58/158 Test  #58: DetectionPipelineTest.CorrectingATransactionRemovesTheStaleFinding .........   Passed    0.08 sec
+        Start  59: DetectionPipelineTest.OrdersResultsByRiskDescending
+ 59/158 Test  #59: DetectionPipelineTest.OrdersResultsByRiskDescending ........................   Passed    0.07 sec
+        Start  60: DetectionPipelineTest.SucceedsWithNoTransactions
+ 60/158 Test  #60: DetectionPipelineTest.SucceedsWithNoTransactions ...........................   Passed    0.06 sec
+        Start  61: DetectionPipelineTest.RejectsInvalidSettings
+ 61/158 Test  #61: DetectionPipelineTest.RejectsInvalidSettings ...............................   Passed    0.05 sec
+        Start  62: DetectionPipelineTest.AcceptsTunedSettings
+ 62/158 Test  #62: DetectionPipelineTest.AcceptsTunedSettings .................................   Passed    0.06 sec
+        Start  63: DetectionPipelineTest.ClearingResultsEmptiesTheTable
+ 63/158 Test  #63: DetectionPipelineTest.ClearingResultsEmptiesTheTable .......................   Passed    0.07 sec
+        Start  64: DetectionSettings.DefaultsAreValid
+ 64/158 Test  #64: DetectionSettings.DefaultsAreValid .........................................   Passed    0.00 sec
+        Start  65: DetectionSettings.DefaultWeightsAndBandsAreConsistent
+ 65/158 Test  #65: DetectionSettings.DefaultWeightsAndBandsAreConsistent ......................   Passed    0.00 sec
+        Start  66: DetectionSettings.RejectsZeroLargeAmountThreshold
+ 66/158 Test  #66: DetectionSettings.RejectsZeroLargeAmountThreshold ..........................   Passed    0.01 sec
+        Start  67: DetectionSettings.RejectsNegativeLargeAmountThreshold
+ 67/158 Test  #67: DetectionSettings.RejectsNegativeLargeAmountThreshold ......................   Passed    0.01 sec
+        Start  68: DetectionSettings.RejectsNonFiniteThresholds
+ 68/158 Test  #68: DetectionSettings.RejectsNonFiniteThresholds ...............................   Passed    0.00 sec
+        Start  69: DetectionSettings.RejectsZeroDuplicateWindow
+ 69/158 Test  #69: DetectionSettings.RejectsZeroDuplicateWindow ...............................   Passed    0.00 sec
+        Start  70: DetectionSettings.RejectsNegativeDuplicateTolerance
+ 70/158 Test  #70: DetectionSettings.RejectsNegativeDuplicateTolerance ........................   Passed    0.00 sec
+        Start  71: DetectionSettings.AcceptsZeroDuplicateTolerance
+ 71/158 Test  #71: DetectionSettings.AcceptsZeroDuplicateTolerance ............................   Passed    0.00 sec
+        Start  72: DetectionSettings.RejectsZeroRapidWithdrawalWindow
+ 72/158 Test  #72: DetectionSettings.RejectsZeroRapidWithdrawalWindow .........................   Passed    0.01 sec
+        Start  73: DetectionSettings.RejectsRapidWithdrawalCountBelowTwo
+ 73/158 Test  #73: DetectionSettings.RejectsRapidWithdrawalCountBelowTwo ......................   Passed    0.01 sec
+        Start  74: DetectionSettings.RejectsNonPositiveZScore
+ 74/158 Test  #74: DetectionSettings.RejectsNonPositiveZScore .................................   Passed    0.01 sec
+        Start  75: DetectionSettings.RejectsZeroVarianceRatioAtOrBelowOne
+ 75/158 Test  #75: DetectionSettings.RejectsZeroVarianceRatioAtOrBelowOne .....................   Passed    0.01 sec
+        Start  76: DetectionSettings.RejectsMinimumHistoryBelowOne
+ 76/158 Test  #76: DetectionSettings.RejectsMinimumHistoryBelowOne ............................   Passed    0.00 sec
+        Start  77: DetectionSettings.RejectsNegativeRuleWeight
+ 77/158 Test  #77: DetectionSettings.RejectsNegativeRuleWeight ................................   Passed    0.01 sec
+        Start  78: DetectionSettings.RejectsZeroMediumThreshold
+ 78/158 Test  #78: DetectionSettings.RejectsZeroMediumThreshold ...............................   Passed    0.01 sec
+        Start  79: DetectionSettings.RejectsHighThresholdNotAboveMedium
+ 79/158 Test  #79: DetectionSettings.RejectsHighThresholdNotAboveMedium .......................   Passed    0.00 sec
+        Start  80: DetectionSettings.RejectsHighThresholdAboveHundred
+ 80/158 Test  #80: DetectionSettings.RejectsHighThresholdAboveHundred .........................   Passed    0.00 sec
+        Start  81: DetectionSettings.AcceptsCustomValidConfiguration
+ 81/158 Test  #81: DetectionSettings.AcceptsCustomValidConfiguration ..........................   Passed    0.00 sec
+        Start  82: DetectionSettings.ValidationWithoutErrorPointerDoesNotCrash
+ 82/158 Test  #82: DetectionSettings.ValidationWithoutErrorPointerDoesNotCrash ................   Passed    0.00 sec
+        Start  83: DetectionSettings.RejectsNoEnabledEngines
+ 83/158 Test  #83: DetectionSettings.RejectsNoEnabledEngines ..................................   Passed    0.00 sec
+        Start  84: Identifiers.FormatsAccountsWithPadding
+ 84/158 Test  #84: Identifiers.FormatsAccountsWithPadding .....................................   Passed    0.00 sec
+        Start  85: Identifiers.FormatsTransactionsWithPadding
+ 85/158 Test  #85: Identifiers.FormatsTransactionsWithPadding .................................   Passed    0.00 sec
+        Start  86: Identifiers.NormalisesCanonicalAccountIds
+ 86/158 Test  #86: Identifiers.NormalisesCanonicalAccountIds ..................................   Passed    0.00 sec
+        Start  87: Identifiers.NormalisesPlainAccountIds
+ 87/158 Test  #87: Identifiers.NormalisesPlainAccountIds ......................................   Passed    0.00 sec
+        Start  88: Identifiers.NormalisationIsCaseInsensitive
+ 88/158 Test  #88: Identifiers.NormalisationIsCaseInsensitive .................................   Passed    0.00 sec
+        Start  89: Identifiers.NormalisationTrimsSurroundingWhitespace
+ 89/158 Test  #89: Identifiers.NormalisationTrimsSurroundingWhitespace ........................   Passed    0.00 sec
+        Start  90: Identifiers.RejectsAccountZero
+ 90/158 Test  #90: Identifiers.RejectsAccountZero .............................................   Passed    0.00 sec
+        Start  91: Identifiers.RejectsLeadingZeroes
+ 91/158 Test  #91: Identifiers.RejectsLeadingZeroes ...........................................   Passed    0.00 sec
+        Start  92: Identifiers.RejectsOutOfRangeNumbers
+ 92/158 Test  #92: Identifiers.RejectsOutOfRangeNumbers .......................................   Passed    0.00 sec
+        Start  93: Identifiers.RejectsMissingOrWrongPrefix
+ 93/158 Test  #93: Identifiers.RejectsMissingOrWrongPrefix ....................................   Passed    0.00 sec
+        Start  94: Identifiers.RejectsEmptyAndMalformedValues
+ 94/158 Test  #94: Identifiers.RejectsEmptyAndMalformedValues .................................   Passed    0.00 sec
+        Start  95: Identifiers.TransactionIdsAllowZeroButAccountsDoNot
+ 95/158 Test  #95: Identifiers.TransactionIdsAllowZeroButAccountsDoNot ........................   Passed    0.00 sec
+        Start  96: Identifiers.ValidityPredicatesAgreeWithNormalisation
+ 96/158 Test  #96: Identifiers.ValidityPredicatesAgreeWithNormalisation .......................   Passed    0.00 sec
+        Start  97: Identifiers.NormalisationIsIdempotent
+ 97/158 Test  #97: Identifiers.NormalisationIsIdempotent ......................................   Passed    0.00 sec
+        Start  98: InvestigationTest.CreatesOneCasePerAnomaly
+ 98/158 Test  #98: InvestigationTest.CreatesOneCasePerAnomaly .................................   Passed    0.07 sec
+        Start  99: InvestigationTest.CreatingCasesIsIdempotent
+ 99/158 Test  #99: InvestigationTest.CreatingCasesIsIdempotent ................................   Passed    0.07 sec
+        Start 100: InvestigationTest.NewCasesStartWithAnOpenedEvent
+100/158 Test #100: InvestigationTest.NewCasesStartWithAnOpenedEvent ...........................   Passed    0.06 sec
+        Start 101: InvestigationTest.RecordsAStatusChange
+101/158 Test #101: InvestigationTest.RecordsAStatusChange .....................................   Passed    0.07 sec
+        Start 102: InvestigationTest.SavingAnUnchangedCaseAddsNoEvent
+102/158 Test #102: InvestigationTest.SavingAnUnchangedCaseAddsNoEvent .........................   Passed    0.07 sec
+        Start 103: InvestigationTest.AnUnchangedSaveDoesNotBlockTheNextSave
+103/158 Test #103: InvestigationTest.AnUnchangedSaveDoesNotBlockTheNextSave ...................   Passed    0.08 sec
+        Start 104: InvestigationTest.ResolvingRecordsTheClosingTime
+104/158 Test #104: InvestigationTest.ResolvingRecordsTheClosingTime ...........................   Passed    0.07 sec
+        Start 105: InvestigationTest.DismissingAlsoClosesTheCase
+105/158 Test #105: InvestigationTest.DismissingAlsoClosesTheCase ..............................   Passed    0.08 sec
+        Start 106: InvestigationTest.ReopeningClearsTheClosingTime
+106/158 Test #106: InvestigationTest.ReopeningClearsTheClosingTime ............................   Passed    0.09 sec
+        Start 107: InvestigationTest.RejectsAnInvalidStatus
+107/158 Test #107: InvestigationTest.RejectsAnInvalidStatus ...................................   Passed    0.07 sec
+        Start 108: InvestigationTest.ReportsAnUnknownCase
+108/158 Test #108: InvestigationTest.ReportsAnUnknownCase .....................................   Passed    0.05 sec
+        Start 109: InvestigationTest.NotesOnlyChangeIsRecordedAsANote
+109/158 Test #109: InvestigationTest.NotesOnlyChangeIsRecordedAsANote .........................   Passed    0.09 sec
+        Start 110: InvestigationTest.AssigneeOnlyChangeIsRecordedAsAnUpdate
+110/158 Test #110: InvestigationTest.AssigneeOnlyChangeIsRecordedAsAnUpdate ...................   Passed    0.07 sec
+        Start 111: InvestigationTest.ListsOpenCasesBeforeClosedOnes
+111/158 Test #111: InvestigationTest.ListsOpenCasesBeforeClosedOnes ...........................   Passed    0.07 sec
+        Start 112: InvestigationTest.OrdersCasesByRiskWithinTheSameStatus
+112/158 Test #112: InvestigationTest.OrdersCasesByRiskWithinTheSameStatus .....................   Passed    0.06 sec
+        Start 113: InvestigationTest.JoinsTransactionDetailsIntoTheCase
+113/158 Test #113: InvestigationTest.JoinsTransactionDetailsIntoTheCase .......................   Passed    0.06 sec
+        Start 114: InvestigationTest.KeepsHistoryInChronologicalOrder
+114/158 Test #114: InvestigationTest.KeepsHistoryInChronologicalOrder .........................   Passed    0.10 sec
+        Start 115: InvestigationTest.ValidatesStatusNames
+115/158 Test #115: InvestigationTest.ValidatesStatusNames .....................................   Passed    0.06 sec
+        Start 116: RiskScorer.CopiesTransactionDetailsIntoTheResult
+116/158 Test #116: RiskScorer.CopiesTransactionDetailsIntoTheResult ...........................   Passed    0.00 sec
+        Start 117: RiskScorer.NoHitsMeansZeroScoreAndNoLevel
+117/158 Test #117: RiskScorer.NoHitsMeansZeroScoreAndNoLevel ..................................   Passed    0.00 sec
+        Start 118: RiskScorer.SingleHitUsesItsWeight
+118/158 Test #118: RiskScorer.SingleHitUsesItsWeight ..........................................   Passed    0.00 sec
+        Start 119: RiskScorer.MultipleHitsAddUp
+119/158 Test #119: RiskScorer.MultipleHitsAddUp ...............................................   Passed    0.00 sec
+        Start 120: RiskScorer.ScoreNeverExceedsOneHundred
+120/158 Test #120: RiskScorer.ScoreNeverExceedsOneHundred .....................................   Passed    0.00 sec
+        Start 121: RiskScorer.PrimaryMethodIsTheStrongestHit
+121/158 Test #121: RiskScorer.PrimaryMethodIsTheStrongestHit ..................................   Passed    0.01 sec
+        Start 122: RiskScorer.LevelBoundariesAreInclusiveAtTheLowerEdge
+122/158 Test #122: RiskScorer.LevelBoundariesAreInclusiveAtTheLowerEdge .......................   Passed    0.00 sec
+        Start 123: RiskScorer.HonoursCustomBands
+123/158 Test #123: RiskScorer.HonoursCustomBands ..............................................   Passed    0.00 sec
+        Start 124: RiskScorer.ReasonTextJoinsAllHits
+124/158 Test #124: RiskScorer.ReasonTextJoinsAllHits ..........................................   Passed    0.00 sec
+        Start 125: RiskScorer.IsDeterministicForTheSameInput
+125/158 Test #125: RiskScorer.IsDeterministicForTheSameInput ..................................   Passed    0.00 sec
+        Start 126: TransactionRepositoryTest.AssignsTheLowestFreeIdWhenNoneIsSupplied
+126/158 Test #126: TransactionRepositoryTest.AssignsTheLowestFreeIdWhenNoneIsSupplied .........   Passed    0.03 sec
+        Start 127: TransactionRepositoryTest.HonoursASuppliedTransactionId
+127/158 Test #127: TransactionRepositoryTest.HonoursASuppliedTransactionId ....................   Passed    0.03 sec
+        Start 128: TransactionRepositoryTest.RejectsADuplicateSuppliedId
+128/158 Test #128: TransactionRepositoryTest.RejectsADuplicateSuppliedId ......................   Passed    0.03 sec
+        Start 129: TransactionRepositoryTest.FillsTheLowestFreeNumber
+129/158 Test #129: TransactionRepositoryTest.FillsTheLowestFreeNumber .........................   Passed    0.05 sec
+        Start 130: TransactionRepositoryTest.RejectsAMalformedSuppliedId
+130/158 Test #130: TransactionRepositoryTest.RejectsAMalformedSuppliedId ......................   Passed    0.02 sec
+        Start 131: TransactionRepositoryTest.NormalisesAccountIdentifiers
+131/158 Test #131: TransactionRepositoryTest.NormalisesAccountIdentifiers .....................   Passed    0.03 sec
+        Start 132: TransactionRepositoryTest.RejectsAnInvalidSender
+132/158 Test #132: TransactionRepositoryTest.RejectsAnInvalidSender ...........................   Passed    0.02 sec
+        Start 133: TransactionRepositoryTest.RejectsAnInvalidReceiver
+133/158 Test #133: TransactionRepositoryTest.RejectsAnInvalidReceiver .........................   Passed    0.02 sec
+        Start 134: TransactionRepositoryTest.RejectsZeroAndNegativeAmounts
+134/158 Test #134: TransactionRepositoryTest.RejectsZeroAndNegativeAmounts ....................   Passed    0.02 sec
+        Start 135: TransactionRepositoryTest.RejectsNonFiniteAmounts
+135/158 Test #135: TransactionRepositoryTest.RejectsNonFiniteAmounts ..........................   Passed    0.02 sec
+        Start 136: TransactionRepositoryTest.RejectsAnInvalidTimestamp
+136/158 Test #136: TransactionRepositoryTest.RejectsAnInvalidTimestamp ........................   Passed    0.02 sec
+        Start 137: TransactionRepositoryTest.RejectsAnUnsupportedCurrency
+137/158 Test #137: TransactionRepositoryTest.RejectsAnUnsupportedCurrency .....................   Passed    0.02 sec
+        Start 138: TransactionRepositoryTest.RejectsAnInvalidStatus
+138/158 Test #138: TransactionRepositoryTest.RejectsAnInvalidStatus ...........................   Passed    0.02 sec
+        Start 139: TransactionRepositoryTest.RejectsAnEmptyTransactionType
+139/158 Test #139: TransactionRepositoryTest.RejectsAnEmptyTransactionType ....................   Passed    0.02 sec
+        Start 140: TransactionRepositoryTest.ReturnsNewestFirst
+140/158 Test #140: TransactionRepositoryTest.ReturnsNewestFirst ...............................   Passed    0.05 sec
+        Start 141: TransactionRepositoryTest.RoundTripsEveryStoredField
+141/158 Test #141: TransactionRepositoryTest.RoundTripsEveryStoredField .......................   Passed    0.03 sec
+        Start 142: TransactionRepositoryTest.AllowsRepeatedContentBecauseDetectionHandlesIt
+142/158 Test #142: TransactionRepositoryTest.AllowsRepeatedContentBecauseDetectionHandlesIt ...   Passed    0.04 sec
+        Start 143: TransactionRepositoryTest.ReportsAnErrorForAnEmptyDatabase
+143/158 Test #143: TransactionRepositoryTest.ReportsAnErrorForAnEmptyDatabase .................   Passed    0.02 sec
+        Start 144: TransactionTime.ParsesTheStoredFormat
+144/158 Test #144: TransactionTime.ParsesTheStoredFormat ......................................   Passed    0.00 sec
+        Start 145: TransactionTime.ParsesMidnightAndEndOfYear
+145/158 Test #145: TransactionTime.ParsesMidnightAndEndOfYear .................................   Passed    0.01 sec
+        Start 146: TransactionTime.HandlesALeapDay
+146/158 Test #146: TransactionTime.HandlesALeapDay ............................................   Passed    0.01 sec
+        Start 147: TransactionTime.RejectsNonLeapYearFebruary29
+147/158 Test #147: TransactionTime.RejectsNonLeapYearFebruary29 ...............................   Passed    0.00 sec
+        Start 148: TransactionTime.RejectsWrongLengthOrSeparator
+148/158 Test #148: TransactionTime.RejectsWrongLengthOrSeparator ..............................   Passed    0.01 sec
+        Start 149: TransactionTime.RejectsImpossibleFields
+149/158 Test #149: TransactionTime.RejectsImpossibleFields ....................................   Passed    0.00 sec
+        Start 150: TransactionTime.RejectsFreeText
+150/158 Test #150: TransactionTime.RejectsFreeText ............................................   Passed    0.00 sec
+        Start 151: TransactionTime.OrdersChronologically
+151/158 Test #151: TransactionTime.OrdersChronologically ......................................   Passed    0.00 sec
+        Start 152: TransactionTime.ComparesAcrossDayAndMonthBoundaries
+152/158 Test #152: TransactionTime.ComparesAcrossDayAndMonthBoundaries ........................   Passed    0.00 sec
+        Start 153: TransactionTime.WindowArithmeticCrossesMidnight
+153/158 Test #153: TransactionTime.WindowArithmeticCrossesMidnight ............................   Passed    0.00 sec
+        Start 154: TransactionTime.DifferenceIsExactInSeconds
+154/158 Test #154: TransactionTime.DifferenceIsExactInSeconds .................................   Passed    0.00 sec
+        Start 155: TransactionTime.IsUnaffectedByDaylightSavingTransitions
+155/158 Test #155: TransactionTime.IsUnaffectedByDaylightSavingTransitions ....................   Passed    0.00 sec
+        Start 156: TransactionTime.ReportsUtcSpec
+156/158 Test #156: TransactionTime.ReportsUtcSpec .............................................   Passed    0.00 sec
+        Start 157: MlFraudModel.ProducesDeterministicScores
+157/158 Test #157: MlFraudModel.ProducesDeterministicScores ...................................   Passed    0.00 sec
+        Start 158: MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn
+158/158 Test #158: MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn .....................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 158
+
+Total Test time (real) =   3.59 sec

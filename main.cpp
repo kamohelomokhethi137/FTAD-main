@@ -9,6 +9,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QCoreApplication::setOrganizationName("FTAD");
+    QCoreApplication::setApplicationName("FTAD");
 
     DatabaseManager databaseManager;
 

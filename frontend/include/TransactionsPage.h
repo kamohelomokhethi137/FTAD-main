@@ -18,12 +18,14 @@ public:
 private:
     void openAddTransactionDialog();
     void importCsvFile();
+    void clearAllTransactions();
     void filterTransactions(const QString &searchText);
 
     QLineEdit *searchInput;
     QTableWidget *transactionsTable;
     QPushButton *addButton;
     QPushButton *importButton;
+    QPushButton *clearButton;
 };
 
 #endif // TRANSACTIONSPAGE_H

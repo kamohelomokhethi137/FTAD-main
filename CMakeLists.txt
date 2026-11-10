@@ -20,14 +20,18 @@ add_library(ftad_core STATIC
     backend/src/TransactionRepository.cpp
     backend/src/CsvImportService.cpp
     backend/src/DetectionSettings.cpp
+    backend/src/DetectionSettingsStore.cpp
     backend/src/BehaviorAnalyzer.cpp
     backend/src/RiskScorer.cpp
     backend/src/AnomalyDetector.cpp
     backend/src/DetectionRepository.cpp
     backend/src/DetectionService.cpp
     backend/src/InvestigationRepository.cpp
+    backend/src/MlFraudModel.cpp
 
     backend/include/TransactionTime.h
+    backend/include/MlFraudModel.h
+    backend/include/DetectionSettingsStore.h
 )
 
 target_include_directories(ftad_core PUBLIC

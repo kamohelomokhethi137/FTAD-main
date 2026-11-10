@@ -1,0 +1,110 @@
+gate:        G4
+purpose:     X4 - static analysis and code quality
+command:     clang-tidy -p build backend/src/*.cpp --checks=-*,bugprone-*,clang-analyzer-*,performance-*,portability-*
+date (UTC):  2026-11-04T05:54:36Z
+host:        Linux 7.1.13+parrot7-amd64 x86_64
+cwd:         /home/hashcat/Documents/dataset/FTAD-main
+--------------------------------------------------------------
+tool: Debian LLVM version 19.1.7
+
+>>> AnomalyDetector.cpp
+28084 warnings generated.
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:32:9: warning: 2 adjacent parameters of 'timeWindow' of similar type ('const QDateTime &') are easily swapped by mistake [bugprone-easily-swappable-parameters]
+   32 |         const QDateTime &from,
+      |         ^~~~~~~~~~~~~~~~~~~~~~
+   33 |         const QDateTime &to,
+      |         ~~~~~~~~~~~~~~~~~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:32:26: note: the first parameter in the range is 'from'
+   32 |         const QDateTime &from,
+      |                          ^~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:33:26: note: the last parameter in the range is 'to'
+   33 |         const QDateTime &to,
+      |                          ^~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:177:9: warning: performing an implicit widening conversion to type 'qint64' (aka 'long long') of a multiplication performed in type 'int' [bugprone-implicit-widening-of-multiplication-result]
+  177 |         -60 * settings.duplicateWindowMinutes);
+      |         ^
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:177:9: note: make conversion explicit to silence this warning
+    8 |         -60 * settings.duplicateWindowMinutes);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |         static_cast<qint64>(                 )
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:177:9: note: perform multiplication in a wider type
+  177 |         -60 * settings.duplicateWindowMinutes);
+      |         ^~~
+      |         static_cast<qint64>( )
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:180:9: warning: performing an implicit widening conversion to type 'qint64' (aka 'long long') of a multiplication performed in type 'int' [bugprone-implicit-widening-of-multiplication-result]
+  180 |         60 * settings.duplicateWindowMinutes);
+      |         ^
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:180:9: note: make conversion explicit to silence this warning
+  180 |         60 * settings.duplicateWindowMinutes);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |         static_cast<qint64>(                )
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:180:9: note: perform multiplication in a wider type
+  180 |         60 * settings.duplicateWindowMinutes);
+      |         ^~
+      |         static_cast<qint64>( )
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:261:9: warning: performing an implicit widening conversion to type 'qint64' (aka 'long long') of a multiplication performed in type 'int' [bugprone-implicit-widening-of-multiplication-result]
+  261 |         -60 * settings.rapidWithdrawalWindowMinutes);
+      |         ^
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:261:9: note: make conversion explicit to silence this warning
+  261 |         -60 * settings.rapidWithdrawalWindowMinutes);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |         static_cast<qint64>(                       )
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/AnomalyDetector.cpp:261:9: note: perform multiplication in a wider type
+  261 |         -60 * settings.rapidWithdrawalWindowMinutes);
+      |         ^~~
+      |         static_cast<qint64>( )
+
+>>> BehaviorAnalyzer.cpp
+28079 warnings generated.
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/BehaviorAnalyzer.cpp:120:5: warning: 3 adjacent parameters of 'evaluate' of convertible types are easily swapped by mistake [bugprone-easily-swappable-parameters]
+  120 |     int index,
+      |     ^~~~~~~~~~
+  121 |     double zScoreThreshold,
+      |     ~~~~~~~~~~~~~~~~~~~~~~~
+  122 |     double zeroVarianceRatio) const
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/BehaviorAnalyzer.cpp:120:9: note: the first parameter in the range is 'index'
+  120 |     int index,
+      |         ^~~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/BehaviorAnalyzer.cpp:122:12: note: the last parameter in the range is 'zeroVarianceRatio'
+  122 |     double zeroVarianceRatio) const
+      |            ^~~~~~~~~~~~~~~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/BehaviorAnalyzer.cpp:121:5: note: 'int' and 'double' may be implicitly converted
+  121 |     double zScoreThreshold,
+      |     ^
+
+>>> CsvImportService.cpp
+31941 warnings generated.
+
+>>> DatabaseManager.cpp
+31952 warnings generated.
+
+>>> DetectionRepository.cpp
+28072 warnings generated.
+
+>>> DetectionService.cpp
+28074 warnings generated.
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/DetectionService.cpp:28:5: warning: 2 adjacent parameters of 'analyzeAll' of similar type ('int *') are easily swapped by mistake [bugprone-easily-swappable-parameters]
+   28 |     int *analyzedCount,
+      |     ^~~~~~~~~~~~~~~~~~~
+   29 |     int *flaggedCount)
+      |     ~~~~~~~~~~~~~~~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/DetectionService.cpp:28:10: note: the first parameter in the range is 'analyzedCount'
+   28 |     int *analyzedCount,
+      |          ^~~~~~~~~~~~~
+/home/hashcat/Documents/dataset/FTAD-main/backend/src/DetectionService.cpp:29:10: note: the last parameter in the range is 'flaggedCount'
+   29 |     int *flaggedCount)
+      |          ^~~~~~~~~~~~
+
+>>> DetectionSettings.cpp
+25148 warnings generated.
+
+>>> InvestigationRepository.cpp
+28075 warnings generated.
+
+>>> RiskScorer.cpp
+25541 warnings generated.
+
+>>> TransactionRepository.cpp
+28075 warnings generated.
+

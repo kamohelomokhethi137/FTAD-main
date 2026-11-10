@@ -48,21 +48,21 @@ namespace
 
     QColor statusColor(const QString &status)
     {
-        if (status == "pending") return QColor("#FBBF24");
-        if (status == "in_progress") return QColor("#38BDF8");
-        if (status == "resolved") return QColor("#34D399");
-        if (status == "dismissed") return QColor("#94A3B8");
+        if (status == "pending") return QColor("#ffffff");
+        if (status == "in_progress") return QColor("#d0d0d0");
+        if (status == "resolved") return QColor("#b0b0b0");
+        if (status == "dismissed") return QColor("#808080");
 
-        return QColor("#E2E8F0");
+        return QColor("#ffffff");
     }
 
     QColor riskColor(const QString &level)
     {
-        if (level == "high") return QColor("#F87171");
-        if (level == "medium") return QColor("#FBBF24");
-        if (level == "low") return QColor("#38BDF8");
+        if (level == "high") return QColor("#ffffff");
+        if (level == "medium") return QColor("#c0c0c0");
+        if (level == "low") return QColor("#909090");
 
-        return QColor("#94A3B8");
+        return QColor("#808080");
     }
 
     QString eventLabel(const QString &eventType)
@@ -97,66 +97,18 @@ InvestigationsPage::InvestigationsPage(QWidget *parent)
 
 void InvestigationsPage::buildUi()
 {
-    setStyleSheet(
-        "QWidget { background-color: #0B1220; color: #E2E8F0; }"
-        "QComboBox, QLineEdit {"
-        " background-color: #1E293B;"
-        " color: #F8FAFC;"
-        " border: 1px solid #334155;"
-        " border-radius: 6px;"
-        " padding: 8px;"
-        "}"
-        "QPlainTextEdit {"
-        " background-color: #1E293B;"
-        " color: #F8FAFC;"
-        " border: 1px solid #334155;"
-        " border-radius: 6px;"
-        " padding: 6px;"
-        "}"
-        "QPushButton {"
-        " background-color: #2563EB;"
-        " color: white;"
-        " border: none;"
-        " border-radius: 6px;"
-        " padding: 10px 16px;"
-        " font-weight: bold;"
-        "}"
-        "QPushButton:hover { background-color: #1D4ED8; }"
-        "QPushButton:disabled { background-color: #334155; }"
-        "QTableWidget {"
-        " background-color: #1E293B;"
-        " alternate-background-color: #172033;"
-        " color: #E2E8F0;"
-        " gridline-color: #334155;"
-        " border: 1px solid #334155;"
-        " border-radius: 8px;"
-        "}"
-        "QHeaderView::section {"
-        " background-color: #334155;"
-        " color: #F8FAFC;"
-        " padding: 10px;"
-        " border: none;"
-        "}"
-        "#detailPanel {"
-        " background-color: #172338;"
-        " border: 1px solid #2A3A52;"
-        " border-radius: 10px;"
-        "}"
-        "#detailCaption { color: #94A3B8; font-size: 12px; }"
-    );
-
     auto *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(28, 28, 28, 28);
     mainLayout->setSpacing(16);
 
     auto *title = new QLabel("Investigations");
-    title->setStyleSheet("font-size: 26px; font-weight: bold;");
+    title->setObjectName("heading");
 
     auto *subtitle = new QLabel(
         "Review flagged transactions, record a decision and keep "
         "a history of every change."
     );
-    subtitle->setStyleSheet("color: #94A3B8;");
+    subtitle->setObjectName("description");
     subtitle->setWordWrap(true);
 
     mainLayout->addWidget(title);
@@ -172,25 +124,16 @@ void InvestigationsPage::buildUi()
     {
         auto *card = new QFrame;
         card->setObjectName("summaryCard");
-        card->setStyleSheet(
-            "#summaryCard {"
-            " background-color: #172338;"
-            " border: 1px solid #2A3A52;"
-            " border-radius: 10px;"
-            "}"
-        );
 
         auto *layout = new QVBoxLayout(card);
         layout->setContentsMargins(18, 12, 18, 12);
         layout->setSpacing(4);
 
         auto *captionLabel = new QLabel(caption);
-        captionLabel->setStyleSheet(
-            "color: #94A3B8; font-size: 12px;");
+        captionLabel->setObjectName("cardTitle");
 
         *valueLabel = new QLabel("0");
-        (*valueLabel)->setStyleSheet(
-            "color: #F8FAFC; font-size: 24px; font-weight: bold;");
+        (*valueLabel)->setObjectName("cardValue");
 
         layout->addWidget(captionLabel);
         layout->addWidget(*valueLabel);
@@ -271,10 +214,7 @@ void InvestigationsPage::buildUi()
     detailScroll->setWidgetResizable(true);
     detailScroll->setFrameShape(QFrame::NoFrame);
     detailScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    detailScroll->setStyleSheet(
-        "QScrollArea { background: transparent; border: none; }"
-        "QScrollArea > QWidget > QWidget { background: transparent; }"
-    );
+    detailScroll->setStyleSheet("QScrollArea { background: transparent; border: none; } QScrollArea > QWidget > QWidget { background: transparent; }");
 
     auto *detailContent = new QWidget();
     detailContent->setObjectName("detailContent");
@@ -284,15 +224,14 @@ void InvestigationsPage::buildUi()
     detailLayout->setSpacing(8);
 
     detailTitle = new QLabel("Case details");
-    detailTitle->setStyleSheet(
-        "font-size: 16px; font-weight: bold;");
+    detailTitle->setObjectName("sectionTitle");
     detailLayout->addWidget(detailTitle);
 
     auto makeDetailLabel = [&detailLayout](QLabel **target)
     {
         *target = new QLabel("-");
         (*target)->setWordWrap(true);
-        (*target)->setStyleSheet("color: #CBD5E1; font-size: 12px;");
+        (*target)->setObjectName("description");
         detailLayout->addWidget(*target);
     };
 
@@ -343,8 +282,7 @@ void InvestigationsPage::buildUi()
     // Review history spans the full width below the case list so that
     // notes have room to wrap instead of being clipped.
     auto *historyCaption = new QLabel("Review history");
-    historyCaption->setStyleSheet(
-        "color: #F8FAFC; font-size: 13px; font-weight: bold;");
+    historyCaption->setObjectName("sectionTitle");
 
     mainLayout->addWidget(historyCaption);
 
@@ -378,8 +316,8 @@ void InvestigationsPage::buildUi()
     emptyMessage = new QLabel();
     emptyMessage->setAlignment(Qt::AlignCenter);
     emptyMessage->setWordWrap(true);
-    emptyMessage->setStyleSheet(
-        "color: #94A3B8; font-size: 13px; padding: 12px;");
+    emptyMessage->setObjectName("emptyMessage");
+    emptyMessage->setStyleSheet("padding: 12px;");
     emptyMessage->hide();
 
     mainLayout->addWidget(emptyMessage);

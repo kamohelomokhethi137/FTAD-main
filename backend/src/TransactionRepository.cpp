@@ -466,3 +466,27 @@ QString TransactionRepository::lastError() const
 {
     return errorMessage;
 }
+
+bool TransactionRepository::clearAllTransactions()
+{
+    errorMessage.clear();
+
+    QSqlDatabase db = QSqlDatabase::database("FTADConnection");
+
+    if (!db.isOpen())
+    {
+        errorMessage = "Database is not connected.";
+        return false;
+    }
+
+    QSqlQuery query(db);
+
+    // Cascades remove anomalies, investigations and events.
+    if (!query.exec("DELETE FROM transactions"))
+    {
+        errorMessage = query.lastError().text();
+        return false;
+    }
+
+    return true;
+}

@@ -1,0 +1,8 @@
+=== Environment ===
+2026-11-09T23:30:48Z
+Linux hashcat-vostro 7.1.13+parrot7-amd64 #1 SMP PREEMPT_DYNAMIC Parrot 7.1.13-1parrot1 (2026-09-12) x86_64 GNU/Linux
+g++ (Debian 14.2.0-19) 14.2.0
+cmake version 3.31.6
+ctest version 3.31.6
+Cppcheck 2.17.1
+valgrind-3.24.0

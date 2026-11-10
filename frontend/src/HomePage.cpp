@@ -91,12 +91,12 @@ HomePage::HomePage(QWidget *parent)
         "border: none;"
         "}"
         "QScrollBar:vertical {"
-        "background: #0B1220;"
+        "background: transparent;"
         "width: 9px;"
         "margin: 0px;"
         "}"
         "QScrollBar::handle:vertical {"
-        "background: #334155;"
+        "background: #505050;"
         "border-radius: 4px;"
         "min-height: 30px;"
         "}"
@@ -201,7 +201,7 @@ HomePage::HomePage(QWidget *parent)
         "Daily transaction volume over the last 7 days"
     );
     activityDescription->setStyleSheet(
-        "color: #94A3B8; font-size: 12px;"
+        "color: #a0a0a0; font-size: 12px;"
     );
     activityLayout->addWidget(activityDescription);
 
@@ -515,7 +515,7 @@ void HomePage::refreshActivityChart()
     auto *series = new QLineSeries;
     series->setName("Transactions");
 
-    QPen linePen(QColor("#38BDF8"));
+    QPen linePen(QColor("#ffffff"));
     linePen.setWidth(3);
     series->setPen(linePen);
     series->setPointsVisible(true);
@@ -545,13 +545,13 @@ void HomePage::refreshActivityChart()
     axisX->setRange(0, 6);
     axisX->setTickCount(7);
     axisX->setLabelFormat("%d");
-    axisX->setLabelsColor(QColor("#94A3B8"));
+    axisX->setLabelsColor(QColor("#a0a0a0"));
     axisX->setGridLineVisible(false);
-    axisX->setLinePenColor(QColor("#334155"));
+    axisX->setLinePenColor(QColor("#404040"));
     axisX->setTitleText(
         "Days (0 = six days ago, 6 = today)"
     );
-    axisX->setTitleBrush(QBrush(QColor("#94A3B8")));
+    axisX->setTitleBrush(QBrush(QColor("#a0a0a0")));
 
     // Y axis: transaction count.
     auto *axisY = new QValueAxis;
@@ -561,9 +561,9 @@ void HomePage::refreshActivityChart()
     );
     axisY->setLabelFormat("%d");
     axisY->setTickCount(5);
-    axisY->setLabelsColor(QColor("#94A3B8"));
-    axisY->setGridLineColor(QColor("#334155"));
-    axisY->setLinePenColor(QColor("#334155"));
+    axisY->setLabelsColor(QColor("#a0a0a0"));
+    axisY->setGridLineColor(QColor("#404040"));
+    axisY->setLinePenColor(QColor("#404040"));
 
     chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);

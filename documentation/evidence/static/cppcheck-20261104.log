@@ -1,0 +1,148 @@
+gate:        G3
+purpose:     X4 - static analysis
+command:     cppcheck --project=build/compile_commands.json --enable=warning,style,performance,portability --check-level=exhaustive
+date (UTC):  2026-11-04T05:54:36Z
+host:        Linux 7.1.13+parrot7-amd64 x86_64
+cwd:         /home/hashcat/Documents/dataset/FTAD-main
+--------------------------------------------------------------
+tool: Cppcheck 2.17.1
+
+>>> PASS 1 - application source only (backend/src + frontend/src)
+    Excludes tests/ and build/_deps (vendored GoogleTest).
+    This is the figure reported in the test execution report.
+
+Checking backend/src/DatabaseManager.cpp ...
+Checking backend/src/DatabaseManager.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+1/19 files checked 5% done
+Checking backend/src/TransactionRepository.cpp ...
+Checking backend/src/TransactionRepository.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+2/19 files checked 10% done
+Checking backend/src/CsvImportService.cpp ...
+Checking backend/src/CsvImportService.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+3/19 files checked 15% done
+Checking backend/src/DetectionSettings.cpp ...
+Checking backend/src/DetectionSettings.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+4/19 files checked 21% done
+Checking backend/src/BehaviorAnalyzer.cpp ...
+Checking backend/src/BehaviorAnalyzer.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+5/19 files checked 26% done
+Checking backend/src/RiskScorer.cpp ...
+Checking backend/src/RiskScorer.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+6/19 files checked 31% done
+Checking backend/src/AnomalyDetector.cpp ...
+Checking backend/src/AnomalyDetector.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+7/19 files checked 36% done
+Checking backend/src/DetectionRepository.cpp ...
+Checking backend/src/DetectionRepository.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+8/19 files checked 42% done
+Checking backend/src/DetectionService.cpp ...
+Checking backend/src/DetectionService.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+9/19 files checked 47% done
+Checking backend/src/InvestigationRepository.cpp ...
+Checking backend/src/InvestigationRepository.cpp: QT_CORE_LIB=1;QT_NO_DEBUG=1;QT_SQL_LIB=1;NDEBUG=1...
+10/19 files checked 52% done
+Checking main.cpp ...
+Checking main.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+11/19 files checked 57% done
+Checking frontend/src/MainWindow.cpp ...
+Checking frontend/src/MainWindow.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+12/19 files checked 63% done
+Checking frontend/src/HomePage.cpp ...
+Checking frontend/src/HomePage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+13/19 files checked 68% done
+Checking frontend/src/BasePage.cpp ...
+Checking frontend/src/BasePage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+14/19 files checked 73% done
+Checking frontend/src/TransactionsPage.cpp ...
+Checking frontend/src/TransactionsPage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+15/19 files checked 78% done
+Checking frontend/src/DetectionPage.cpp ...
+Checking frontend/src/DetectionPage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+16/19 files checked 84% done
+Checking frontend/src/InvestigationsPage.cpp ...
+Checking frontend/src/InvestigationsPage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+17/19 files checked 89% done
+Checking frontend/src/ReportsPage.cpp ...
+Checking frontend/src/ReportsPage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+18/19 files checked 94% done
+Checking frontend/src/SettingsPage.cpp ...
+Checking frontend/src/SettingsPage.cpp: QT_CHARTS_LIB=1;QT_CORE_LIB=1;QT_GUI_LIB=1;QT_NO_DEBUG=1;QT_OPENGLWIDGETS_LIB=1;QT_OPENGL_LIB=1;QT_SQL_LIB=1;QT_WIDGETS_LIB=1;NDEBUG=1...
+19/19 files checked 100% done
+
+>>> PASS 2 - whole tree, including tests and vendored GoogleTest
+    Informational only. Third-party findings are not FTAD's to fix.
+
+tests/test_anomaly_detector.cpp:28: style: useStlAlgorithm: Consider using std::find_if algorithm instead of a raw loop.
+tests/test_anomaly_detector.cpp:53: style: useStlAlgorithm: Consider using std::count_if algorithm instead of a raw loop.
+tests/test_detection_pipeline.cpp:49: style: useStlAlgorithm: Consider using std::find_if algorithm instead of a raw loop.
+tests/benchmark.cpp:178: style: useStlAlgorithm: Consider using std::count_if algorithm instead of a raw loop.
+tests/benchmark.cpp:275: style: useStlAlgorithm: Consider using std::count_if algorithm instead of a raw loop.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:718: error: returnReference: Reference to local variable returned.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:1098: warning: uninitMemberVar: Member variable 'NativeArray::array_' is not initialized in the copy constructor.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:1098: warning: uninitMemberVar: Member variable 'NativeArray::size_' is not initialized in the copy constructor.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:1098: warning: uninitMemberVar: Member variable 'NativeArray::clone_' is not initialized in the copy constructor.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:815: style: unusedPrivateFunction: Unused private function: 'ValueArray::MakeVector'
+build/_deps/googletest-src/googletest/src/gtest-internal-inl.h:148: performance: useInitializationList: Variable 'color_' is assigned in constructor body. Consider performing initialization in initialization list.
+build/_deps/googletest-src/googletest/src/gtest-internal-inl.h:149: performance: useInitializationList: Variable 'death_test_style_' is assigned in constructor body. Consider performing initialization in initialization list.
+build/_deps/googletest-src/googletest/src/gtest-internal-inl.h:152: performance: useInitializationList: Variable 'filter_' is assigned in constructor body. Consider performing initialization in initialization list.
+build/_deps/googletest-src/googletest/src/gtest-internal-inl.h:153: performance: useInitializationList: Variable 'internal_run_death_test_' is assigned in constructor body. Consider performing initialization in initialization list.
+build/_deps/googletest-src/googletest/src/gtest-internal-inl.h:155: performance: useInitializationList: Variable 'output_' is assigned in constructor body. Consider performing initialization in initialization list.
+build/_deps/googletest-src/googletest/src/gtest-internal-inl.h:165: performance: useInitializationList: Variable 'stream_result_to_' is assigned in constructor body. Consider performing initialization in initialization list.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-port.h:1013: style: noExplicitConstructor: Class 'RE' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-port.h:1015: style: noExplicitConstructor: Class 'RE' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:140: style: noExplicitConstructor: Class 'IgnoredValue' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:829: style: noExplicitConstructor: Struct 'ConstCharPtr' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:1142: style: noExplicitConstructor: Struct 'Ignore' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:504: style: noExplicitConstructor: Class 'Matcher < const std :: string & >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:509: style: noExplicitConstructor: Class 'Matcher < const std :: string & >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:512: style: noExplicitConstructor: Class 'Matcher < const std :: string & >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:528: style: noExplicitConstructor: Class 'Matcher < std :: string >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:533: style: noExplicitConstructor: Class 'Matcher < std :: string >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:536: style: noExplicitConstructor: Class 'Matcher < std :: string >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:830: style: noExplicitConstructor: Class 'CartesianProductGenerator' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:944: style: noExplicitConstructor: Class 'CartesianProductHolder' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:958: style: noExplicitConstructor: Class 'ParamGeneratorConverter' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:1015: style: noExplicitConstructor: Class 'ParamConverterGenerator' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:483: style: noExplicitConstructor: Class 'Matcher < const :: std :: string & >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:487: style: noExplicitConstructor: Class 'Matcher < const :: std :: string & >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:281: style: noExplicitConstructor: Class 'MatcherBase < const std :: string & >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest-matchers.h:281: style: noExplicitConstructor: Class 'MatcherBase < std :: string >' has a constructor with 1 argument that is not explicit.
+build/_deps/googletest-src/googletest/include/gtest/gtest.h:999: style: uselessOverride: The function 'OnTestSuiteStart' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/include/gtest/gtest.h:1002: style: uselessOverride: The function 'OnTestCaseStart' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/include/gtest/gtest.h:1006: style: uselessOverride: The function 'OnTestDisabled' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/include/gtest/gtest.h:1009: style: uselessOverride: The function 'OnTestSuiteEnd' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/include/gtest/gtest.h:1011: style: uselessOverride: The function 'OnTestCaseEnd' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/src/gtest.cc:3710: style: uselessOverride: The function 'OnTestCaseStart' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/src/gtest.cc:3716: style: uselessOverride: The function 'OnTestDisabled' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/src/gtest.cc:3721: style: uselessOverride: The function 'OnTestCaseEnd' overrides a function in a base class but is identical to the overridden function
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:823: style: knownConditionTrueFalse: Return value '!AlwaysTrue()' is always false
+build/_deps/googletest-src/googletest/src/gtest.cc:2106: style: knownConditionTrueFalse: Condition 'IsUtf16SurrogatePair(str[i],str[i+1])' is always false
+build/_deps/googletest-src/googletest/src/gtest.cc:5431: style: knownConditionTrueFalse: Condition 'os_stack_trace.c_str()!=nullptr' is always true
+build/_deps/googletest-src/googletest/src/gtest.cc:5941: style: knownConditionTrueFalse: Condition 'in_subprocess_for_death_test' is always false
+build/_deps/googletest-src/googletest/src/gtest.cc:6061: style: knownConditionTrueFalse: Condition 'delete_environment_on_teardown' is always true
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-port.h:2154: warning: nullPointerRedundantCheck: Either the condition '!flagfile' is redundant or there is possible null pointer dereference: fp.
+build/_deps/googletest-src/googletest/src/gtest-port.cc:1243: warning: nullPointerRedundantCheck: Either the condition '!flagfile' is redundant or there is possible null pointer dereference: file.
+build/_deps/googletest-src/googletest/src/gtest-port.cc:1244: warning: nullPointerRedundantCheck: Either the condition '!flagfile' is redundant or there is possible null pointer dereference: file.
+build/_deps/googletest-src/googletest/src/gtest-port.cc:1254: warning: nullPointerRedundantCheck: Either the condition '!flagfile' is redundant or there is possible null pointer dereference: file.
+build/_deps/googletest-src/googletest/src/gtest.cc:5469: error: nullPointer: Null pointer dereference: static_cast<volatile int*>(nullptr)
+build/_deps/googletest-src/googletest/src/gtest.cc:533: performance: passedByValue: Function parameter 'location' should be passed by const reference.
+build/_deps/googletest-src/googletest/src/gtest.cc:5990: style: constVariableReference: Variable 'test_result' can be declared as reference to const
+build/_deps/googletest-src/googletest/src/gtest-filepath.cc:115: style: constVariablePointer: Variable 'result' can be declared as pointer to const
+build/_deps/googletest-src/googletest/src/gtest.cc:1312: style: constParameterPointer: Parameter 'wide_c_str' can be declared as pointer to const
+build/_deps/googletest-src/googletest/src/gtest.cc:2257: style: constParameterPointer: Parameter 'ss' can be declared as pointer to const
+build/_deps/googletest-src/googletest/src/gtest.cc:4451: style: constVariablePointer: Variable 'test_suite' can be declared as pointer to const
+build/_deps/googletest-src/googletest/src/gtest.cc:4459: style: constVariablePointer: Variable 'test_suite' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:491: style: constParameterPointer: Parameter 'def' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:635: style: constParameterPointer: Parameter 's' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:644: style: constParameterPointer: Parameter 's' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:650: style: constParameterPointer: Parameter 's' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:662: style: constParameterPointer: Parameter 's' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:667: style: constParameterPointer: Parameter 's' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:679: style: constParameterPointer: Parameter 's' can be declared as pointer to const
+build/_deps/googletest-src/googletest/include/gtest/gtest-printers.h:1168: style: constParameterPointer: Parameter 'str' can be declared as pointer to const
+build/_deps/googletest-src/googletest/src/gtest.cc:4340: performance: stlcstrParam: Passing the result of c_str() to a function that takes std::string as argument no. 1 is slow and redundant.
+build/_deps/googletest-src/googletest/src/gtest.cc:4452: style: useStlAlgorithm: Consider using std::accumulate algorithm instead of a raw loop.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:156: error: mismatchingContainers: Iterators of different containers 'impl_' and 'other.impl_' are used together.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-param-util.h:911: style: unreadVariable: Variable 'NextI' is assigned a value that is never used.
+build/_deps/googletest-src/googletest/include/gtest/internal/gtest-internal.h:302: style: unreadVariable: Variable 'fp.u_.bits_' is assigned a value that is never used.
+build/_deps/googletest-src/googletest/src/gtest-port.cc:1243: warning: ctunullpointer: Null pointer dereference: file

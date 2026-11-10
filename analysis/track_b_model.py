@@ -36,8 +36,12 @@ from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import average_precision_score, roc_auc_score
 
 HERE = pathlib.Path(__file__).resolve().parent
-CSV = pathlib.Path("/home/hashcat/Documents/dataset/archive/"
-                   "PS_20174392719_1491204439457_log.csv")
+_CANDIDATES = [
+    pathlib.Path(__file__).resolve().parent.parent / "archive" / "PS_20174392719_1491204439457_log.csv",
+    pathlib.Path("/home/hashcat/Documents/dataset/FTAD-main/archive/PS_20174392719_1491204439457_log.csv"),
+    pathlib.Path("/home/hashcat/Documents/dataset/archive/PS_20174392719_1491204439457_log.csv"),
+]
+CSV = next((p for p in _CANDIDATES if p.exists()), _CANDIDATES[0])
 
 SEED = 4110
 TYPE_ORDER = ["CASH_IN", "CASH_OUT", "DEBIT", "PAYMENT", "TRANSFER"]

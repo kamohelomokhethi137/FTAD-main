@@ -285,3 +285,15 @@ TEST_F(TransactionRepositoryTest, ReportsAnErrorForAnEmptyDatabase)
     EXPECT_TRUE(repository.getAllTransactions().isEmpty());
     EXPECT_TRUE(repository.lastError().isEmpty());
 }
+
+TEST_F(TransactionRepositoryTest, ClearAllTransactionsRemovesData)
+{
+    TransactionRepository repository;
+    ASSERT_TRUE(repository.addTransaction(validTransaction()));
+    Transaction t2 = validTransaction(); t2.senderId = "ACCX102"; t2.receiverId = "ACCX203"; t2.amount = 10.0;
+    ASSERT_TRUE(repository.addTransaction(t2));
+    EXPECT_GT(scalar("SELECT COUNT(*) FROM transactions"), 0);
+    EXPECT_TRUE(repository.clearAllTransactions()) << repository.lastError().toStdString();
+    EXPECT_EQ(scalar("SELECT COUNT(*) FROM transactions"), 0);
+    EXPECT_TRUE(repository.getAllTransactions().isEmpty());
+}

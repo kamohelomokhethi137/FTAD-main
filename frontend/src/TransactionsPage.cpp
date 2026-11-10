@@ -54,8 +54,8 @@ namespace
         prefixLabel->setFixedWidth(65);
         prefixLabel->setAlignment(Qt::AlignCenter);
         prefixLabel->setStyleSheet(
-            "background-color: #334155;"
-            "color: #f8fafc;"
+            "background-color: #404040;"
+            "color: #ffffff;"
             "border: 1px solid #475569;"
             "border-radius: 6px;"
             "padding: 9px;"
@@ -72,53 +72,17 @@ namespace
 TransactionsPage::TransactionsPage(QWidget *parent)
     : QWidget(parent)
 {
-    setStyleSheet(
-        "QWidget { background-color: #0f172a; color: #e2e8f0; }"
-        "QLineEdit, QComboBox, QDoubleSpinBox, QSpinBox, QDateTimeEdit {"
-        " background-color: #1e293b;"
-        " color: #f8fafc;"
-        " border: 1px solid #334155;"
-        " border-radius: 6px;"
-        " padding: 8px;"
-        "}"
-        "QPushButton {"
-        " background-color: #2563eb;"
-        " color: white;"
-        " border: none;"
-        " border-radius: 6px;"
-        " padding: 10px 16px;"
-        " font-weight: bold;"
-        "}"
-        "QPushButton:hover { background-color: #1d4ed8; }"
-        "QTableWidget {"
-        " background-color: #1e293b;"
-        " alternate-background-color: #172033;"
-        " color: #e2e8f0;"
-        " gridline-color: #334155;"
-        " border: 1px solid #334155;"
-        " border-radius: 8px;"
-        "}"
-        "QHeaderView::section {"
-        " background-color: #334155;"
-        " color: #f8fafc;"
-        " padding: 10px;"
-        " border: none;"
-        "}"
-    );
-
     auto *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(28, 28, 28, 28);
     mainLayout->setSpacing(20);
 
     auto *title = new QLabel("Transactions");
-    title->setStyleSheet(
-        "font-size: 26px; font-weight: bold;"
-    );
+    title->setObjectName("heading");
 
     auto *subtitle = new QLabel(
         "View, add, import, and manage financial transactions."
     );
-    subtitle->setStyleSheet("color: #94a3b8;");
+    subtitle->setObjectName("description");
 
     mainLayout->addWidget(title);
     mainLayout->addWidget(subtitle);
@@ -131,10 +95,14 @@ TransactionsPage::TransactionsPage(QWidget *parent)
     );
 
     importButton = new QPushButton("Import CSV");
+    importButton->setObjectName("secondaryButton");
+    clearButton = new QPushButton("Clear All");
+    clearButton->setObjectName("dangerButton");
     addButton = new QPushButton("+ Add Transaction");
 
     toolbar->addWidget(searchInput, 1);
     toolbar->addWidget(importButton);
+    toolbar->addWidget(clearButton);
     toolbar->addWidget(addButton);
 
     mainLayout->addLayout(toolbar);
@@ -176,6 +144,15 @@ TransactionsPage::TransactionsPage(QWidget *parent)
         this,
         [this]() {
             openAddTransactionDialog();
+        }
+    );
+
+    connect(
+        clearButton,
+        &QPushButton::clicked,
+        this,
+        [this]() {
+            clearAllTransactions();
         }
     );
 
@@ -359,27 +336,27 @@ void TransactionsPage::openAddTransactionDialog()
 
     dialog.setStyleSheet(
         "QDialog {"
-        " background-color: #0f172a;"
-        " color: #e2e8f0;"
+        " background-color: #000000;"
+        " color: #ffffff;"
         "}"
-        "QLabel { color: #e2e8f0; }"
+        "QLabel { color: #ffffff; }"
         "QLineEdit, QSpinBox, QDoubleSpinBox,"
         "QComboBox, QDateTimeEdit {"
-        " background-color: #1e293b;"
-        " color: #f8fafc;"
-        " border: 1px solid #334155;"
+        " background-color: #0f0f0f;"
+        " color: #ffffff;"
+        " border: 1px solid #404040;"
         " border-radius: 6px;"
         " padding: 8px;"
         " min-height: 22px;"
         "}"
         "QPushButton {"
-        " background-color: #2563eb;"
+        " background-color: #ffffff;"
         " color: white;"
         " border: none;"
         " border-radius: 6px;"
         " padding: 10px 16px;"
         "}"
-        "QPushButton:hover { background-color: #1d4ed8; }"
+        "QPushButton:hover { background-color: #e0e0e0; }"
     );
 
     auto *form = new QFormLayout(&dialog);
@@ -455,11 +432,11 @@ void TransactionsPage::openAddTransactionDialog()
     );
 
     senderPreview->setStyleSheet(
-        "color: #94a3b8; font-size: 11px;"
+        "color: #a0a0a0; font-size: 11px;"
     );
 
     receiverPreview->setStyleSheet(
-        "color: #94a3b8; font-size: 11px;"
+        "color: #a0a0a0; font-size: 11px;"
     );
 
     connect(
@@ -633,4 +610,39 @@ void TransactionsPage::openAddTransactionDialog()
         DetectionService detection;
         detection.analyzeAll();
     }
+}
+
+void TransactionsPage::clearAllTransactions()
+{
+    TransactionRepository repository;
+    const int count = repository.getAllTransactions().size();
+    if (count <= 0 && repository.lastError().isEmpty())
+    {
+        QMessageBox::information(this, "Transactions", "There are no transactions to clear.");
+        return;
+    }
+
+    const auto answer = QMessageBox::warning(
+        this,
+        "Clear All Transactions",
+        "This will permanently delete all transactions and any related detection/investigation records.\n\n"
+        "Continue?",
+        QMessageBox::Cancel | QMessageBox::Yes,
+        QMessageBox::Cancel
+    );
+
+    if (answer != QMessageBox::Yes)
+        return;
+
+    if (!repository.clearAllTransactions())
+    {
+        QMessageBox::critical(this, "Clear Failed", repository.lastError().isEmpty()
+            ? "Unable to clear transactions." : repository.lastError());
+        return;
+    }
+
+    DetectionService detection;
+    detection.analyzeAll();
+    refreshTransactions();
+    QMessageBox::information(this, "Transactions Cleared", "All transactions were removed. You can import or add new transactions and run analysis.");
 }

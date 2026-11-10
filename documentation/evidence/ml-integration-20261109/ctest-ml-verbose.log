@@ -1,0 +1,100 @@
+Internal ctest changing into directory: /home/hashcat/Documents/dataset/FTAD-main/build
+UpdateCTestConfiguration  from :/home/hashcat/Documents/dataset/FTAD-main/build/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/home/hashcat/Documents/dataset/FTAD-main/build/DartConfiguration.tcl
+Test project /home/hashcat/Documents/dataset/FTAD-main/build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 21
+    Start  21: AnomalyDetector.MlModelCanFlagWhenEnabled
+
+21: Test command: /home/hashcat/Documents/dataset/FTAD-main/build/tests/ftad_tests "--gtest_filter=AnomalyDetector.MlModelCanFlagWhenEnabled" "--gtest_also_run_disabled_tests"
+21: Working Directory: /home/hashcat/Documents/dataset/FTAD-main/build/tests
+21: Environment variables: 
+21:  QT_QPA_PLATFORM=offscreen
+21: Test timeout computed to be: 10000000
+21: Note: Google Test filter = AnomalyDetector.MlModelCanFlagWhenEnabled
+21: [==========] Running 1 test from 1 test suite.
+21: [----------] Global test environment set-up.
+21: [----------] 1 test from AnomalyDetector
+21: [ RUN      ] AnomalyDetector.MlModelCanFlagWhenEnabled
+21: [       OK ] AnomalyDetector.MlModelCanFlagWhenEnabled (0 ms)
+21: [----------] 1 test from AnomalyDetector (0 ms total)
+21: 
+21: [----------] Global test environment tear-down
+21: [==========] 1 test from 1 test suite ran. (0 ms total)
+21: [  PASSED  ] 1 test.
+1/4 Test  #21: AnomalyDetector.MlModelCanFlagWhenEnabled ................   Passed    0.01 sec
+test 83
+    Start  83: DetectionSettings.RejectsNoEnabledEngines
+
+83: Test command: /home/hashcat/Documents/dataset/FTAD-main/build/tests/ftad_tests "--gtest_filter=DetectionSettings.RejectsNoEnabledEngines" "--gtest_also_run_disabled_tests"
+83: Working Directory: /home/hashcat/Documents/dataset/FTAD-main/build/tests
+83: Environment variables: 
+83:  QT_QPA_PLATFORM=offscreen
+83: Test timeout computed to be: 10000000
+83: Note: Google Test filter = DetectionSettings.RejectsNoEnabledEngines
+83: [==========] Running 1 test from 1 test suite.
+83: [----------] Global test environment set-up.
+83: [----------] 1 test from DetectionSettings
+83: [ RUN      ] DetectionSettings.RejectsNoEnabledEngines
+83: [       OK ] DetectionSettings.RejectsNoEnabledEngines (0 ms)
+83: [----------] 1 test from DetectionSettings (0 ms total)
+83: 
+83: [----------] Global test environment tear-down
+83: [==========] 1 test from 1 test suite ran. (0 ms total)
+83: [  PASSED  ] 1 test.
+2/4 Test  #83: DetectionSettings.RejectsNoEnabledEngines ................   Passed    0.00 sec
+test 157
+    Start 157: MlFraudModel.ProducesDeterministicScores
+
+157: Test command: /home/hashcat/Documents/dataset/FTAD-main/build/tests/ftad_tests "--gtest_filter=MlFraudModel.ProducesDeterministicScores" "--gtest_also_run_disabled_tests"
+157: Working Directory: /home/hashcat/Documents/dataset/FTAD-main/build/tests
+157: Environment variables: 
+157:  QT_QPA_PLATFORM=offscreen
+157: Test timeout computed to be: 10000000
+157: Note: Google Test filter = MlFraudModel.ProducesDeterministicScores
+157: [==========] Running 1 test from 1 test suite.
+157: [----------] Global test environment set-up.
+157: [----------] 1 test from MlFraudModel
+157: [ RUN      ] MlFraudModel.ProducesDeterministicScores
+157: [       OK ] MlFraudModel.ProducesDeterministicScores (0 ms)
+157: [----------] 1 test from MlFraudModel (0 ms total)
+157: 
+157: [----------] Global test environment tear-down
+157: [==========] 1 test from 1 test suite ran. (0 ms total)
+157: [  PASSED  ] 1 test.
+3/4 Test #157: MlFraudModel.ProducesDeterministicScores .................   Passed    0.00 sec
+test 158
+    Start 158: MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn
+
+158: Test command: /home/hashcat/Documents/dataset/FTAD-main/build/tests/ftad_tests "--gtest_filter=MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn" "--gtest_also_run_disabled_tests"
+158: Working Directory: /home/hashcat/Documents/dataset/FTAD-main/build/tests
+158: Environment variables: 
+158:  QT_QPA_PLATFORM=offscreen
+158: Test timeout computed to be: 10000000
+158: Note: Google Test filter = MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn
+158: [==========] Running 1 test from 1 test suite.
+158: [----------] Global test environment set-up.
+158: [----------] 1 test from MlFraudModel
+158: [ RUN      ] MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn
+158: [       OK ] MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn (0 ms)
+158: [----------] 1 test from MlFraudModel (0 ms total)
+158: 
+158: [----------] Global test environment tear-down
+158: [==========] 1 test from 1 test suite ran. (0 ms total)
+158: [  PASSED  ] 1 test.
+4/4 Test #158: MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn ...   Passed    0.00 sec
+
+The following tests passed:
+	AnomalyDetector.MlModelCanFlagWhenEnabled
+	DetectionSettings.RejectsNoEnabledEngines
+	MlFraudModel.ProducesDeterministicScores
+	MlFraudModel.HigherRiskForLargeTransferThanSmallCashIn
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =   0.02 sec

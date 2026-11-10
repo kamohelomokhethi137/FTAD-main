@@ -30,6 +30,8 @@ add_executable(ftad_tests
     test_risk_scorer.cpp
     test_transaction_repository.cpp
     test_transaction_time.cpp
+    test_ml_model.cpp
+    test_ml_exposure.cpp
 
     support/TestSupport.h
     support/main.cpp

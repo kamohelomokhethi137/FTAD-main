@@ -27,11 +27,13 @@ private:
     void runAnalysis();
     void applyFilter();
     void updateSummary();
+    void updateEngineStatus();
 
     QLabel *flaggedValue = nullptr;
     QLabel *highValue = nullptr;
     QLabel *mediumValue = nullptr;
     QLabel *lowValue = nullptr;
+    QLabel *engineStatus = nullptr;
 
     QComboBox *levelFilter = nullptr;
     QPushButton *analyzeButton = nullptr;

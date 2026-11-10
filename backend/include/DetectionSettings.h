@@ -33,6 +33,12 @@ struct DetectionSettings
     double mediumThreshold = 35.0;
     double highThreshold = 65.0;
 
+    // Detection engines. The rule engine preserves the deterministic,
+    // explainable checks; the ML model (PaySim-trained HGB, type+amount)
+    // adds a learned score when enabled. Defaults keep existing behaviour.
+    bool useRuleEngine = true;
+    bool useMlModel = false;
+
     // Returns false and fills error when a value is out of range.
     bool validate(QString *error = nullptr) const;
 };
